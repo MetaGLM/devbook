@@ -1,0 +1,96 @@
+---
+title: "GLM-4-32B-0414-128K"
+keywords: ["Z.AI","GLM-4-32B-0414-128K","glm-4-32b-0414-128k"]
+description: "GLM-4-32B-0414-128K is a highly cost-effective foundation language model. It can efficiently perform complex tasks and has significantly enhanced capabilities in tool use, online search, and code-related intelligent tasks."
+---
+
+| **Price**                | **Input Modality** | **Output Modality** | **Context Window** | **Maximum Output Tokens** |
+| :----------------------- | :----------------- | :------------------ | :----------------- | :------------------------ |
+| \$0.1 per million tokens | Text               | Text                | 128K               | 16K                       |
+
+### **Recommended Use Cases**
+
+1. **Intelligent Q&A Assistant:** Supports real-time online search to retrieve the latest information, accurately parses complex queries on e-commerce product inquiries, financial service terms, education course Q&A, and generates precise, professional answers based on enterprise knowledge bases. 
+2. **Intelligent Quality Inspection:** Accurately identifies and extracts key information and business fields from complex texts such as customer service tickets, automating analyses like sales pitch inspection and risk identification, strictly adhering to SOP processes and greatly reducing data processing time.
+3. **Financial Data Analysis:** Real-time cleansing of financial data, automated extraction of key insights, and detection of potential trends and correlations. Supports scenarios such as bid document analysis, financial report interpretation, and market trend monitoring.
+4. **Code Generation:** Based on intent decomposition and logical reasoning, accurately generates initial code frameworks or key functions in mainstream languages such as Python, Java, and JavaScript. Supports multi-turn contextual iterative development, intelligent comments, and rewriting functions to add clear annotations to code.
+5. **Job Market Analysis:** Deep analysis of job descriptions and resumes using real-time job information, industry salary trends, and talent demand, providing precise talent matching recommendations for enterprises and analyzing employment trends and career development paths for job seekers.
+
+### **Resources**
+
+- [API Documentation](/api-reference/llm/glm-4-32b-0414-128k): Learn how to call the API.
+
+### **Detailed Description**
+
+GLM-4-32B-0414-128K was pre-trained on 15T of high-quality data, including abundant synthetic reasoning data to lay a solid foundation for subsequent reinforcement learning. In the post-training phase, besides aligning with human preferences in dialogue scenarios, we also applied techniques like rejection sampling and reinforcement learning to enhance instruction following, engineering code generation, and function calling, strengthening the model’s fundamental capabilities for intelligent tasks.
+
+The model performs comparably to much larger domestic and international mainstream models, with some benchmark indicators approaching or even exceeding models like GPT-4o and DeepSeek-V3-0324 (671B).
+
+![](https://zhipu-ai.feishu.cn/space/api/box/stream/download/asynccode/?code=NmZjY2EwOTk2ZDYzNWU0NjAzMmE4ZDBlZjZmYWNjOTlfeHVDUXNSek9IMjh3a2p4QXZnUThNTUZ3cklSbk9oOTFfVG9rZW46QW1VbmIwSVU3b3VxQ3p4ekJNQWNMY3lUbjJkXzE3NDk1NDE2NDc6MTc0OTU0NTI0N19WNA)
+
+### **Features Supported**
+
+- Streaming Output
+- Structured Output
+- Function Calling
+
+### **Example**
+
+```Python Example Request
+curl --request POST \
+  --url https://api.z.ai/api/paas/v4/chat/completions \
+  --header 'Accept-Language: en-US,en' \
+  --header 'Authorization: Bearer {your apikey}' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "model": "glm-4-32b-0414-128k",
+  "do_sample": true,
+  "stream": false,
+  "messages": [
+    {
+      "role": "user",
+      "content": "As a marketing expert, please create an attractive slogan for my business"
+    },
+    {
+      "role": "assistant",
+      "content": "Of course! To create an attractive slogan, please tell me a bit about your product"
+    },
+    {
+      "role": "user",
+      "content": "A Chinese restaurant"
+    },
+    {
+      "role": "assistant",
+      "content": "Ignite the future — Z.AI maps the infinite, making innovation within reach!"
+    },
+    {
+      "role": "user",
+      "content": "Create a more precise and compelling slogan"
+    }
+  ]
+}'
+```
+
+```json Example Response
+{
+    "choices": [
+        {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+                "content": "Okay, let's craft some compelling and precise slogans specifically for your **Chinese restaurant**. To make them even better, could you tell me a bit more about your restaurant's style? (e.g., casual, fine dining, specific regional cuisine like Sichuan or Cantonese, family-friendly, modern twist, etc.)?\n\nIn the meantime, here are some options based on general appeal:\n\n**Focusing on Flavor & Authenticity:**\n\n1.  **[Your Restaurant Name]: Authentic Flavors, Served Passionately.** (Highlights genuineness and care)\n2.  **Taste the Heart of China. Right Here.** (Evokes authenticity and local presence)\n3.  **[Your Restaurant Name]: Where Every Bite Tells a Story.** (Suggests depth, tradition, and flavor)\n4.  **Experience the True Taste of China.** (Direct, classic, and focuses on authenticity)\n5.  **Savor the Craft, Savor China.** (Emphasizes skill and the origin of the food)\n\n**Focusing on Experience & Atmosphere:**\n\n6.  **[Your Restaurant Name]: More Than Food, It's an Escape.** (Suggests ambiance and enjoyment beyond just eating)\n7.  **Where Every Meal Feels Like a Celebration.** (Evokes happiness, togetherness, and positive dining)\n8.  **Discover the Magic of Chinese Cuisine.** (Intriguing and focuses on the unique aspects of the food)\n9.  **[Your Restaurant Name]: Crafting Moments, One Dish at a Time.** (Highlights the experience and the quality of each dish)\n10. **Your Invitation to Chinese Flavor.** (Inviting and focuses on the cuisine)\n\n**Focusing on Quality & Freshness:**\n\n11. **[Your Restaurant Name]: Fresh Ingredients, Time-Honored Recipes.** (Highlights quality sourcing and tradition)\n12. **Quality You Can Taste. Chinese Food Done Right.** (Simple, confident, and focuses on excellence)\n13. **The Taste of Carefully Crafted Chinese Dishes.** (Emphasizes attention to detail and quality)\n\n**Short & Catchy:**\n\n14. **[Your Restaurant Name]: Flavorfully Chinese.**\n15. **Simply Delicious. Truly Chinese.**\n\nOnce you share more about your restaurant's specific vibe, I can tailor these further or create new options!",
+                "role": "assistant"
+            }
+        }
+    ],
+    "created": 1751709071,
+    "id": "202507051751030b941a39706d4a68",
+    "model": "glm-4-32b-0414-128k",
+    "request_id": "202507051751030b941a39706d4a68",
+    "usage": {
+        "completion_tokens": 496,
+        "prompt_tokens": 71,
+        "total_tokens": 567
+    }
+}
+```

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Z.AI",
+  "colors": {
+    "primary": "#141618",
+    "light": "#9fa0a0",
+    "dark": "#141618"
+  },
+  "favicon": "/resource/favicon.svg",
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
+  "api": {
+    "playground": {
+    },
+    "openapi": "openapi/openapi.json"
+  },
+  "navigation": {
+    "languages": [
+      {
+        "language": "en",
+        "dropdowns": [
+          {
+            "dropdown": "Guide",
+            "icon": "book",
+            "description": "Learn how to use Z.AI services",
+            "pages": [
+              {
+                "group": "Overview",
+                "pages": [
+                  "en/guide/overview/pricing"
+                ]
+              },
+              {
+                "group": "Language Models",
+                "pages": [
+                  "en/guide/llm/glm-4-32b-0414-128k"
+                ]
+              },
+              {
+                "group": "Tools",
+                "pages": [
+                  "en/guide/tools/web-search"
+                ]
+              },
+              {
+                "group": "Video Generation",
+                "pages": [
+                  "en/guide/video/cogvideox-2",
+                  "en/guide/video/vidu-q1",
+                  "en/guide/video/vidu2"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "API Reference",
+            "icon": "code",
+            "description": "Complete API documentation and examples",
+            "pages": [
+              {
+                "group": "Chat API",
+                "pages": [
+                  "en/api/chat/chat-completions"
+                ]
+              },
+              {
+                "group": "Tools API",
+                "pages": [
+                  "en/api/tools/web-search"
+                ]
+              },
+              {
+                "group": "Videos API",
+                "pages": [
+                  "en/api/video/video-generation",
+                  "en/api/video/get-video-status"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "language": "cn",
+        "dropdowns": [
+          {
+            "dropdown": "使用指南",
+            "icon": "book",
+            "description": "学习如何使用 Z.AI 服务",
+            "pages": [
+              {
+                "group": "概览",
+                "pages": [
+                  "cn/guide/overview/pricing"
+                ]
+              },
+              {
+                "group": "语言模型",
+                "pages": [
+                  "cn/guide/chat/chat-completions"
+                ]
+              },
+              {
+                "group": "工具",
+                "pages": [
+                  "cn/guide/tools/web-search"
+                ]
+              },
+              {
+                "group": "视频生成",
+                "pages": [
+                  "cn/guide/video/cogvideox-2",
+                  "cn/guide/video/vidu-q1",
+                  "cn/guide/video/vidu2"
+                ]
+              }
+            ]
+          },
+          {
+            "dropdown": "API 参考",
+            "icon": "code",
+            "description": "完整的 API 文档和示例",
+            "pages": [
+              {
+                "group": "对话",
+                "pages": [
+                  "cn/api/chat/chat-completions"
+                ]
+              },
+              {
+                "group": "工具 API",
+                "pages": [
+                  "cn/api/tools/web-search"
+                ]
+              },
+              {
+                "group": "视频生成 API",
+                "pages": [
+                  "cn/api/video/video-generation",
+                  "cn/api/video/get-video-status"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/resource/logo.png",
+    "dark": "/resource/logo.png",
+    "href": "https://bigmodel.cn/"
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/Zai_org",
+      "github": "https://github.com/THUDM",
+      "discord": "https://discord.com/channels/1346756824233148527/1359832169333395496"
+    }
+  }
+}
