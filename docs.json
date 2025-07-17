@@ -103,7 +103,38 @@
               {
                 "group": "工具 API",
                 "pages": [
-                  "cn/api/tools/web-search"
+                  "cn/api/tools/web-search",
+                  "cn/api/tools/tools"
+                ]
+              },
+              {
+                "group": "助手 API",
+                "pages": [
+                  "cn/api/assistant/assistant",
+                  "cn/api/assistant/list",
+                  "cn/api/assistant/conversation-list"
+                ]
+              },
+              {
+                "group": "批处理 API",
+                "pages": [
+                  "cn/api/batch/batches",
+                  "cn/api/batch/get-batch",
+                  "cn/api/batch/cancel-batch"
+                ]
+              },
+              {
+                "group": "知识库 API",
+                "pages": [
+                  "cn/api/knowledge/knowledge",
+                  "cn/api/knowledge/get-knowledge",
+                  "cn/api/knowledge/capacity"
+                ]
+              },
+              {
+                "group": "文档 API",
+                "pages": [
+                  "cn/api/document/document"
                 ]
               },
               {
@@ -217,7 +248,38 @@
               {
                 "group": "Tools API",
                 "pages": [
-                  "en/api/tools/web-search"
+                  "en/api/tools/web-search",
+                  "en/api/tools/tools"
+                ]
+              },
+              {
+                "group": "Assistant API",
+                "pages": [
+                  "en/api/assistant/assistant",
+                  "en/api/assistant/list",
+                  "en/api/assistant/conversation-list"
+                ]
+              },
+              {
+                "group": "Batch API",
+                "pages": [
+                  "en/api/batch/batches",
+                  "en/api/batch/get-batch",
+                  "en/api/batch/cancel-batch"
+                ]
+              },
+              {
+                "group": "Knowledge API",
+                "pages": [
+                  "en/api/knowledge/knowledge",
+                  "en/api/knowledge/get-knowledge",
+                  "en/api/knowledge/capacity"
+                ]
+              },
+              {
+                "group": "Document API",
+                "pages": [
+                  "en/api/document/document"
                 ]
               },
               {
