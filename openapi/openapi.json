@@ -1190,32 +1190,21 @@
         }
       }
     },
-    "/paas/v4/v1/agents": {
+    "/v1/agents": {
       "post": {
-        "tags": [
-          "agent"
-        ],
-        "summary": "智能代理执行",
-        "description": "执行智能代理任务，支持流式和同步模式。",
+        "tags": ["agent"],
+        "summary": "智能体对话",
+        "description": "与智能体进行对话交互。支持同步和流式调用，提供智能体的专业能力。",
         "parameters": [
           {
             "$ref": "#/components/parameters/AcceptLanguage"
-          },
-          {
-            "name": "stream",
-            "in": "query",
-            "description": "是否启用流式响应",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AgentExecutionRequest"
+                "$ref": "#/components/schemas/AgentRequest"
               }
             }
           },
@@ -1227,13 +1216,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AgentExecutionResponse"
-                }
-              },
-              "text/event-stream": {
-                "schema": {
-                  "type": "string",
-                  "description": "流式响应数据"
+                  "$ref": "#/components/schemas/AgentResponse"
                 }
               }
             }
@@ -1251,35 +1234,41 @@
         }
       }
     },
-    "/paas/v4/v1/agents/async-result": {
-      "post": {
-        "tags": [
-          "agent"
-        ],
-        "summary": "查询代理异步结果",
-        "description": "查询智能代理异步执行的结果。",
+    "/v1/agents/async-result": {
+      "get": {
+        "tags": ["agent"],
+        "summary": "查询异步结果",
+        "description": "查询智能体异步任务的处理结果和状态。",
         "parameters": [
           {
             "$ref": "#/components/parameters/AcceptLanguage"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AgentAsyncResultRequest"
-              }
+          },
+          {
+            "name": "async_id",
+            "in": "query",
+            "required": true,
+            "description": "任务ID",
+            "schema": {
+              "type": "string"
             }
           },
-          "required": true
-        },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "required": true,
+            "description": "agent智能体名称，如doc_translation_agent",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "业务处理成功",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AgentExecutionResponse"
+                  "$ref": "#/components/schemas/AgentAsyncResultResponse"
                 }
               }
             }
@@ -3725,73 +3714,188 @@
           "search_query"
         ]
       },
-      "AgentExecutionRequest": {
+      "AgentRequest": {
         "type": "object",
+        "required": [
+          "agent_id",
+          "messages"
+        ],
         "properties": {
-          "model": {
+          "agent_id": {
             "type": "string",
-            "description": "使用的模型名称"
+            "description": "智能体 ID。例如：翻译智能体ID为 general_translation；专业文档翻译智能体ID为： doc_translation_agent。",
+            "example": "general_translation"
+          },
+          "stream": {
+            "type": "boolean",
+            "description": "使用同步调用时，此参数应当设置为 false 或者省略。表示模型生成完所有内容后一次性返回所有内容。默认值为 false。如果设置为 true，模型将通过标准 Event Stream，逐块返回模型生成内容。Event Stream 结束时会返回一条 data: [DONE] 消息。",
+            "default": false,
+            "example": false
           },
           "messages": {
             "type": "array",
+            "description": "会话消息体列表。",
             "items": {
-              "$ref": "#/components/schemas/ChatCompletionRequestMessage"
+              "type": "object",
+              "required": [
+                "role",
+                "content"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "description": "消息作者的角色。用户输入时 role = user。",
+                  "enum": [
+                    "user",
+                    "assistant"
+                  ],
+                  "example": "user"
+                },
+                "content": {
+                  "type": "array",
+                  "description": "会话消息体内容。",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "text"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "消息内容类型。目前支持 type=text。",
+                        "enum": [
+                          "text"
+                        ],
+                        "example": "text"
+                      },
+                      "text": {
+                        "type": "string",
+                        "description": "用户输入的文本内容。",
+                        "example": "请帮我翻译这段文字：Hello World"
+                      }
+                    }
+                  }
+                }
+              }
             },
-            "description": "对话消息列表"
+            "minItems": 1
           },
-          "tools": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            },
-            "description": "可用工具列表"
-          },
-          "user_id": {
-            "type": "string",
-            "description": "用户ID"
-          },
-          "request_id": {
-            "type": "string",
-            "description": "请求ID"
+          "custom_variables": {
+            "type": "object",
+            "description": "智能体扩展参数。根据不同智能体的需求提供相应的参数配置。",
+            "additionalProperties": true
           }
-        },
-        "required": [
-          "model",
-          "messages"
-        ]
+        }
       },
-      "AgentExecutionResponse": {
+      "AgentResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "description": "响应ID"
-          },
-          "request_id": {
-            "type": "string",
-            "description": "请求ID"
+            "description": "任务 ID。"
           },
           "created": {
             "type": "integer",
-            "description": "创建时间戳"
+            "description": "请求创建时间，Unix 时间戳（秒）。"
           },
           "model": {
             "type": "string",
-            "description": "使用的模型"
+            "description": "智能体模型名称。"
           },
           "choices": {
             "type": "array",
+            "description": "智能体响应列表。",
             "items": {
               "type": "object",
               "properties": {
                 "index": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "结果索引。"
                 },
                 "message": {
-                  "$ref": "#/components/schemas/ChatCompletionResponseMessage"
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "description": "响应角色，通常为 assistant。",
+                      "example": "assistant"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "智能体生成的响应内容。"
+                    }
+                  }
                 },
                 "finish_reason": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "响应结束原因。可以是 'stop'、'length'、'sensitive' 或 'network_error'。"
+                }
+              }
+            }
+          },
+          "usage": {
+            "$ref": "#/components/schemas/UsageStatistics"
+          }
+        }
+      },
+      "AgentAsyncResultResponse": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "description": "agent智能体名称"
+          },
+          "async_id": {
+            "type": "string",
+            "description": "翻译任务的 ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "任务状态，success/failed/pending",
+            "enum": ["success", "failed", "pending"]
+          },
+          "choices": {
+            "type": "array",
+            "description": "agent输出",
+            "items": {
+              "type": "object",
+              "properties": {
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "description": "用户的输入 role = assistant"
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "目前支持 type=file_url"
+                            },
+                            "file_url": {
+                              "type": "string",
+                              "description": "url链接"
+                            },
+                            "tag_cn": {
+                              "type": "string",
+                              "description": "中文描述"
+                            },
+                            "tag_en": {
+                              "type": "string",
+                              "description": "英文描述"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -3799,30 +3903,13 @@
           "usage": {
             "type": "object",
             "properties": {
-              "prompt_tokens": {
-                "type": "integer"
-              },
-              "completion_tokens": {
-                "type": "integer"
-              },
               "total_tokens": {
-                "type": "integer"
+                "type": "integer",
+                "description": "消耗总tokens数"
               }
             }
           }
         }
-      },
-      "AgentAsyncResultRequest": {
-        "type": "object",
-        "properties": {
-          "request_id": {
-            "type": "string",
-            "description": "异步请求ID"
-          }
-        },
-        "required": [
-          "request_id"
-        ]
       },
       "AssistantRequest": {
         "type": "object",
@@ -4391,6 +4478,24 @@
           "deleted": {
             "type": "boolean",
             "description": "是否成功删除"
+          }
+        }
+      },
+      "UsageStatistics": {
+        "type": "object",
+        "description": "调用结束时返回的 Token 使用统计。",
+        "properties": {
+          "prompt_tokens": {
+            "type": "integer",
+            "description": "用户输入的 Token 数量"
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "description": "输出的 Token 数量"
+          },
+          "total_tokens": {
+            "type": "integer",
+            "description": "Token 总数"
           }
         }
       },
