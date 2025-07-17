@@ -29,40 +29,59 @@
    
    服务器将在 `http://localhost:3000` 启动，支持热重载。
 
+4. **OPENAPI定义校验**
+
+   ```bash
+   mint openapi-check openapi/openapi.json
+   ```
+
+5. **断链校验**
+   ```bash
+   mint broken-links
+   ```
+
+**`OEPNAPI`接口定义推荐使用 https://editor.swagger.io/ 在线编辑，或使用 Webstorm 本地编辑可视化 **
 
 ## 📁 项目结构
 
 ```
 devbook/
-├── .github/                    # GitHub 配置文件
-│   ├── ISSUE_TEMPLATE/         # Issue 模板
-│   ├── PULL_REQUEST_TEMPLATE.md # PR 模板
-│   └── workflows/              # GitHub Actions 工作流
 ├── cn/                         # 中文文档
 │   ├── api/                    # API 参考文档
 │   │   ├── chat/              # 对话 API
 │   │   ├── tools/             # 工具 API
 │   │   └── video/             # 视频生成 API
-│   └── guide/                  # 使用指南
-│       ├── llm/               # 语言模型指南
-│       ├── overview/          # 概览
-│       ├── tools/             # 工具指南
-│       └── video/             # 视频生成指南
+│   ├── guide/                  # 使用指南
+│   │   ├── GLM-4-Plus.mdx     # GLM-4-Plus 模型指南
+│   │   ├── llm/               # 语言模型指南
+│   │   ├── overview/          # 概览
+│   │   ├── tools/             # 工具指南
+│   │   └── video/             # 视频生成指南
+│   ├── issue/                  # 常见问题
+│   │   └── common-issue.mdx   # 常见问题解答
+│   └── update/                 # 更新日志
+│       └── update-log.mdx     # 版本更新记录
 ├── en/                         # 英文文档
 │   ├── api/                    # API Reference
 │   │   ├── chat/              # Chat API
 │   │   ├── tools/             # Tools API
 │   │   └── video/             # Video API
-│   └── guide/                  # Guides
-│       ├── llm/               # Language Models
-│       ├── overview/          # Overview
-│       ├── tools/             # Tools
-│       └── video/             # Video Generation
+│   ├── guide/                  # Guides
+│   │   ├── GLM-4-Plus.mdx     # GLM-4-Plus Model Guide
+│   │   ├── llm/               # Language Models
+│   │   ├── overview/          # Overview
+│   │   ├── tools/             # Tools
+│   │   └── video/             # Video Generation
+│   ├── issue/                  # Common Issues
+│   │   └── common-issue.mdx   # FAQ
+│   └── update/                 # Update Logs
+│       └── update-log.mdx     # Version Updates
 ├── openapi/                    # OpenAPI 规范文件
 │   └── openapi.json           # API 接口定义
 ├── resource/                   # 静态资源
 │   ├── favicon.svg            # 网站图标
-│   └── logo.png               # Logo 图片
+│   ├── logo.png               # Logo 图片
+│   └── logo_icon.png          # Logo 图标
 ├── docs.json                   # Mintlify 配置文件
 ├── style.css                   # 自定义样式
 └── README.md                   # 项目说明文档

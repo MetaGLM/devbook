@@ -14,6 +14,60 @@
       "email": "user_feedback@z.ai"
     }
   },
+  "tags": [
+    {
+      "name": "chat",
+      "description": "Chat API"
+    },
+    {
+      "name": "audio",
+      "description": "Audio API"
+    },
+    {
+      "name": "video",
+      "description": "Video API"
+    },
+    {
+      "name": "image",
+      "description": "Image API"
+    },
+    {
+      "name": "tool",
+      "description": "Tool API"
+    },
+    {
+      "name": "agent",
+      "description": "Agent API"
+    },
+    {
+      "name": "assistant",
+      "description": "Assistant API"
+    },
+    {
+      "name": "fine_turning",
+      "description": "Fine Turning API"
+    },
+    {
+      "name": "document",
+      "description": "Document API"
+    },
+    {
+      "name": "file",
+      "description": "File API"
+    },
+    {
+      "name": "knowledge",
+      "description": "Knowledge API"
+    },
+    {
+      "name": "realtime",
+      "description": "Realtime API"
+    },
+    {
+      "name": "batch",
+      "description": "Batch API"
+    }
+  ],
   "servers": [
     {
       "url": "https://open.bigmodel.cn/api/paas/v4/",
@@ -28,6 +82,7 @@
   "paths": {
     "/paas/v4/chat/completions": {
       "post": {
+        "tags": ["chat"],
         "summary": "创建聊天补全",
         "description": "为聊天对话生成 AI 回复。支持多种应用场景，提供智能对话能力。",
         "parameters": [
@@ -71,6 +126,7 @@
     },
     "/paas/v4/videos/generations": {
       "post": {
+        "tags": ["video"],
         "summary": "生成视频",
         "description": "通过文本或图像生成视频内容。支持多种视频生成方式，包括文本转视频、图像转视频等。",
         "parameters": [
@@ -135,6 +191,7 @@
     },
     "/paas/v4/async-result/{id}": {
       "get": {
+        "tags": ["video"],
         "summary": "查询异步结果",
         "description": "查询异步请求的处理结果和状态。",
         "parameters": [
@@ -208,6 +265,7 @@
     },
     "/paas/v4/web_search": {
       "post": {
+        "tags": ["tool"],
         "summary": "网络搜索",
         "description": "专为 AI 模型优化的网络搜索服务。提供结构化的搜索结果，包括网页标题、链接、摘要等信息。",
         "parameters": [
