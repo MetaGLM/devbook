@@ -1,10 +1,10 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Z.AI API",
-    "description": "Z.AI 接口提供强大的 AI 能力，包括聊天对话、工具调用和视频生成。",
+    "title": "ZHIPU AI API",
+    "description": "ZHIPU AI 接口提供强大的 AI 能力，包括聊天对话、工具调用和视频生成。",
     "license": {
-      "name": "Z.AI 开发者协议和政策",
+      "name": "ZHIPU AI 开发者协议和政策",
       "url": "https://chat.z.ai/legal-agreement/terms-of-service"
     },
     "version": "1.0.0",
@@ -16,8 +16,8 @@
   },
   "servers": [
     {
-      "url": "https://api.z.ai/api",
-      "description": "生产服务器"
+      "url": "https://open.bigmodel.cn/api/paas/v4/",
+      "description": "开放平台服务"
     }
   ],
   "security": [
@@ -258,9 +258,10 @@
         "schema": {
           "type": "string",
           "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
-          "default": "en-US,en",
+          "default": "cn",
           "enum": [
-            "en-US,en"
+            "en",
+            "cn"
           ]
         },
         "required": true
