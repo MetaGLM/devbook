@@ -84,6 +84,20 @@
                 ]
               }
             ]
+          },
+          {
+            "tab": "更新日志",
+            "icon": "code",
+            "pages": [
+              "cn/update/update-log"
+            ]
+          },
+          {
+            "tab": "常见问题",
+            "icon": "code",
+            "pages": [
+              "cn/issue/common-issue"
+            ]
           }
         ]
       },
@@ -146,6 +160,13 @@
                   "en/api/video/get-video-status"
                 ]
               }
+            ]
+          },
+          {
+            "tab": "常见问题",
+            "icon": "code",
+            "pages": [
+              "en/issue/common-issue"
             ]
           }
         ]
