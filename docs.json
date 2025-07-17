@@ -71,6 +71,36 @@
                 ]
               },
               {
+                "group": "音频 API",
+                "pages": [
+                  "cn/api/audio/speech",
+                  "cn/api/audio/transcriptions",
+                  "cn/api/audio/customization"
+                ]
+              },
+              {
+                "group": "图像 API",
+                "pages": [
+                  "cn/api/image/generations"
+                ]
+              },
+              {
+                "group": "嵌入 API",
+                "pages": [
+                  "cn/api/embedding/embeddings"
+                ]
+              },
+              {
+                "group": "文件 API",
+                "pages": [
+                  "cn/api/file/upload",
+                  "cn/api/file/list",
+                  "cn/api/file/get-file",
+                  "cn/api/file/delete-file",
+                  "cn/api/file/download-content"
+                ]
+              },
+              {
                 "group": "工具 API",
                 "pages": [
                   "cn/api/tools/web-search"
@@ -145,6 +175,36 @@
                 "group": "Chat API",
                 "pages": [
                   "en/api/chat/chat-completions"
+                ]
+              },
+              {
+                "group": "Audio API",
+                "pages": [
+                  "en/api/audio/speech",
+                  "en/api/audio/transcriptions",
+                  "en/api/audio/customization"
+                ]
+              },
+              {
+                "group": "Image API",
+                "pages": [
+                  "en/api/image/generations"
+                ]
+              },
+              {
+                "group": "Embedding API",
+                "pages": [
+                  "en/api/embedding/embeddings"
+                ]
+              },
+              {
+                "group": "File API",
+                "pages": [
+                  "en/api/file/upload",
+                  "en/api/file/list",
+                  "en/api/file/get-file",
+                  "en/api/file/delete-file",
+                  "en/api/file/download-content"
                 ]
               },
               {
