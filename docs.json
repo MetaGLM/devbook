@@ -30,6 +30,7 @@
               {
                 "group": "Overview",
                 "pages": [
+                  "en/guide/GLM-4-Plus",
                   "en/guide/overview/pricing"
                 ]
               },
@@ -94,6 +95,7 @@
               {
                 "group": "概览",
                 "pages": [
+                  "cn/guide/GLM-4-Plus",
                   "cn/guide/overview/pricing"
                 ]
               },
