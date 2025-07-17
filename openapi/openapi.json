@@ -20,6 +20,10 @@
       "description": "Chat API"
     },
     {
+      "name": "embedding",
+      "description": "Embedding API"
+    },
+    {
       "name": "audio",
       "description": "Audio API"
     },
@@ -44,7 +48,7 @@
       "description": "Assistant API"
     },
     {
-      "name": "fine_turning",
+      "name": "turning",
       "description": "Fine Turning API"
     },
     {
@@ -70,7 +74,7 @@
   ],
   "servers": [
     {
-      "url": "https://open.bigmodel.cn/api/paas/v4/",
+      "url": "https://open.bigmodel.cn/api/",
       "description": "开放平台服务"
     }
   ],
@@ -802,7 +806,7 @@
     "/paas/v4/fine_tuning/jobs": {
       "post": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "创建微调任务",
         "description": "创建一个新的微调任务来训练自定义模型。",
@@ -846,7 +850,7 @@
       },
       "get": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "查询微调任务列表",
         "description": "获取用户的微调任务分页列表。",
@@ -901,7 +905,7 @@
     "/paas/v4/fine_tuning/jobs/{fine_tuning_job_id}": {
       "get": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "获取微调任务详情",
         "description": "获取指定微调任务的详细信息和状态。",
@@ -944,7 +948,7 @@
       },
       "delete": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "删除微调任务",
         "description": "删除指定的微调任务及其相关数据。",
@@ -989,7 +993,7 @@
     "/paas/v4/fine_tuning/jobs/{fine_tuning_job_id}/cancel": {
       "post": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "取消微调任务",
         "description": "取消正在运行的微调任务。",
@@ -1034,7 +1038,7 @@
     "/paas/v4/fine_tuning/jobs/{fine_tuning_job_id}/events": {
       "get": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "获取微调任务事件",
         "description": "获取微调任务的训练事件和日志。",
@@ -1098,7 +1102,7 @@
     "/paas/v4/fine_tuning/fine_tuned_models/{fine_tuned_model}": {
       "delete": {
         "tags": [
-          "fine-tuning"
+          "turning"
         ],
         "summary": "删除微调模型",
         "description": "删除指定的微调模型。",
@@ -1143,7 +1147,7 @@
     "/paas/v4/tools": {
       "post": {
         "tags": [
-          "tools"
+          "tool"
         ],
         "summary": "网络搜索",
         "description": "执行网络搜索并返回综合结果。",
@@ -1189,7 +1193,7 @@
     "/paas/v4/v1/agents": {
       "post": {
         "tags": [
-          "agents"
+          "agent"
         ],
         "summary": "智能代理执行",
         "description": "执行智能代理任务，支持流式和同步模式。",
@@ -1250,7 +1254,7 @@
     "/paas/v4/v1/agents/async-result": {
       "post": {
         "tags": [
-          "agents"
+          "agent"
         ],
         "summary": "查询代理异步结果",
         "description": "查询智能代理异步执行的结果。",
@@ -1449,7 +1453,7 @@
     "/paas/v4/batches": {
       "post": {
         "tags": [
-          "batches"
+          "batch"
         ],
         "summary": "创建批处理任务",
         "description": "创建一个新的批处理任务。",
@@ -1493,7 +1497,7 @@
       },
       "get": {
         "tags": [
-          "batches"
+          "batch"
         ],
         "summary": "列出批处理任务",
         "description": "获取批处理任务列表，支持分页。",
@@ -1546,7 +1550,7 @@
     "/paas/v4/batches/{batch_id}": {
       "get": {
         "tags": [
-          "batches"
+          "batch"
         ],
         "summary": "获取批处理任务详情",
         "description": "根据批处理任务ID获取详细信息。",
@@ -1591,7 +1595,7 @@
     "/paas/v4/batches/{batch_id}/cancel": {
       "post": {
         "tags": [
-          "batches"
+          "batch"
         ],
         "summary": "取消批处理任务",
         "description": "取消正在运行的批处理任务。",
@@ -1868,7 +1872,7 @@
     "/paas/v4/document/{document_id}": {
       "put": {
         "tags": [
-          "documents"
+          "document"
         ],
         "summary": "修改文档",
         "description": "更新知识库中的文档信息。",
@@ -1921,7 +1925,7 @@
       },
       "delete": {
         "tags": [
-          "documents"
+          "document"
         ],
         "summary": "删除文档",
         "description": "从知识库中删除指定文档。",
@@ -1964,7 +1968,7 @@
       },
       "get": {
         "tags": [
-          "documents"
+          "document"
         ],
         "summary": "获取文档详情",
         "description": "根据文档ID获取详细信息。",
