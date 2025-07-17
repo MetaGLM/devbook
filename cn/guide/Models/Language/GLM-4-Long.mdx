@@ -1,5 +1,124 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "GLM-4-Long"
+description: "GLM-4-Long 是一款专为处理超长文本和记忆型任务而设计的语言模型，支持 1M 超长输入（150-200万字）。"
 ---
 
+<CardGroup cols={3}>
+  <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
+    1 元 / 百万Tokens
+  </Card>
+  <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
+    文本
+  </Card>
+  <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
+    文本
+  </Card>
+  <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
+    1M
+  </Card>
+  <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
+    4K
+  </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+  <Accordion title="财报解读" icon="file-invoice-dollar">
+    可处理数百页的年度财报，自动提取营收结构、风险提示、管理层讨论等关键信息，生成结构化分析报告；通过记忆历史财务数据，对比多期财报的趋势变化，识别潜在财务异常点。
+  </Accordion>
+  <Accordion title="论文读取" icon="file-import">
+    支持解析数万字的学术论文，自动梳理研究背景、实验方法、结论等核心章节，将内容分主题输出；结合领域知识库，对跨章节的理论推导进行逻辑验证，辅助研究者快速定位创新点与论证漏洞。
+  </Accordion>
+  <Accordion title="小说阅读" icon="book">
+    深度分析百万字长篇小说的人物关系网、情节脉络，生成特定内容总结；基于对全文风格的记忆，实现高质量续写，保持叙事连贯性与文学性。
+  </Accordion>
+  <Accordion title="法律文书分析" icon="books">
+    处理海量法律条文、判例和合同文本，精准提取权利义务条款、责任界定等关键内容；通过记忆类似案例，辅助律师进行法律风险评估与诉讼策略制定。
+  </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[体验中心](https://bigmodel.cn/trialcenter/modeltrial/text?modelCode=glm-4-long)：快速测试模型在业务场景上的效果
+[接口文档](https://bigmodel.cn/dev/api/normal-model/glm-4)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+  <Step title="超长文本处理能力" iconType="regular" stepNumber={1} titleSize="h3">
+    支持高达1M（约150-200万字）的上下文长度，相当于2本《红楼梦》或125篇论文，在超长文本处理方面的有十分强大的能力。
+  </Step>
+  <Step title="推理能力" iconType="regular" stepNumber={2} titleSize="h3">
+    不仅能够阅读和翻译长篇文档，还能够进行全局分析，例如分析财务报告和提取关键信息、合同条款和科研数据。GLM-4-Long 已经具备一定的推理和记忆能力，能够理解和回应复杂的查询，创建具有超长记忆的聊天机器人。
+  </Step>
+  <Step title="技术关键点" iconType="regular" stepNumber={3} titleSize="h3">
+    在继续预训练（Continue Pre-Training）、监督微调（SFT）和基于人类反馈的强化学习（RLHF）阶段，进行混合训练逐步扩展上下文长度，从最初的2K上下文支持发展到1M上下文支持。
+  </Step>
+</Steps>
+
+## <Icon icon="arrow-down-big-small" iconType="solid" color="#3890ff" size={28} />   功能支持
+
+<CardGroup cols={3}>
+  <Card title="流式输出" icon="arrow-down-from-dotted-line" href="https://docs.z.ai">
+    
+  </Card>
+  <Card title="结构化输出" icon="arrow-down-from-line" href="https://docs.z.ai">
+    
+  </Card>
+  <Card title="函数调用" icon="function" href="https://docs.z.ai">
+    
+  </Card>
+</CardGroup>
+
+## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+### 输入示例
+
+```python
+from zhipuai import ZhipuAI
+client = ZhipuAI(api_key="")  # 请填写您自己的APIKey
+response = client.chat.completions.create(
+    model="glm-4-long",  # 请填写您要调用的模型名称
+    messages=[
+        {"role": "user", "content": "请你解读一下红楼梦的人物关系网、情节脉络。如果你是曹雪芹请你写一下红楼能的结局"},
+    ],
+)
+print(response)
+```
+
+### 输出示例
+
+```markdown
+Completion(model='glm-4-long', created=1749095916, choices=[CompletionChoice
+(index=0, finish_reason='stop', message=CompletionMessage(content='《红楼梦》是中国古典四大名著之
+一，由清代作家曹雪芹创作。这部小说以贾、史、王、薛四大家族为背景，描绘了封建社会的繁荣与衰落，以及众多人物
+的情感纠葛和命运变迁。以下是《红楼梦》的人物关系网和情节脉络的解读：\n\n人物关系网：\n1. 贾宝玉：小说的主
+人公，贾府的少爷，性格多情而敏感，与林黛玉、薛宝钗等女子有着复杂的情感关系。\n2. 林黛玉：贾宝玉的表妹，
+性格聪明伶俐，与宝玉有着深厚的感情，却因家族背景和自身性格而命运多舛。\n3. 薛宝钗：贾宝玉的妻子，
+性格温婉贤良，与宝玉、黛玉之间有着微妙的三角关系。\n4. 贾母：贾府的老太太，宝玉的祖母，对宝玉宠爱有加，
+对家族事务有着重要的影响力。\n5. 王熙凤：贾府的管家媳妇，聪明能干，善于处理家族事务，与贾宝玉有着复杂的
+情感纠葛。\n\n情节脉络：\n1. 贾宝玉出生：小说开篇，贾宝玉出生在贾府，贾母对他宠爱有加。\n2. 宝玉入世：
+宝玉逐渐长大，进入贾府，结识了林黛玉、薛宝钗等众多女子，展开了一段段感情纠葛。\n3. 贾府的繁荣：贾府在贾
+母的主持下，迎来了短暂的繁荣，宝玉和黛玉的感情也逐渐升温。\n4. 贾府的衰落：随着贾母的去世，贾府逐渐衰落，
+宝玉、黛玉等人的命运也发生了变化。\n5. 宝玉的出家：在经历了一系列的家族变故和感情挫折后，宝玉最终选择了出
+家，告别了尘世。\n\n如果我是曹雪芹，可能会为《红楼梦》安排一个更为悲惨的结局：\n1. 贾府彻底衰落：贾府在一
+系列的家族变故和朝廷斗争中彻底衰落，家族成员纷纷流离失所。\n2. 林黛玉去世：黛玉因家族背景和自身性格而命运
+多舛，最终在宝玉出家后不久便去世。\n3. 薛宝钗守寡：宝玉出家后，宝钗守寡终身，孤独地度过余生。\n4. 王熙凤
+离世：王熙凤在贾府衰落的过程中，因劳累过度而离世。\n5. 贾府的消亡：贾府最终在一场大火中化为灰烬，标志着封
+建社会的彻底衰落。\n\n这样的结局更加凸显了《红楼梦》对人性的深刻描绘和对封建社会的批判，同时也更加符合小
+说中悲剧性的主题。',
+role='assistant',
+tool_calls=None))],
+request_id='202506051158245d074d9d644746a1',
+id='202506051158245d074d9d644746a1',
+usage=CompletionUsage(prompt_tokens=51, completion_tokens=563, total_tokens=614))
+```
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1 | V2 | V3 |
+| --- | --- | --- | --- |
+| 10 | 30 | 40 | 50 |

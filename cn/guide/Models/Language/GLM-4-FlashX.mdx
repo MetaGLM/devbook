@@ -1,5 +1,129 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "GLM-4-FlashX-250414"
+description: "GLM-4-FlashX-250414 是免费语言模型 GLM-4-Flash 的增强版本，具有超快推理速度、更强并发保障和极致性价比，在实时网页检索、长上下文处理、多语言支持等方面表现出色。"
 ---
+
+<CardGroup cols={3}>
+    <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
+        0.1 元 / 百万Tokens
+    </Card>
+    <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
+        文本
+    </Card>
+    <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
+        文本
+    </Card>
+    <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
+        128K
+    </Card>
+    <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
+        16K
+    </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+    <Accordion title="实时客服与多轮对话" icon="comment-dots">
+        可同时处理数千路用户咨询，在多语言交互中保持毫秒级响应速度，通过 128K 超长上下文理解能力实现连贯精准的多轮问答，尤其适合跨境电商、金融服务等需 7×24 小时高并发服务的场景。（推荐与[搜索工具](https://www.bigmodel.cn/dev/howuse/websearch)结合，可获取更新资讯，回答结果更加实时、准确）。
+    </Accordion>
+    <Accordion title="金融高频交易分析" icon="chart-mixed-up-circle-dollar">
+        快速实时解析市场数据，毫秒级生成交易策略评估报告，支持量化交易平台在高波动行情下完成风险预警与决策优化。（推荐与[搜索工具](https://www.bigmodel.cn/dev/howuse/websearch)结合，可获取更新资讯，回答结果更加实时、准确）
+    </Accordion>
+    <Accordion title="会议摘要生成" icon="file-doc">
+        基于 128K 超长上下文精准捕捉会议核心议题、发言逻辑与决策结论，快速生成结构化会议摘要，如含议程回顾、待办事项、风险点提示等。
+    </Accordion>
+    <Accordion title="多语言翻译与跨文化协作" icon="language">
+        可同时处理英、中、西等主流语言及小众语种的互译需求，支持跨国企业在跨境会议、文档协作中实现低延迟高质量的语言转换，尤其适合法律、医疗等对翻译精度要求极高的领域。
+    </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+[接口文档](https://bigmodel.cn/dev/api/normal-model/glm-4)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+<Steps>
+    <Step title="超长上下文" titleSize="h3">
+        模型具备 128K 上下文，单次提示词可以处理的文本长度相当于 300 页书籍。这样的能力使得 GLM-4-Flash -250414 能够更好地理解和处理长文本内容，适用于需要深入分析上下文的场景。
+    </Step>
+    <Step title="超快推理速度" iconType="regular" stepNumber={2} titleSize="h3">
+        模型能够在毫秒级时间内完成复杂逻辑处理，无论是实时响应用户的多轮对话请求，还是快速解析海量文本数据，都能实现 “即输即答” 的流畅体验。
+    </Step>
+    <Step title="多语言支持" iconType="regular" stepNumber={3} titleSize="h3">
+        GLM-4-Flash-250414 拥有强大的多语言支持能力，能够支持多达 26 种语言。这为全球用户提供了多语言交互服务，拓宽了模型的应用范围。
+    </Step>
+    <Step title="网页检索" iconType="regular" stepNumber={4} titleSize="h3">
+        支持外部工具调用，通过网络搜索获取信息，以增强语言模型输出的质量和时效性。
+    </Step>
+</Steps>
+
+## <Icon icon="arrow-down-big-small" iconType="solid" color="#3890ff" size={28} />   功能支持
+
+<CardGroup cols={3}>
+    <Card title="流式输出" icon="arrow-down-from-dotted-line" href="https://docs.z.ai">
+
+    </Card>
+    <Card title="结构化输出" icon="arrow-down-from-line" href="https://docs.z.ai">
+
+    </Card>
+    <Card title="函数调用" icon="function" href="https://docs.z.ai">
+
+    </Card>
+</CardGroup>
+
+## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+### 输入示例
+
+```python
+from zhipuai import ZhipuAI
+client = ZhipuAI(api_key="")  # 请填写您自己的APIKey
+response = client.chat.completions.create(
+    model="glm-4-flashx-250414",  # 请填写您要调用的模型名称
+    messages=[
+        {"role": "system",
+         "content": "你是会议摘要生成AI，需从会议对话中精准提取核心议题、发言逻辑及决策结论，生成包含议程回顾、待办事项、风险点提示的结构化摘要。"},
+        {"role": "user",
+         "content": "以下是跨境电商Q3营销战略部署会的对话记录：运营总监开场表示今天主要讨论Q3营销计划，重点解决旺季流量转化与供应链协同问题，并请市场部汇报前期数据。市场部经理称Q2东南亚市场流量占比提升至35%，但转化率仅2.1%，低于欧美市场的4.5%，主要问题是本地化内容不足，如印尼站用户反馈商品详情页缺乏方言版使用说明，建议Q3增加小语种KOL合作，预算申请200万美金。供应链主管提出需同步调整库存策略，东南亚仓目前周转率1.2次/月，低于目标值1.5次，若增加促销活动需提前30天备货，否则可能断货，还提到欧美仓清关时效不稳定，上周5个集装箱延迟72小时，导致2000单发货延误。客服总监指出用户投诉中物流延迟占比从Q1的15%上升至Q2的28%，尤其泰国、越南地区，建议在营销页面增加物流时效预警模块，同时开通本地客服热线缓解咨询压力。运营总监同意市场部的KOL合作方案，要求市场部本周内细化执行计划；要求供应链部针对东南亚仓库存周转率和欧美仓清关问题，分别制定优化方案，3天内同步给运营团队；责成客服部在Q3前完成物流预警模块开发及本地热线开通，并跟进用户反馈。最后会议确定Q3营销重点为东南亚市场本地化运营，目标将转化率提升至3%以上，各部门需在3个工作日内提交具体行动计划。"},
+
+    ],
+)
+print(response)
+```
+### 输出示例
+```markdown
+Completion(model='glm-4-flashx-250414', created=1749096323, choices=[CompletionChoice
+(index=0, finish_reason='stop', message=CompletionMessage(content='### 跨境电商Q3营销战略部署会摘
+要\n\n#### **议程回顾**\n1. **核心议题**：Q3营销计划部署，重点解决旺季流量转化与供应链协同问题。\n2. *
+*数据汇报**：\n   - 市场部：Q2东南亚市场流量占比35%，转化率2.1%（低于欧美市场的4.5%），主要问题为本地化
+内容不足。\n   - 客服总监：物流延迟投诉占比上升至28%（泰国、越南地区尤为突出）。\n3. **问题与建议**：\n
+   - 市场部：建议Q3增加小语种KOL合作（预算200万美金），解决本地化内容不足问题。\n   - 供应链主管：东南亚
+   仓周转率1.2次/月（低于目标1.5次），需提前30天备货；欧美仓清关时效不稳定（上周5个集装箱延迟72小时，延
+   误2000单）。\n   - 客服总监：建议营销页面增加物流时效预警模块，开通本地客服热线。\n\n#### **待办事项
+   **\n1. **市场部**：\n   - 本周内细化KOL合作执行计划。\n   - 提升东南亚市场本地化内容（如印尼站方言
+   版使用说明）。\n2. **供应链部**：\n   - 3天内制定东南亚仓库存周转率优化方案。\n   - 3天内制定欧美
+   仓清关问题优化方案，同步给运营团队。\n3. **客服部**：\n   - Q3前完成物流预警模块开发。\n   - Q3前
+   开通本地客服热线，缓解咨询压力。\n4. **运营总监**：\n   - 跟进各部门执行计划，确保Q3目标达成。\n\n
+   #### **风险点提示**\n1. **供应链风险**：\n   - 东南亚仓库存周转率低可能导致断货。\n   - 欧美仓清关
+   延误影响发货时效，需提前30天备货。\n2. **市场风险**：\n   - 本地化内容不足导致转化率低，需快速提升。
+   \n   - KOL合作预算200万美金，需确保ROI达标。\n3. **物流风险**：\n   - 物流延迟投诉占比上升，需优化
+   物流时效预警模块。\n   - 本地客服热线开通后需确保响应效率，避免二次投诉。\n\n#### **决策结论**\n-
+   **Q3营销重点**：东南亚市场本地化运营，目标转化率提升至3%以上。\n- **时间节点**：\n  - 各部门3个工作
+   日内提交具体行动计划。\n  - 市场部本周内细化KOL合作计划。\n  - 供应链部3天内提交库存与清关优化方案。
+   \n  - 客服部Q3前完成物流预警模块及本地热线开通。\n\n---\n\n**摘要总结**：本次会议明确了Q3营销的核心
+   方向与重点问题，各部门需快速响应并制定优化方案，确保流量转化与供应链协同效率提升。需特别关注库存周转率
+   、清关时效及物流体验，以实现转化率目标。',
+   role='assistant', tool_calls=None))],
+   request_id='20250605120513eb02bb25540242c1',
+   id='20250605120513eb02bb25540242c1',
+   usage=CompletionUsage(prompt_tokens=372, completion_tokens=638, total_tokens=1010))
+
+```
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0              | V1 | V2 | V3 |
+|-------------------|----------|----------|------------|
+| 50 | 100     | 300    | 500       |
 
