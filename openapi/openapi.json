@@ -121,10 +121,379 @@
               }
             }
           }
+       }
+     },
+     "/paas/v4/audio/customization": {
+       "post": {
+         "tags": ["audio"],
+         "summary": "语音定制",
+         "description": "使用高级神经模型进行语音克隆和定制，创建个性化语音模型。",
+         "parameters": [
+           {
+             "$ref": "#/components/parameters/AcceptLanguage"
+           }
+         ],
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "$ref": "#/components/schemas/AudioCustomizationRequest"
+               }
+             }
+           },
+           "required": true
+         },
+         "responses": {
+           "200": {
+             "description": "业务处理成功",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/AudioCustomizationResponse"
+                 }
+               }
+             }
+           },
+           "default": {
+             "description": "请求失败。",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Error"
+                 }
+               }
+             }
+           }
+         }
+       }
+     },
+     "/paas/v4/images/generations": {
+       "post": {
+         "tags": ["image"],
+         "summary": "图像生成",
+         "description": "使用 CogView-3-Plus 模型从文本提示生成高质量图像，支持多种风格和尺寸。",
+         "parameters": [
+           {
+             "$ref": "#/components/parameters/AcceptLanguage"
+           }
+         ],
+         "requestBody": {
+           "content": {
+             "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/CreateImageRequest"
+               }
+             }
+           },
+           "required": true
+         },
+         "responses": {
+           "200": {
+             "description": "业务处理成功",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/ImageResponse"
+                 }
+               }
+             }
+           },
+           "default": {
+             "description": "请求失败。",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Error"
+                 }
+               }
+             }
+           }
+         }
+       }
+     },
+     "/paas/v4/embeddings": {
+       "post": {
+         "tags": ["embedding"],
+         "summary": "文本嵌入",
+         "description": "使用 GLM 嵌入模型将文本转换为高维向量表示，用于语义相似性和搜索。",
+         "parameters": [
+           {
+             "$ref": "#/components/parameters/AcceptLanguage"
+           }
+         ],
+         "requestBody": {
+           "content": {
+             "application/json": {
+               "schema": {
+                 "$ref": "#/components/schemas/EmbeddingRequest"
+               }
+             }
+           },
+           "required": true
+         },
+         "responses": {
+           "200": {
+             "description": "业务处理成功",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/EmbeddingResponse"
+                 }
+               }
+             }
+           },
+           "default": {
+             "description": "请求失败。",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "$ref": "#/components/schemas/Error"
+                 }
+               }
+             }
+           }
+         }
+       }
+      },
+      "/paas/v4/files": {
+        "post": {
+          "tags": ["file"],
+          "summary": "上传文件",
+          "description": "上传文件到平台，用于微调、知识库或其他AI任务。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileUploadRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FileObject"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": ["file"],
+          "summary": "查询文件列表",
+          "description": "获取已上传文件的分页列表，支持按用途和排序过滤。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "after",
+              "in": "query",
+              "description": "分页游标",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "purpose",
+              "in": "query",
+              "description": "按用途过滤文件",
+              "schema": {
+                "type": "string",
+                "enum": ["fine-tune", "assistants"]
+              }
+            },
+            {
+              "name": "order",
+              "in": "query",
+              "description": "排序方式",
+              "schema": {
+                "type": "string",
+                "enum": ["created_at"]
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "每页返回的文件数量",
+              "schema": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 20
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FileListResponse"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
         }
-      }
-    },
-    "/paas/v4/videos/generations": {
+      },
+      "/paas/v4/files/{file_id}": {
+        "get": {
+          "tags": ["file"],
+          "summary": "获取文件信息",
+          "description": "获取指定文件的详细信息和元数据。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "file_id",
+              "in": "path",
+              "required": true,
+              "description": "文件唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FileObject"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": ["file"],
+          "summary": "删除文件",
+          "description": "永久删除指定文件及其所有关联数据。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "file_id",
+              "in": "path",
+              "required": true,
+              "description": "文件唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FileDeletedResponse"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/paas/v4/files/{file_id}/content": {
+        "get": {
+          "tags": ["file"],
+          "summary": "下载文件内容",
+          "description": "流式下载文件的实际内容。",
+          "parameters": [
+            {
+              "name": "file_id",
+              "in": "path",
+              "required": true,
+              "description": "文件唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/octet-stream": {
+                  "schema": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/paas/v4/videos/generations": {
       "post": {
         "tags": ["video"],
         "summary": "生成视频",
@@ -306,9 +675,1255 @@
           }
         }
       }
-    }
-  },
-  "components": {
+    },
+    "/paas/v4/audio/speech": {
+      "post": {
+        "tags": ["audio"],
+        "summary": "文本转语音",
+        "description": "使用 GLM-4-Voice 将文本转换为自然语音，支持多种声音、情感控制和语调调整。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AudioSpeechRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "audio/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/audio/transcriptions": {
+      "post": {
+        "tags": ["audio"],
+        "summary": "语音转文本",
+        "description": "使用 GLM ASR 模型将音频文件转录为文本，支持多语言和实时流式转录。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AudioTranscriptionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioTranscriptionResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+      },
+      "/paas/v4/fine_tuning/jobs": {
+        "post": {
+          "tags": ["fine-tuning"],
+          "summary": "创建微调任务",
+          "description": "创建一个新的微调任务来训练自定义模型。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FineTuningJobCreateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTuningJobObject"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": ["fine-tuning"],
+          "summary": "查询微调任务列表",
+          "description": "获取用户的微调任务分页列表。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "after",
+              "in": "query",
+              "description": "分页游标",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "每页返回的任务数量",
+              "schema": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 20
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTuningJobListResponse"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/paas/v4/fine_tuning/jobs/{fine_tuning_job_id}": {
+        "get": {
+          "tags": ["fine-tuning"],
+          "summary": "获取微调任务详情",
+          "description": "获取指定微调任务的详细信息和状态。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "fine_tuning_job_id",
+              "in": "path",
+              "required": true,
+              "description": "微调任务唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTuningJobObject"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": ["fine-tuning"],
+          "summary": "删除微调任务",
+          "description": "删除指定的微调任务及其相关数据。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "fine_tuning_job_id",
+              "in": "path",
+              "required": true,
+              "description": "微调任务唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTuningJobDeletedResponse"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/paas/v4/fine_tuning/jobs/{fine_tuning_job_id}/cancel": {
+        "post": {
+          "tags": ["fine-tuning"],
+          "summary": "取消微调任务",
+          "description": "取消正在运行的微调任务。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "fine_tuning_job_id",
+              "in": "path",
+              "required": true,
+              "description": "微调任务唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTuningJobObject"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/paas/v4/fine_tuning/jobs/{fine_tuning_job_id}/events": {
+        "get": {
+          "tags": ["fine-tuning"],
+          "summary": "获取微调任务事件",
+          "description": "获取微调任务的训练事件和日志。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "fine_tuning_job_id",
+              "in": "path",
+              "required": true,
+              "description": "微调任务唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "after",
+              "in": "query",
+              "description": "分页游标",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "每页返回的事件数量",
+              "schema": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 20
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTuningJobEventListResponse"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/paas/v4/fine_tuning/fine_tuned_models/{fine_tuned_model}": {
+        "delete": {
+          "tags": ["fine-tuning"],
+          "summary": "删除微调模型",
+          "description": "删除指定的微调模型。",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/AcceptLanguage"
+            },
+            {
+              "name": "fine_tuned_model",
+              "in": "path",
+              "required": true,
+              "description": "微调模型唯一标识符",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "业务处理成功",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FineTunedModelDeletedResponse"
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "请求失败。",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/tools": {
+          "post": {
+            "tags": ["tools"],
+            "summary": "网络搜索",
+            "description": "执行网络搜索并返回综合结果。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WebSearchParamsRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/WebSearchResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/v1/agents": {
+          "post": {
+            "tags": ["agents"],
+            "summary": "智能代理执行",
+            "description": "执行智能代理任务，支持流式和同步模式。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "stream",
+                "in": "query",
+                "description": "是否启用流式响应",
+                "schema": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AgentExecutionRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/AgentExecutionResponse"
+                    }
+                  },
+                  "text/event-stream": {
+                    "schema": {
+                      "type": "string",
+                      "description": "流式响应数据"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/v1/agents/async-result": {
+          "post": {
+            "tags": ["agents"],
+            "summary": "查询代理异步结果",
+            "description": "查询智能代理异步执行的结果。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AgentAsyncResultRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/AgentExecutionResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/assistant": {
+          "post": {
+            "tags": ["assistant"],
+            "summary": "助手对话",
+            "description": "与AI助手进行对话，支持流式和同步模式。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "stream",
+                "in": "query",
+                "description": "是否启用流式响应",
+                "schema": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AssistantRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/AssistantResponse"
+                    }
+                  },
+                  "text/event-stream": {
+                    "schema": {
+                      "type": "string",
+                      "description": "流式响应数据"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/assistant/list": {
+          "post": {
+            "tags": ["assistant"],
+            "summary": "查询助手支持能力",
+            "description": "查询助手支持的功能和能力列表。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AssistantSupportRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/AssistantSupportResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/assistant/conversation/list": {
+          "post": {
+            "tags": ["assistant"],
+            "summary": "查询对话使用统计",
+            "description": "查询助手对话的使用统计信息。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ConversationUsageRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ConversationUsageResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/batches": {
+          "post": {
+            "tags": ["batches"],
+            "summary": "创建批处理任务",
+            "description": "创建一个新的批处理任务。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BatchCreateRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BatchObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "get": {
+            "tags": ["batches"],
+            "summary": "列出批处理任务",
+            "description": "获取批处理任务列表，支持分页。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "after",
+                "in": "query",
+                "description": "分页游标，用于获取指定ID之后的结果",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "description": "返回结果的最大数量",
+                "schema": {
+                  "type": "integer",
+                  "default": 20
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BatchListResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/batches/{batch_id}": {
+          "get": {
+            "tags": ["batches"],
+            "summary": "获取批处理任务详情",
+            "description": "根据批处理任务ID获取详细信息。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "batch_id",
+                "in": "path",
+                "required": true,
+                "description": "批处理任务ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BatchObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/batches/{batch_id}/cancel": {
+          "post": {
+            "tags": ["batches"],
+            "summary": "取消批处理任务",
+            "description": "取消正在运行的批处理任务。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "batch_id",
+                "in": "path",
+                "required": true,
+                "description": "批处理任务ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BatchObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/knowledge": {
+          "post": {
+            "tags": ["knowledge"],
+            "summary": "创建知识库",
+            "description": "创建一个新的知识库。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/KnowledgeCreateRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/KnowledgeObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "get": {
+            "tags": ["knowledge"],
+            "summary": "查询知识库列表",
+            "description": "获取知识库列表，支持分页。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "page",
+                "in": "query",
+                "description": "页码",
+                "schema": {
+                  "type": "integer",
+                  "default": 1
+                }
+              },
+              {
+                "name": "size",
+                "in": "query",
+                "description": "每页大小",
+                "schema": {
+                  "type": "integer",
+                  "default": 10
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/KnowledgeListResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/knowledge/{knowledge_id}": {
+          "put": {
+            "tags": ["knowledge"],
+            "summary": "修改知识库",
+            "description": "更新现有知识库的信息。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "knowledge_id",
+                "in": "path",
+                "required": true,
+                "description": "知识库ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/KnowledgeModifyRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/KnowledgeObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "delete": {
+            "tags": ["knowledge"],
+            "summary": "删除知识库",
+            "description": "删除指定的知识库。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "knowledge_id",
+                "in": "path",
+                "required": true,
+                "description": "知识库ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/KnowledgeDeletedResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/knowledge/capacity": {
+          "get": {
+            "tags": ["knowledge"],
+            "summary": "查询知识库使用情况",
+            "description": "获取知识库的使用统计信息。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/KnowledgeCapacityResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/paas/v4/document/{document_id}": {
+          "put": {
+            "tags": ["documents"],
+            "summary": "修改文档",
+            "description": "更新知识库中的文档信息。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "document_id",
+                "in": "path",
+                "required": true,
+                "description": "文档ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DocumentModifyRequest"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/DocumentObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "delete": {
+            "tags": ["documents"],
+            "summary": "删除文档",
+            "description": "从知识库中删除指定文档。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "document_id",
+                "in": "path",
+                "required": true,
+                "description": "文档ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/DocumentDeletedResponse"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "get": {
+            "tags": ["documents"],
+            "summary": "获取文档详情",
+            "description": "根据文档ID获取详细信息。",
+            "parameters": [
+              {
+                "$ref": "#/components/parameters/AcceptLanguage"
+              },
+              {
+                "name": "document_id",
+                "in": "path",
+                "required": true,
+                "description": "文档ID",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "业务处理成功",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/DocumentObject"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "description": "请求失败。",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
     "parameters": {
       "AcceptLanguage": {
         "name": "Accept-Language",
@@ -1332,6 +2947,1219 @@
           }
         }
       },
+      "AudioSpeechRequest": {
+        "type": "object",
+        "required": ["model", "input", "voice"],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "要使用的TTS模型"
+          },
+          "input": {
+            "type": "string",
+            "description": "要转换为语音的文本",
+            "maxLength": 4096
+          },
+          "voice": {
+            "type": "string",
+            "enum": ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
+            "description": "用于生成音频的语音"
+          },
+          "response_format": {
+            "type": "string",
+            "enum": ["mp3", "opus", "aac", "flac"],
+            "default": "mp3",
+            "description": "音频输出格式"
+          },
+          "speed": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 4.0,
+            "default": 1.0,
+            "description": "生成音频的速度"
+          }
+        }
+      },
+      "AudioTranscriptionRequest": {
+        "type": "object",
+        "required": ["file", "model"],
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "要转录的音频文件"
+          },
+          "model": {
+            "type": "string",
+            "description": "要使用的ASR模型"
+          },
+          "language": {
+            "type": "string",
+            "description": "音频的语言（ISO-639-1格式）"
+          },
+          "prompt": {
+            "type": "string",
+            "description": "可选的文本提示"
+          },
+          "response_format": {
+            "type": "string",
+            "enum": ["json", "text", "srt", "verbose_json", "vtt"],
+            "default": "json",
+            "description": "转录输出格式"
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0,
+            "description": "采样温度"
+          }
+        }
+      },
+      "AudioTranscriptionResponse": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "转录的文本"
+          }
+        }
+      },
+      "ImageGenerationRequest": {
+        "type": "object",
+        "required": ["model", "prompt"],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "要使用的图像生成模型"
+          },
+          "prompt": {
+            "type": "string",
+            "description": "描述所需图像的文本提示"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 1,
+            "description": "要生成的图像数量"
+          },
+          "quality": {
+            "type": "string",
+            "enum": ["standard", "hd"],
+            "default": "standard",
+            "description": "生成图像的质量"
+          },
+          "response_format": {
+            "type": "string",
+            "enum": ["url", "b64_json"],
+            "default": "url",
+            "description": "返回生成图像的格式"
+          },
+          "size": {
+            "type": "string",
+            "enum": ["256x256", "512x512", "1024x1024", "1792x1024", "1024x1792"],
+            "default": "1024x1024",
+            "description": "生成图像的尺寸"
+          },
+          "style": {
+            "type": "string",
+            "enum": ["vivid", "natural"],
+            "default": "vivid",
+            "description": "生成图像的风格"
+          },
+          "user": {
+            "type": "string",
+            "description": "代表最终用户的唯一标识符"
+          }
+        }
+      },
+      "ImageGenerationResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "description": "图像生成的Unix时间戳"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageObject"
+            }
+          }
+        }
+      },
+      "ImageObject": {
+        "type": "object",
+        "properties": {
+          "b64_json": {
+            "type": "string",
+            "description": "生成图像的base64编码JSON"
+          },
+          "url": {
+            "type": "string",
+            "description": "生成图像的URL"
+          },
+          "revised_prompt": {
+            "type": "string",
+            "description": "修订后的提示"
+          }
+        }
+      },
+      "EmbeddingCreateRequest": {
+        "type": "object",
+        "required": ["model", "input"],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "要使用的嵌入模型"
+          },
+          "input": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "要嵌入的输入文本"
+          },
+          "encoding_format": {
+            "type": "string",
+            "enum": ["float", "base64"],
+            "default": "float",
+            "description": "嵌入的编码格式"
+          },
+          "dimensions": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "输出嵌入的维数"
+          },
+          "user": {
+            "type": "string",
+            "description": "代表最终用户的唯一标识符"
+          }
+        }
+      },
+      "EmbeddingResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["list"]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmbeddingObject"
+            }
+          },
+          "model": {
+            "type": "string",
+            "description": "使用的模型"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/EmbeddingUsage"
+          }
+        }
+      },
+      "EmbeddingObject": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["embedding"]
+          },
+          "embedding": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "嵌入向量"
+          },
+          "index": {
+            "type": "integer",
+            "description": "嵌入在列表中的索引"
+          }
+        }
+      },
+      "EmbeddingUsage": {
+        "type": "object",
+        "properties": {
+          "prompt_tokens": {
+            "type": "integer",
+            "description": "提示中的token数量"
+          },
+          "total_tokens": {
+            "type": "integer",
+            "description": "总token数量"
+          }
+        }
+      },
+      "FileUploadRequest": {
+        "type": "object",
+        "required": ["file", "purpose"],
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "要上传的文件"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": ["fine-tune", "assistants"],
+            "description": "文件的预期用途"
+          }
+        }
+      },
+      "FileObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "文件标识符"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["file"]
+          },
+          "bytes": {
+            "type": "integer",
+            "description": "文件大小（字节）"
+          },
+          "created_at": {
+            "type": "integer",
+            "description": "文件创建的Unix时间戳"
+          },
+          "filename": {
+            "type": "string",
+            "description": "文件名"
+          },
+          "purpose": {
+            "type": "string",
+            "description": "文件的预期用途"
+          }
+        }
+      },
+      "FileListResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["list"]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileObject"
+            }
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "是否有更多数据"
+          }
+        }
+      },
+      "FileDeletedResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "删除的文件ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["file"]
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否成功删除"
+          }
+        }
+      },
+      "FineTuningJobCreateRequest": {
+        "type": "object",
+        "required": ["model", "training_file"],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "要微调的基础模型名称"
+          },
+          "training_file": {
+            "type": "string",
+            "description": "包含训练数据的上传文件ID"
+          },
+          "validation_file": {
+            "type": "string",
+            "description": "包含验证数据的上传文件ID"
+          },
+          "suffix": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "微调模型名称的后缀"
+          },
+          "hyperparameters": {
+            "type": "object",
+            "properties": {
+              "n_epochs": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 50,
+                "default": 3,
+                "description": "训练轮数"
+              },
+              "batch_size": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 256,
+                "description": "批次大小"
+              },
+              "learning_rate_multiplier": {
+                "type": "number",
+                "minimum": 0.02,
+                "maximum": 0.2,
+                "description": "学习率乘数"
+              }
+            }
+          }
+        }
+      },
+      "FineTuningJobObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "微调任务ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["fine_tuning.job"]
+          },
+          "created_at": {
+            "type": "integer",
+            "description": "任务创建的Unix时间戳"
+          },
+          "finished_at": {
+            "type": "integer",
+            "description": "任务完成的Unix时间戳"
+          },
+          "model": {
+            "type": "string",
+            "description": "基础模型名称"
+          },
+          "fine_tuned_model": {
+            "type": "string",
+            "description": "微调后的模型名称"
+          },
+          "organization_id": {
+            "type": "string",
+            "description": "组织ID"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["validating_files", "queued", "running", "succeeded", "failed", "cancelled"],
+            "description": "任务状态"
+          },
+          "hyperparameters": {
+            "type": "object",
+            "description": "微调超参数"
+          },
+          "training_file": {
+            "type": "string",
+            "description": "训练文件ID"
+          },
+          "validation_file": {
+            "type": "string",
+            "description": "验证文件ID"
+          },
+          "result_files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "结果文件ID列表"
+          },
+          "trained_tokens": {
+            "type": "integer",
+            "description": "已训练的token数量"
+          }
+        }
+      },
+      "FineTuningJobListResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["list"]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FineTuningJobObject"
+            }
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "是否有更多数据"
+          }
+        }
+      },
+      "FineTuningJobDeletedResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "删除的任务ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["fine_tuning.job"]
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否成功删除"
+          }
+        }
+      },
+      "FineTuningJobEventListResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["list"]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FineTuningJobEventObject"
+            }
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "是否有更多数据"
+          }
+        }
+      },
+      "FineTuningJobEventObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "事件ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["fine_tuning.job.event"]
+          },
+          "created_at": {
+            "type": "integer",
+            "description": "事件创建的Unix时间戳"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["info", "warn", "error"],
+            "description": "日志级别"
+          },
+          "message": {
+            "type": "string",
+            "description": "事件消息"
+          },
+          "data": {
+            "type": "object",
+            "description": "事件数据"
+          },
+          "type": {
+            "type": "string",
+            "description": "事件类型"
+          }
+        }
+      },
+      "FineTunedModelDeletedResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "删除的模型ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["model"]
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否成功删除"
+          }
+        }
+      },
+      "WebSearchParamsRequest": {
+        "type": "object",
+        "properties": {
+          "search_query": {
+            "type": "string",
+            "description": "搜索查询字符串"
+          },
+          "search_engine": {
+            "type": "string",
+            "description": "搜索引擎类型",
+            "enum": ["google", "bing"]
+          },
+          "count": {
+            "type": "integer",
+            "description": "返回结果数量",
+            "default": 10
+          },
+          "search_domain_filter": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "域名过滤器"
+          },
+          "search_recency_filter": {
+            "type": "string",
+            "description": "时间过滤器",
+            "enum": ["day", "week", "month", "year"]
+          },
+          "content_size": {
+            "type": "string",
+            "description": "内容大小",
+            "enum": ["small", "medium", "large"]
+          }
+        },
+        "required": ["search_query"]
+      },
+      "AgentExecutionRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "使用的模型名称"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatCompletionRequestMessage"
+            },
+            "description": "对话消息列表"
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "可用工具列表"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "用户ID"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          }
+        },
+        "required": ["model", "messages"]
+      },
+      "AgentExecutionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "响应ID"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "created": {
+            "type": "integer",
+            "description": "创建时间戳"
+          },
+          "model": {
+            "type": "string",
+            "description": "使用的模型"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "message": {
+                  "$ref": "#/components/schemas/ChatCompletionResponseMessage"
+                },
+                "finish_reason": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": {
+                "type": "integer"
+              },
+              "completion_tokens": {
+                "type": "integer"
+              },
+              "total_tokens": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AgentAsyncResultRequest": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "异步请求ID"
+          }
+        },
+        "required": ["request_id"]
+      },
+      "AssistantRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "使用的模型名称"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatCompletionRequestMessage"
+            },
+            "description": "对话消息列表"
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "可用工具列表"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "用户ID"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          }
+        },
+        "required": ["model", "messages"]
+      },
+      "AssistantResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "响应ID"
+          },
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "created": {
+            "type": "integer",
+            "description": "创建时间戳"
+          },
+          "model": {
+            "type": "string",
+            "description": "使用的模型"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer"
+                },
+                "message": {
+                  "$ref": "#/components/schemas/ChatCompletionResponseMessage"
+                },
+                "finish_reason": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": {
+                "type": "integer"
+              },
+              "completion_tokens": {
+                "type": "integer"
+              },
+              "total_tokens": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AssistantSupportRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "用户ID"
+          }
+        }
+      },
+      "AssistantSupportResponse": {
+        "type": "object",
+        "properties": {
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "支持的能力列表"
+          },
+          "models": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "支持的模型列表"
+          }
+        }
+      },
+      "ConversationUsageRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "用户ID"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "开始日期"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "结束日期"
+          }
+        }
+      },
+      "ConversationUsageResponse": {
+        "type": "object",
+        "properties": {
+          "total_conversations": {
+            "type": "integer",
+            "description": "总对话数"
+          },
+          "total_messages": {
+            "type": "integer",
+            "description": "总消息数"
+          },
+          "usage_by_date": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "conversations": {
+                  "type": "integer"
+                },
+                "messages": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BatchCreateRequest": {
+        "type": "object",
+        "properties": {
+          "input_file_id": {
+            "type": "string",
+            "description": "输入文件ID"
+          },
+          "endpoint": {
+            "type": "string",
+            "description": "批处理端点",
+            "enum": ["/v4/chat/completions"]
+          },
+          "completion_window": {
+            "type": "string",
+            "description": "完成时间窗口",
+            "enum": ["24h"]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "元数据"
+          }
+        },
+        "required": ["input_file_id", "endpoint", "completion_window"]
+      },
+      "BatchObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "批处理任务ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["batch"]
+          },
+          "endpoint": {
+            "type": "string",
+            "description": "批处理端点"
+          },
+          "errors": {
+            "type": "object",
+            "description": "错误信息"
+          },
+          "input_file_id": {
+            "type": "string",
+            "description": "输入文件ID"
+          },
+          "completion_window": {
+            "type": "string",
+            "description": "完成时间窗口"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["validating", "failed", "in_progress", "finalizing", "completed", "expired", "cancelling", "cancelled"],
+            "description": "批处理状态"
+          },
+          "output_file_id": {
+            "type": "string",
+            "description": "输出文件ID"
+          },
+          "error_file_id": {
+            "type": "string",
+            "description": "错误文件ID"
+          },
+          "created_at": {
+            "type": "integer",
+            "description": "创建时间戳"
+          },
+          "in_progress_at": {
+            "type": "integer",
+            "description": "开始处理时间戳"
+          },
+          "expires_at": {
+            "type": "integer",
+            "description": "过期时间戳"
+          },
+          "finalizing_at": {
+            "type": "integer",
+            "description": "完成处理时间戳"
+          },
+          "completed_at": {
+            "type": "integer",
+            "description": "完成时间戳"
+          },
+          "failed_at": {
+            "type": "integer",
+            "description": "失败时间戳"
+          },
+          "expired_at": {
+            "type": "integer",
+            "description": "过期时间戳"
+          },
+          "cancelling_at": {
+            "type": "integer",
+            "description": "取消中时间戳"
+          },
+          "cancelled_at": {
+            "type": "integer",
+            "description": "已取消时间戳"
+          },
+          "request_counts": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "总请求数"
+              },
+              "completed": {
+                "type": "integer",
+                "description": "已完成请求数"
+              },
+              "failed": {
+                "type": "integer",
+                "description": "失败请求数"
+              }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "元数据"
+          }
+        }
+      },
+      "BatchListResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["list"]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BatchObject"
+            }
+          },
+          "first_id": {
+            "type": "string",
+            "description": "第一个ID"
+          },
+          "last_id": {
+            "type": "string",
+            "description": "最后一个ID"
+          },
+          "has_more": {
+            "type": "boolean",
+            "description": "是否有更多数据"
+          }
+        }
+      },
+      "KnowledgeCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "知识库名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "知识库描述"
+          },
+          "embedding_model": {
+            "type": "string",
+            "description": "嵌入模型"
+          }
+        },
+        "required": ["name"]
+      },
+      "KnowledgeModifyRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "知识库名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "知识库描述"
+          }
+        }
+      },
+      "KnowledgeObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "知识库ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "知识库名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "知识库描述"
+          },
+          "embedding_model": {
+            "type": "string",
+            "description": "嵌入模型"
+          },
+          "created_at": {
+            "type": "integer",
+            "description": "创建时间戳"
+          },
+          "updated_at": {
+            "type": "integer",
+            "description": "更新时间戳"
+          },
+          "document_count": {
+            "type": "integer",
+            "description": "文档数量"
+          },
+          "used_capacity": {
+            "type": "integer",
+            "description": "已使用容量"
+          }
+        }
+      },
+      "KnowledgeListResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["list"]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeObject"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "总数量"
+          },
+          "page": {
+            "type": "integer",
+            "description": "当前页码"
+          },
+          "size": {
+            "type": "integer",
+            "description": "每页大小"
+          }
+        }
+      },
+      "KnowledgeDeletedResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "删除的知识库ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["knowledge"]
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否成功删除"
+          }
+        }
+      },
+      "KnowledgeCapacityResponse": {
+        "type": "object",
+        "properties": {
+          "total_capacity": {
+            "type": "integer",
+            "description": "总容量"
+          },
+          "used_capacity": {
+            "type": "integer",
+            "description": "已使用容量"
+          },
+          "available_capacity": {
+            "type": "integer",
+            "description": "可用容量"
+          },
+          "knowledge_bases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "used_capacity": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "DocumentModifyRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "文档名称"
+          },
+          "content": {
+            "type": "string",
+            "description": "文档内容"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "文档元数据"
+          }
+        }
+      },
+      "DocumentObject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "文档ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "文档名称"
+          },
+          "knowledge_id": {
+            "type": "string",
+            "description": "所属知识库ID"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "内容类型"
+          },
+          "size": {
+            "type": "integer",
+            "description": "文档大小"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["processing", "completed", "failed"],
+            "description": "处理状态"
+          },
+          "created_at": {
+            "type": "integer",
+            "description": "创建时间戳"
+          },
+          "updated_at": {
+            "type": "integer",
+            "description": "更新时间戳"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "文档元数据"
+          }
+        }
+      },
+      "DocumentDeletedResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "删除的文档ID"
+          },
+          "object": {
+            "type": "string",
+            "enum": ["document"]
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "是否成功删除"
+          }
+        }
+      },
       "BadRequestData": {},
       "UnauthorizedData": {},
       "NotFoundData": {},
@@ -1356,7 +4184,7 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://z.ai/manage-apikey/apikey-list)"
+        "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)"
       }
     }
   }
