@@ -82,6 +82,12 @@
                   "cn/api/video/video-generation",
                   "cn/api/video/get-video-status"
                 ]
+              },
+              {
+                "group": "智能体 API",
+                "pages": [
+                  "cn/api/agents/agents"
+                ]
               }
             ]
           },
@@ -158,6 +164,12 @@
                 "pages": [
                   "en/api/video/video-generation",
                   "en/api/video/get-video-status"
+                ]
+              },
+              {
+                "group": "Agents API",
+                "pages": [
+                  "en/api/agents/agents"
                 ]
               }
             ]
