@@ -1138,867 +1138,867 @@
             }
           }
         }
-      },
-      "/paas/v4/tools": {
-        "post": {
-          "tags": [
-            "tools"
-          ],
-          "summary": "网络搜索",
-          "description": "执行网络搜索并返回综合结果。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WebSearchParamsRequest"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/WebSearchResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
+      }
+    },
+    "/paas/v4/tools": {
+      "post": {
+        "tags": [
+          "tools"
+        ],
+        "summary": "网络搜索",
+        "description": "执行网络搜索并返回综合结果。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
           }
-        }
-      },
-      "/paas/v4/v1/agents": {
-        "post": {
-          "tags": [
-            "agents"
-          ],
-          "summary": "智能代理执行",
-          "description": "执行智能代理任务，支持流式和同步模式。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "stream",
-              "in": "query",
-              "description": "是否启用流式响应",
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "boolean",
-                "default": false
+                "$ref": "#/components/schemas/WebSearchParamsRequest"
               }
             }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AgentExecutionRequest"
-                }
-              }
-            },
-            "required": true
           },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AgentExecutionResponse"
-                  }
-                },
-                "text/event-stream": {
-                  "schema": {
-                    "type": "string",
-                    "description": "流式响应数据"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/v1/agents/async-result": {
-        "post": {
-          "tags": [
-            "agents"
-          ],
-          "summary": "查询代理异步结果",
-          "description": "查询智能代理异步执行的结果。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AgentAsyncResultRequest"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AgentExecutionResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/assistant": {
-        "post": {
-          "tags": [
-            "assistant"
-          ],
-          "summary": "助手对话",
-          "description": "与AI助手进行对话，支持流式和同步模式。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "stream",
-              "in": "query",
-              "description": "是否启用流式响应",
-              "schema": {
-                "type": "boolean",
-                "default": false
-              }
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AssistantRequest"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AssistantResponse"
-                  }
-                },
-                "text/event-stream": {
-                  "schema": {
-                    "type": "string",
-                    "description": "流式响应数据"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/assistant/list": {
-        "post": {
-          "tags": [
-            "assistant"
-          ],
-          "summary": "查询助手支持能力",
-          "description": "查询助手支持的功能和能力列表。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AssistantSupportRequest"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AssistantSupportResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/assistant/conversation/list": {
-        "post": {
-          "tags": [
-            "assistant"
-          ],
-          "summary": "查询对话使用统计",
-          "description": "查询助手对话的使用统计信息。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConversationUsageRequest"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ConversationUsageResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/batches": {
-        "post": {
-          "tags": [
-            "batches"
-          ],
-          "summary": "创建批处理任务",
-          "description": "创建一个新的批处理任务。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BatchCreateRequest"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/BatchObject"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
+          "required": true
         },
-        "get": {
-          "tags": [
-            "batches"
-          ],
-          "summary": "列出批处理任务",
-          "description": "获取批处理任务列表，支持分页。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "after",
-              "in": "query",
-              "description": "分页游标，用于获取指定ID之后的结果",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "name": "limit",
-              "in": "query",
-              "description": "返回结果的最大数量",
-              "schema": {
-                "type": "integer",
-                "default": 20
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/BatchListResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/batches/{batch_id}": {
-        "get": {
-          "tags": [
-            "batches"
-          ],
-          "summary": "获取批处理任务详情",
-          "description": "根据批处理任务ID获取详细信息。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "batch_id",
-              "in": "path",
-              "required": true,
-              "description": "批处理任务ID",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/BatchObject"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/batches/{batch_id}/cancel": {
-        "post": {
-          "tags": [
-            "batches"
-          ],
-          "summary": "取消批处理任务",
-          "description": "取消正在运行的批处理任务。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "batch_id",
-              "in": "path",
-              "required": true,
-              "description": "批处理任务ID",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/BatchObject"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/knowledge": {
-        "post": {
-          "tags": [
-            "knowledge"
-          ],
-          "summary": "创建知识库",
-          "description": "创建一个新的知识库。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "requestBody": {
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KnowledgeCreateRequest"
+                  "$ref": "#/components/schemas/WebSearchResponse"
                 }
               }
-            },
-            "required": true
+            }
           },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/KnowledgeObject"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "get": {
-          "tags": [
-            "knowledge"
-          ],
-          "summary": "查询知识库列表",
-          "description": "获取知识库列表，支持分页。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "page",
-              "in": "query",
-              "description": "页码",
-              "schema": {
-                "type": "integer",
-                "default": 1
-              }
-            },
-            {
-              "name": "size",
-              "in": "query",
-              "description": "每页大小",
-              "schema": {
-                "type": "integer",
-                "default": 10
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/KnowledgeListResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/knowledge/{knowledge_id}": {
-        "put": {
-          "tags": [
-            "knowledge"
-          ],
-          "summary": "修改知识库",
-          "description": "更新现有知识库的信息。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "knowledge_id",
-              "in": "path",
-              "required": true,
-              "description": "知识库ID",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "requestBody": {
+          "default": {
+            "description": "请求失败。",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KnowledgeModifyRequest"
+                  "$ref": "#/components/schemas/Error"
                 }
               }
-            },
-            "required": true
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/v1/agents": {
+      "post": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "智能代理执行",
+        "description": "执行智能代理任务，支持流式和同步模式。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
           },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/KnowledgeObject"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
+          {
+            "name": "stream",
+            "in": "query",
+            "description": "是否启用流式响应",
+            "schema": {
+              "type": "boolean",
+              "default": false
             }
           }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentExecutionRequest"
+              }
+            }
+          },
+          "required": true
         },
-        "delete": {
-          "tags": [
-            "knowledge"
-          ],
-          "summary": "删除知识库",
-          "description": "删除指定的知识库。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "knowledge_id",
-              "in": "path",
-              "required": true,
-              "description": "知识库ID",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/KnowledgeDeletedResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/knowledge/capacity": {
-        "get": {
-          "tags": [
-            "knowledge"
-          ],
-          "summary": "查询知识库使用情况",
-          "description": "获取知识库的使用统计信息。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/KnowledgeCapacityResponse"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/paas/v4/document/{document_id}": {
-        "put": {
-          "tags": [
-            "documents"
-          ],
-          "summary": "修改文档",
-          "description": "更新知识库中的文档信息。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "document_id",
-              "in": "path",
-              "required": true,
-              "description": "文档ID",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "requestBody": {
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DocumentModifyRequest"
+                  "$ref": "#/components/schemas/AgentExecutionResponse"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "description": "流式响应数据"
                 }
               }
-            },
-            "required": true
+            }
           },
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/DocumentObject"
-                  }
-                }
-              }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
           }
-        },
-        "delete": {
-          "tags": [
-            "documents"
-          ],
-          "summary": "删除文档",
-          "description": "从知识库中删除指定文档。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "document_id",
-              "in": "path",
-              "required": true,
-              "description": "文档ID",
+        }
+      }
+    },
+    "/paas/v4/v1/agents/async-result": {
+      "post": {
+        "tags": [
+          "agents"
+        ],
+        "summary": "查询代理异步结果",
+        "description": "查询智能代理异步执行的结果。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/AgentAsyncResultRequest"
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/DocumentDeletedResponse"
-                  }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentExecutionResponse"
                 }
               }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
           }
-        },
-        "get": {
-          "tags": [
-            "documents"
-          ],
-          "summary": "获取文档详情",
-          "description": "根据文档ID获取详细信息。",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/AcceptLanguage"
-            },
-            {
-              "name": "document_id",
-              "in": "path",
-              "required": true,
-              "description": "文档ID",
+        }
+      }
+    },
+    "/paas/v4/assistant": {
+      "post": {
+        "tags": [
+          "assistant"
+        ],
+        "summary": "助手对话",
+        "description": "与AI助手进行对话，支持流式和同步模式。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "stream",
+            "in": "query",
+            "description": "是否启用流式响应",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/AssistantRequest"
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "业务处理成功",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/DocumentObject"
-                  }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantResponse"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "description": "流式响应数据"
                 }
               }
-            },
-            "default": {
-              "description": "请求失败。",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/assistant/list": {
+      "post": {
+        "tags": [
+          "assistant"
+        ],
+        "summary": "查询助手支持能力",
+        "description": "查询助手支持的功能和能力列表。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantSupportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantSupportResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/assistant/conversation/list": {
+      "post": {
+        "tags": [
+          "assistant"
+        ],
+        "summary": "查询对话使用统计",
+        "description": "查询助手对话的使用统计信息。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationUsageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationUsageResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/batches": {
+      "post": {
+        "tags": [
+          "batches"
+        ],
+        "summary": "创建批处理任务",
+        "description": "创建一个新的批处理任务。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "batches"
+        ],
+        "summary": "列出批处理任务",
+        "description": "获取批处理任务列表，支持分页。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "分页游标，用于获取指定ID之后的结果",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "返回结果的最大数量",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchListResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/batches/{batch_id}": {
+      "get": {
+        "tags": [
+          "batches"
+        ],
+        "summary": "获取批处理任务详情",
+        "description": "根据批处理任务ID获取详细信息。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "description": "批处理任务ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/batches/{batch_id}/cancel": {
+      "post": {
+        "tags": [
+          "batches"
+        ],
+        "summary": "取消批处理任务",
+        "description": "取消正在运行的批处理任务。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "description": "批处理任务ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/knowledge": {
+      "post": {
+        "tags": [
+          "knowledge"
+        ],
+        "summary": "创建知识库",
+        "description": "创建一个新的知识库。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "knowledge"
+        ],
+        "summary": "查询知识库列表",
+        "description": "获取知识库列表，支持分页。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "每页大小",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeListResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/knowledge/{knowledge_id}": {
+      "put": {
+        "tags": [
+          "knowledge"
+        ],
+        "summary": "修改知识库",
+        "description": "更新现有知识库的信息。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "knowledge_id",
+            "in": "path",
+            "required": true,
+            "description": "知识库ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeModifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "knowledge"
+        ],
+        "summary": "删除知识库",
+        "description": "删除指定的知识库。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "knowledge_id",
+            "in": "path",
+            "required": true,
+            "description": "知识库ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/knowledge/capacity": {
+      "get": {
+        "tags": [
+          "knowledge"
+        ],
+        "summary": "查询知识库使用情况",
+        "description": "获取知识库的使用统计信息。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeCapacityResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/paas/v4/document/{document_id}": {
+      "put": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "修改文档",
+        "description": "更新知识库中的文档信息。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "description": "文档ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentModifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "删除文档",
+        "description": "从知识库中删除指定文档。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "description": "文档ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDeletedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "获取文档详情",
+        "description": "根据文档ID获取详细信息。",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "description": "文档ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "业务处理成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "请求失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
