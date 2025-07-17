@@ -31,6 +31,8 @@
 
 4. **OPENAPI定义校验**
 
+> OPEN API 接口的定义基于 OPENAPI 3.0.1 规范，在 `openapi/openapi.json` 文件中定义. 
+
    ```bash
    mint openapi-check openapi/openapi.json
    ```
@@ -40,7 +42,7 @@
    mint broken-links
    ```
 
-**`OEPNAPI`接口定义推荐使用 https://editor.swagger.io/ 在线编辑，或使用 Webstorm 本地编辑可视化 **
+**[`OEPNAPI`接口定义](openapi/openapi.json) 推荐使用 https://editor.swagger.io/ 在线编辑，或使用 Webstorm 本地编辑可视化**
 
 ## 📁 项目结构
 
