@@ -1,0 +1,125 @@
+---
+title: "GLM-4-Plus"
+description: "GLM-4-Plus 语言模型是智谱 BigModel 开放平台迄今为止最强高智能旗舰模型，在语言理解、逻辑推理、指令遵循、长文本处理等方面性能世界领先。 "
+---
+
+<CardGroup cols={3}>
+  <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
+    5 元 / 百万Tokens
+  </Card>
+  <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
+    文本
+  </Card>
+  <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
+    文本
+  </Card>
+  <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
+    128K
+  </Card>
+  <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
+    4K
+  </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+  <Accordion title="翻译" icon="language">
+    除了多语种翻译，还能对多语言混杂、语气、黑话、俚语、表情符号、专用术语等特殊文本准确处理，同时兼顾文化差异。
+  </Accordion>
+  <Accordion title="智能数据分类" icon="database">
+    基于语义理解对复杂异构数据进行高精度自动分类与标签化；根据业务目标设计多维度评估指标方案；最后通过模型验证自动化校验指标结果可靠性。
+  </Accordion>
+  <Accordion title="文件信息提取" icon="file-doc">
+    对海量文本进行理解和解析，精准提取项目编号、金额等结构化字段，平均准确率达93%以上；同时结合业务专家知识提炼的提示词，完成复杂条款的语义推理与分类。
+  </Accordion>
+  <Accordion title="爆款文案策划" icon="message-heart">
+    快速生成多样化、风格统一且极具吸引力的高质量文案，涵盖社交媒体推文、广告标语、产品详情页、营销邮件、活动策划核心描述等多种需求。（推荐与[搜索工具](https://www.bigmodel.cn/dev/howuse/websearch)结合，获取当下热点、爆梗、流行趋势等）
+  </Accordion>
+  <Accordion title="风险评估报告" icon="file-circle-exclamation">
+    快速分析海量最新行业数据、政策文件与市场动态，识别潜在风险点，自动符合需求的风险评估报告，高效完成风险等级划分与应对策略制定。（推荐与[搜索工具](https://www.bigmodel.cn/dev/howuse/websearch)结合，获取实时行业动态、政策趋势、数据情况等）
+  </Accordion>
+  <Accordion title="智能行程规划" icon="router">
+    遵循旅行偏好、预算要求、时间规划等用户指令，结合交通、天气、机酒费用等信息，规划覆盖交通接驳、食宿安排、景点推荐等个性化行程方案。（推荐与[搜索工具](https://www.bigmodel.cn/dev/howuse/websearch)结合，获取实时天气、交通状况及费用等，更准确合理地进行规划）
+  </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[体验中心](https://bigmodel.cn/trialcenter/modeltrial/text?modelCode=glm-4-plus)：快速测试模型在业务场景上的效果\
+[接口文档](https://bigmodel.cn/dev/api/normal-model/glm-4)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+  <Step title="语言能力" titleSize="h2">
+    GLM-4-Plus 使用了大量模型辅助构造高质量合成数据以提升模型性能，利用PPO有效提升模型推理（数学、代码算法题等）表现，更好反映人类偏好。在与 OpenAI GPT-4o 的对比测试中，GLM-4-Plus 已经可以在大多数任务上做到逼近，甚至在某些任务上实现了超越。
+
+    | 模型                           | AlignBench | MMLU | MATH | GPQA   | LCB    | NCB  | IFEval |
+    | :--------------------------- | :--------: | :--: | :--: | :----: | :----: | :--: | :----: |
+    | Claude 3.5 Sonnet            | 80.7       | 88.3 | 71.1 | \*56.4 | 49.8   | 53.1 | 80.6   |
+    | Llama 3.1 405B               | 60.7       | 88.6 | 73.8 | \*50.1 | \*39.4 | 50   | 83.9   |
+    | Gemini 1.5Pro                | 74.7       | 85.9 | 67.7 | 46.2   | 33.6   | 42.3 | 74.4   |
+    | GPT-4o                       | 83.8       | 88.7 | 76.6 | \*51.0 | \*45.5 | 52.3 | 81.9   |
+    | GLM-4-Plus                   | 83.2       | 86.8 | 74.2 | 50.7   | \*45.8 | 50.4 | 79.5   |
+    | GLM-4-Plus/GPT-4o            | 99%        | 98%  | 97%  | 99%    | 101%   | 96%  | 97%    |
+    | GLM-4-Plus/Claude 3.5 Sonnet | 103%       | 98%  | 104% | 85%    | 92%    | 95%  | 99%    |
+
+    > LCB (LiveCodeBench)、NCB (NaturalCodeBench)、\* represents reproduced results 在发布时期的 SuperBench 大模型评测中，GLM-4-Plus 位列世界前三，打破此前国外模型垄断前三甲的局面。
+
+    ![Description](https://cdn.bigmodel.cn/markdown/1749449741669%E6%80%BB%E6%A6%9C%E5%8D%95.png?attname=%E6%80%BB%E6%A6%9C%E5%8D%95.png)
+  </Step>
+  <Step title="长文本能力" iconType="regular" stepNumber={2} titleSize="h2">
+    长文本处理方面，GLM-4-Plus 通过更精准的长短文本数据混合策略，显著增强了长文本的推理效果，在长文本理解和处理上获得显著提升，极大地优化了在企业落地场景传入过多 prompt 时导致的效果下降问题。
+
+    | 模型                           | LongBench-Chat | InfiniteBench/EN.MC | Ruler |
+    | :--------------------------- | :------------: | :-----------------: | :---: |
+    | Mistral-123B                 | 8.2            | 38.9                | 80.5  |
+    | Llama 405B                   | 8.6            | 83.4                | 91.5  |
+    | Claude Sonnet 3.5            | 8.6            | 79.5                | -     |
+    | Gemini 1.5 Pro               | 8.6            | 80.9                | 95.8  |
+    | GPT-4o                       | 9              | 82.5                | -     |
+    | GLM-4-Plus                   | 8.8            | 85.1                | 93    |
+    | GLM-4-Plus/GPT-4o            | 98%            | 103%                | -     |
+    | GLM-4-Plus/Claude 3.5 Sonnet | 102%           | 107%                | -     |
+  </Step>
+</Steps>
+
+## <Icon icon="arrow-down-big-small" iconType="solid" color="#3890ff" size={28} />   功能支持
+
+<CardGroup cols={3}>
+  <Card title="流式输出" icon="arrow-down-from-dotted-line" href="https://docs.z.ai">
+    
+  </Card>
+  <Card title="结构化输出" icon="arrow-down-from-line" href="https://docs.z.ai">
+    
+  </Card>
+  <Card title="函数调用" icon="function" href="https://docs.z.ai">
+    
+  </Card>
+</CardGroup>
+
+## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+以下是一个完整的调用示例，帮助您快速上手 GLM-4-Plus 模型。
+
+```python
+from zhipuai import ZhipuAI
+client = ZhipuAI(api_key="") # 填写您自己的APIKey
+response = client.chat.completions.create(
+    model="glm-4-plus",  # 填写需要调用的模型编码
+    messages=[
+        {"role": "system", "content": "你是一个乐于解答各种问题的助手，你的任务是为用户提供专业、准确、有见地的建议。"},
+        {"role": "user", "content": "农夫需要把狼、羊和白菜都带过河，但每次只能带一样物品，而且狼和羊不能单独相处，羊和白菜也不能单独相处，问农夫该如何过河。"}
+    ],
+)
+print(response.choices[0].message)
+```
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1  | V2  | V3  |
+| --- | --- | --- | --- |
+| 50 | 100 | 300 | 500 |
