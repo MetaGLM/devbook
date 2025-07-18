@@ -1,0 +1,793 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Knowledge API",
+        "description": "ZHIPU AI 知识库管理接口，支持知识库的创建、查询、修改、删除和容量统计。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "knowledge",
+            "description": "Knowledge API"
+        },
+        {
+            "name": "document",
+            "description": "Document API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/knowledge": {
+            "post": {
+                "tags": [
+                    "knowledge"
+                ],
+                "summary": "创建个人知识库",
+                "description": "用于创建个人知识库，支持绑定向量化模型、设置名称、描述、背景色和图标。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeCreateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KnowledgeCreateResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "knowledge"
+                ],
+                "summary": "获取个人知识库列表",
+                "description": "获取个人知识库列表，支持分页。",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "页码，默认1",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "每页数量，默认10",
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KnowledgeListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/knowledge/{id}": {
+            "put": {
+                "tags": [
+                    "knowledge"
+                ],
+                "summary": "编辑个人知识库",
+                "description": "用于编辑已经创建好的个人知识库，仅传入要修改的字段。",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "知识库id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KnowledgeEditRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KnowledgeEditResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "knowledge"
+                ],
+                "summary": "获取个人知识库详情",
+                "description": "根据知识库id获取个人知识库详情。",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "知识库id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KnowledgeDetailResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "knowledge"
+                ],
+                "summary": "删除个人知识库",
+                "description": "根据知识库id删除个人知识库。",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "知识库id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KnowledgeDeleteResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/knowledge/capacity": {
+            "get": {
+                "tags": [
+                    "knowledge"
+                ],
+                "summary": "获取知识库使用量详情",
+                "description": "获取个人知识库的使用量详情，包括字数和字节数。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KnowledgeCapacityResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/document/upload_document/{id}": {
+            "post": {
+                "tags": [
+                    "document"
+                ],
+                "summary": "知识库上传文档",
+                "description": "向指定知识库上传文档，支持多种切片方式和回调。",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "知识库id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocumentUploadRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentUploadResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "KnowledgeCreateRequest": {
+                "type": "object",
+                "properties": {
+                    "embedding_id": {
+                        "type": "integer",
+                        "description": "知识库绑定的向量化模型ID"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "知识库名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "知识库描述"
+                    },
+                    "background": {
+                        "type": "string",
+                        "description": "背景颜色，可选：blue, red, orange, purple, sky, green, yellow，默认blue"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "知识库图标，可选：question, book, seal, wrench, tag, horn, house，默认question"
+                    }
+                },
+                "required": [
+                    "embedding_id",
+                    "name"
+                ]
+            },
+            "KnowledgeCreateResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "生成的知识库唯一id"
+                            }
+                        }
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            },
+            "KnowledgeEditRequest": {
+                "type": "object",
+                "properties": {
+                    "embedding_id": {
+                        "type": "integer",
+                        "description": "知识库绑定的向量化模型ID"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "知识库名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "知识库描述"
+                    },
+                    "background": {
+                        "type": "string",
+                        "description": "背景颜色，可选：blue, red, orange, purple, sky, green, yellow"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "知识库图标，可选：question, book, seal, wrench, tag, horn, house"
+                    },
+                    "callback_url": {
+                        "type": "string",
+                        "description": "回调地址（若修改向量模型，则需要重新构建知识，由客户决定是否单独配置回调）"
+                    },
+                    "callback_header": {
+                        "type": "object",
+                        "description": "回调时header携带的k-v（若修改向量模型，则需要重新构建知识，由客户决定是否单独配置回调）"
+                    }
+                }
+            },
+            "KnowledgeEditResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "KnowledgeListResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "list": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/KnowledgeListItem"
+                                },
+                                "description": "知识库列表"
+                            },
+                            "total": {
+                                "type": "integer",
+                                "description": "知识库总数量"
+                            }
+                        }
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "KnowledgeListItem": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "知识库id"
+                    },
+                    "embedding_id": {
+                        "type": "integer",
+                        "description": "向量化模型id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "知识库名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "知识库描述"
+                    },
+                    "background": {
+                        "type": "string",
+                        "description": "背景颜色"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "description": "知识库图标"
+                    },
+                    "document_size": {
+                        "type": "integer",
+                        "description": "文档数量"
+                    },
+                    "length": {
+                        "type": "integer",
+                        "description": "分词后总长度"
+                    },
+                    "word_num": {
+                        "type": "integer",
+                        "description": "总字数"
+                    }
+                }
+            },
+            "KnowledgeDetailResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/KnowledgeListItem"
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "KnowledgeDeleteResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "KnowledgeCapacityResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "used": {
+                                "$ref": "#/components/schemas/KnowledgeCapacityItem"
+                            },
+                            "total": {
+                                "$ref": "#/components/schemas/KnowledgeCapacityItem"
+                            }
+                        }
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "KnowledgeCapacityItem": {
+                "type": "object",
+                "properties": {
+                    "word_num": {
+                        "type": "integer",
+                        "description": "字数"
+                    },
+                    "length": {
+                        "type": "integer",
+                        "description": "字节数"
+                    }
+                }
+            },
+            "DocumentUploadRequest": {
+                "type": "object",
+                "properties": {
+                    "files": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "binary"
+                        },
+                        "description": "文件数组"
+                    },
+                    "knowledge_type": {
+                        "type": "integer",
+                        "description": "知识类型，不传则动态解析"
+                    },
+                    "custom_separator": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "自定义切片规则，knowledge_type=5时传，默认\n"
+                    },
+                    "sentence_size": {
+                        "type": "integer",
+                        "description": "自定义切片大小，knowledge_type=5时传，20-2000，默认300"
+                    },
+                    "parse_image": {
+                        "type": "boolean",
+                        "description": "是否解析图片，默认不解析"
+                    },
+                    "callback_url": {
+                        "type": "string",
+                        "description": "回调地址"
+                    },
+                    "callback_header": {
+                        "type": "object",
+                        "description": "回调时header携带的k-v"
+                    },
+                    "word_num_limit": {
+                        "type": "string",
+                        "description": "文档字数上限，必须为数字"
+                    },
+                    "req_id": {
+                        "type": "string",
+                        "description": "请求唯一id"
+                    }
+                },
+                "required": [
+                    "files"
+                ]
+            },
+            "DocumentUploadResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "successInfos": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/DocumentUploadSuccessInfo"
+                                },
+                                "description": "上传成功的文件"
+                            },
+                            "failedInfos": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/DocumentUploadFailedInfo"
+                                },
+                                "description": "上传失败的文件"
+                            }
+                        }
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码，200为成功"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "响应信息"
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "description": "响应时间戳"
+                    }
+                }
+            },
+            "DocumentUploadSuccessInfo": {
+                "type": "object",
+                "properties": {
+                    "documentId": {
+                        "type": "string",
+                        "description": "知识id"
+                    },
+                    "fileName": {
+                        "type": "string",
+                        "description": "文件名"
+                    }
+                }
+            },
+            "DocumentUploadFailedInfo": {
+                "type": "object",
+                "properties": {
+                    "fileName": {
+                        "type": "string",
+                        "description": "文件名"
+                    },
+                    "failReason": {
+                        "type": "string",
+                        "description": "失败原因"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)"
+            }
+        }
+    }
+}

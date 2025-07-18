@@ -61,7 +61,7 @@
     ],
     "paths": {
         "/paas/v4/chat/completions": {
-            "$ref": "./chat.json#/paths/~1paas~1v4~1chat~1completions"
+            "$ref": "#./chat.json#/paths/~1paas~1v4~1chat~1completions"
         },
         "/paas/v4/embeddings": {
             "$ref": "./embedding.json#/paths/~1paas~1v4~1embeddings"

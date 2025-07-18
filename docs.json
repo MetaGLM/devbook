@@ -29,15 +29,15 @@
     },
     "openapi": [
       "openapi/chat.json",
+      "openapi/embedding.json",
       "openapi/audio.json",
       "openapi/image.json",
-      "openapi/embedding.json",
-      "openapi/file.json",
-      "openapi/tools.json",
-      "openapi/assistant.json",
-      "openapi/batch.json",
       "openapi/video.json",
-      "openapi/agents.json"
+      "openapi/tools.json",
+      "openapi/file.json",
+      "openapi/batch.json",
+      "openapi/knowledge.json",
+      "openapi/assistant.json"
     ]
   },
   "navigation": {
@@ -143,7 +143,15 @@
               },
               {
                 "group": "知识库 API",
-                "pages": []
+                "pages": [
+                  "cn/api/knowledge/knowledge",
+                  "cn/api/knowledge/knowledge-edit",
+                  "cn/api/knowledge/knowledge-list",
+                  "cn/api/knowledge/knowledge-detail",
+                  "cn/api/knowledge/knowledge-delete",
+                  "cn/api/knowledge/knowledge-capacity",
+                  "cn/api/knowledge/document-upload"
+                ]
               },
               {
                 "group": "文档 API",
@@ -284,7 +292,15 @@
               },
               {
                 "group": "Knowledge API",
-                "pages": []
+                "pages": [
+                  "en/api/knowledge/knowledge",
+                  "en/api/knowledge/knowledge-edit",
+                  "en/api/knowledge/knowledge-list",
+                  "en/api/knowledge/knowledge-detail",
+                  "en/api/knowledge/knowledge-delete",
+                  "en/api/knowledge/knowledge-capacity",
+                  "en/api/knowledge/document-upload"
+                ]
               },
               {
                 "group": "Document API",
