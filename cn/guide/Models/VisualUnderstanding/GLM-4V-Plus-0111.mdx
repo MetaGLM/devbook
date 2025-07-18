@@ -4,38 +4,38 @@ description: "GLM-4V-Plus-0111 是智谱新一代视觉理解模型，具备视�
 ---
 
 <CardGroup cols={3}>
-    <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
-        4 元 / 百万Tokens
-    </Card>
-    <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
-        视频、图像、文本
-    </Card>
-    <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
-        文本
-    </Card>
-    <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
-        16K
-    </Card>
-    <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
-        动态计算：上下文-输入
-    </Card>
+  <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
+    4 元 / 百万Tokens
+  </Card>
+  <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
+    视频、图像、文本
+  </Card>
+  <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
+    文本
+  </Card>
+  <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
+    16K
+  </Card>
+  <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
+    动态计算：上下文-输入
+  </Card>
 </CardGroup>
 
 ## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
 
 <AccordionGroup>
-    <Accordion title="广告创意评估" icon="language">
-        支持解析广告视频的视觉元素（如品牌标识露出时长、场景构图合理性），自动分类内容风格并标注情感倾向，结合视频事件分析能力评估目标受众匹配度，为广告策划提供数据化优化建议。
-    </Accordion>
-    <Accordion title="教育课件制作" icon="database">
-        分析教学图片、视频内容，自动总结知识点，通过视觉问答解答学生疑问，辅助教师快速生成图文并茂的优质课件。
-    </Accordion>
-    <Accordion title="工业质检" icon="file-doc">
-        对生产线上的产品图像进行复杂目标检测，快速定位瑕疵位置，通过视觉总结生成质检报告，实现高效自动化质量把控。
-    </Accordion>
-    <Accordion title="社交平台审核" icon="message-heart">
-        实时抓取视频流与图片库，精准分类媒体平台违规内容并自动分割问题片段，通过视频打标签与事件分析生成结构化审核报告，助力平台高效完成合规性筛查。
-    </Accordion>
+  <Accordion title="广告创意评估" icon="lightbulb-on">
+    支持解析广告视频的视觉元素（如品牌标识露出时长、场景构图合理性），自动分类内容风格并标注情感倾向，结合视频事件分析能力评估目标受众匹配度，为广告策划提供数据化优化建议。
+  </Accordion>
+  <Accordion title="教育课件制作" icon="file-ppt">
+    分析教学图片、视频内容，自动总结知识点，通过视觉问答解答学生疑问，辅助教师快速生成图文并茂的优质课件。
+  </Accordion>
+  <Accordion title="工业质检" icon="industry">
+    对生产线上的产品图像进行复杂目标检测，快速定位瑕疵位置，通过视觉总结生成质检报告，实现高效自动化质量把控。
+  </Accordion>
+  <Accordion title="社交平台审核" icon="comment-exclamation">
+    实时抓取视频流与图片库，精准分类媒体平台违规内容并自动分割问题片段，通过视频打标签与事件分析生成结构化审核报告，助力平台高效完成合规性筛查。
+  </Accordion>
 </AccordionGroup>
 
 ## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
@@ -46,262 +46,261 @@ description: "GLM-4V-Plus-0111 是智谱新一代视觉理解模型，具备视�
 ## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
 
 <Steps>
-    <Step title="更准确的视觉描述能力" titleSize="h3">
-        GLM-4V-Plus-0111 在不牺牲任何NLP任务性能的情况下，实现了视觉语言特征的深度融合；同时得益于原生分辨率输入的优势，加上数据飞轮持续进行幻觉优化，具备更低幻觉和更全面的视觉内容描述能力。
+  <Step title="更准确的视觉描述能力" titleSize="h3">
+    GLM-4V-Plus-0111 在不牺牲任何NLP任务性能的情况下，实现了视觉语言特征的深度融合；同时得益于原生分辨率输入的优势，加上数据飞轮持续进行幻觉优化，具备更低幻觉和更全面的视觉内容描述能力。
 
-        除了详细描述的能力，GLM-4V-Plus-0111 还能对图像视频数据进行分类，取标题，打标签，用户可以通过自定义提示词，提升图像视频数据的处理效率或者构建自动化视觉数据流程。
-    </Step>
-    <Step title="精准的时间感知能力" iconType="regular" stepNumber={2} titleSize="h3">
-        视频数据不同于图像，其具有额外的时间维度。而大部分其他视觉理解模型，由于没有时间戳信息作为输入，因此并不具备时间感知和时间问答的能力。GLM-4V-Plus-0111 的时间问答能力，可以帮助我们快速定位发生特定事件的时间点，从而实现对视频的语义分割和视频自动化剪辑。
-    </Step>
-    <Step title="精准的时间感知能力" iconType="regular" stepNumber={3} titleSize="h3">
-        当图像分辨率、视频帧率过低的时候，即便是人类也无法感知视频中的微小变动。GLM-4V-Plus-0111 具备更加精细的动作理解能力，精准解析视觉细节。
-    </Step>
-    <Step title="精准的时间感知能力" iconType="regular" stepNumber={4} titleSize="h3">
-        GLM-4V-Plus-0111 具备卓越的多模态理解能力，可同时处理5张图像。通过可变分辨率技术，GLM-4V-Plus-0111 能够适应更多的视频长度和视频分辨率，最高可支持长达2小时的视频理解，突破了视频处理的上限，拓宽视觉理解模型的业务场景。
-    </Step>
+    除了详细描述的能力，GLM-4V-Plus-0111 还能对图像视频数据进行分类，取标题，打标签，用户可以通过自定义提示词，提升图像视频数据的处理效率或者构建自动化视觉数据流程。
+  </Step>
+  <Step title="精准的时间感知能力" iconType="regular" stepNumber={2} titleSize="h3">
+    视频数据不同于图像，其具有额外的时间维度。而大部分其他视觉理解模型，由于没有时间戳信息作为输入，因此并不具备时间感知和时间问答的能力。GLM-4V-Plus-0111 的时间问答能力，可以帮助我们快速定位发生特定事件的时间点，从而实现对视频的语义分割和视频自动化剪辑。
+  </Step>
+  <Step title="精准的时间感知能力" iconType="regular" stepNumber={3} titleSize="h3">
+    当图像分辨率、视频帧率过低的时候，即便是人类也无法感知视频中的微小变动。GLM-4V-Plus-0111 具备更加精细的动作理解能力，精准解析视觉细节。
+  </Step>
+  <Step title="精准的时间感知能力" iconType="regular" stepNumber={4} titleSize="h3">
+    GLM-4V-Plus-0111 具备卓越的多模态理解能力，可同时处理5张图像。通过可变分辨率技术，GLM-4V-Plus-0111 能够适应更多的视频长度和视频分辨率，最高可支持长达2小时的视频理解，突破了视频处理的上限，拓宽视觉理解模型的业务场景。
+  </Step>
 </Steps>
 
 ## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
 
-<AccordionGroup>
-    <Accordion title="视频理解" titleSize="h3">
-        ### 上传视频URL
+<Tabs>
+  <Tab title="视频理解">
+    ### 上传视频URL
 
-        ```python
-        from zhipuai import ZhipuAI
-
-        client = ZhipuAI(api_key="YOUR API KEY") # Fill in your own APIKey
-        response = client.chat.completions.create(
-        model="glm-4v-plus",  # Fill in the model name to be called
-        messages=[
-        {
-            "role": "user",
-            "content": [
-        {
-            "type": "video_url",
-            "video_url": {
-            "url" : "https://sfile.chatglm.cn/testpath/video/b844f8f1-5df9-556c-a515-3d3bfaa736e8_0.mp4"
-        }
-        },
-        {
-            "type": "text",
-            "text": "Please describe this video in detail"
-        }
-            ]
-        }
+    ```python
+    from zhipuai import ZhipuAI
+    
+    client = ZhipuAI(api_key="YOUR API KEY") # Fill in your own APIKey
+    response = client.chat.completions.create(
+    model="glm-4v-plus",  # Fill in the model name to be called
+    messages=[
+    {
+        "role": "user",
+        "content": [
+    {
+        "type": "video_url",
+        "video_url": {
+        "url" : "https://sfile.chatglm.cn/testpath/video/b844f8f1-5df9-556c-a515-3d3bfaa736e8_0.mp4"
+    }
+    },
+    {
+        "type": "text",
+        "text": "Please describe this video in detail"
+    }
         ]
-        )
-        print(response.choices[0].message)
-        ```
+    }
+    ]
+    )
+    print(response.choices[0].message)
+    ```
 
-        ### 上传视频Base64
+    ### 上传视频Base64
 
-        ```python
-        import base64
-        from zhipuai import ZhipuAI
-
-        video_path = "/Users/YourCompluter/xxxx.mp4"
-        with open(video_path, 'rb') as video_file:
-        video_base = base64.b64encode(video_file.read()).decode('utf-8')
-
-        client = ZhipuAI(api_key="YOUR API KEY") # 填写您自己的APIKey
-        response = client.chat.completions.create(
-        model="glm-4v-plus-0111",  # 填写需要调用的模型名称
-        messages=[
-        {
-            "role": "user",
-            "content": [
-        {
-            "type": "video_url",
-            "video_url": {
-            "url" : video_base
-        }
-        },
-        {
-            "type": "text",
-            "text": "请仔细描述这个视频"
-        }
-            ]
-        }
+    ```python
+    import base64
+    from zhipuai import ZhipuAI
+    
+    video_path = "/Users/YourCompluter/xxxx.mp4"
+    with open(video_path, 'rb') as video_file:
+    video_base = base64.b64encode(video_file.read()).decode('utf-8')
+    
+    client = ZhipuAI(api_key="YOUR API KEY") # 填写您自己的APIKey
+    response = client.chat.completions.create(
+    model="glm-4v-plus-0111",  # 填写需要调用的模型名称
+    messages=[
+    {
+        "role": "user",
+        "content": [
+    {
+        "type": "video_url",
+        "video_url": {
+        "url" : video_base
+    }
+    },
+    {
+        "type": "text",
+        "text": "请仔细描述这个视频"
+    }
         ]
-        )
-        print(response.choices[0].message)
-        ```
-    </Accordion>
-    <Accordion title="图片理解" titleSize="h3">
-        ### 上传图片URL
+    }
+    ]
+    )
+    print(response.choices[0].message)
+    ```
+  </Tab>
+  <Tab title="图片理解">
+    ### 上传图片URL
 
-        GLM-4V-Plus 支持最多5张图像的理解。
+    GLM-4V-Plus 支持最多5张图像的理解。
 
-        ```python
-        from zhipuai import ZhipuAI
-        client = ZhipuAI(api_key="") # 填写您自己的APIKey
-        response = client.chat.completions.create(
-        model="glm-4v-plus-0111",
-        stream=False,
-        messages=[
-        {
-            "role": "user",
-            "content": [
-        {
-            "type": "image_url",
-            "image_url": {
-            "url": "https://aigc-files.bigmodel.cn/api/cogview/202411181621355e276522adac433a_0.png"
-        }
-        },
-        {
-            "type": "image_url",
-            "image_url": {
-            "url": "https://aigc-files.bigmodel.cn/api/cogview/2024111816214822f9ee58eefa48bc_0.png"
-        }
-        },
-        {
-            "type": "image_url",
-            "image_url": {
-            "url": "https://aigc-files.bigmodel.cn/api/cogview/2024111816415481bfd2e6ef99445e_0.png"
-        }
-        },
-        {
-            "type": "image_url",
-            "image_url": {
-            "url": "https://aigc-files.bigmodel.cn/api/cogview/20241118164408b8bdfd6a63484cf3_0.png"
-        }
-        },
-        {
-            "type": "image_url",
-            "image_url": {
-            "url": "https://aigc-files.bigmodel.cn/api/cogview/20241118164507bfd683b3d8d84de8_0.png"
-        }
-        },
-        {
-            "type": "text",
-            "text": "图中的狗有什么区别"
-        }
-            ]
-        }
+    ```python
+    from zhipuai import ZhipuAI
+    client = ZhipuAI(api_key="") # 填写您自己的APIKey
+    response = client.chat.completions.create(
+    model="glm-4v-plus-0111",
+    stream=False,
+    messages=[
+    {
+        "role": "user",
+        "content": [
+    {
+        "type": "image_url",
+        "image_url": {
+        "url": "https://aigc-files.bigmodel.cn/api/cogview/202411181621355e276522adac433a_0.png"
+    }
+    },
+    {
+        "type": "image_url",
+        "image_url": {
+        "url": "https://aigc-files.bigmodel.cn/api/cogview/2024111816214822f9ee58eefa48bc_0.png"
+    }
+    },
+    {
+        "type": "image_url",
+        "image_url": {
+        "url": "https://aigc-files.bigmodel.cn/api/cogview/2024111816415481bfd2e6ef99445e_0.png"
+    }
+    },
+    {
+        "type": "image_url",
+        "image_url": {
+        "url": "https://aigc-files.bigmodel.cn/api/cogview/20241118164408b8bdfd6a63484cf3_0.png"
+    }
+    },
+    {
+        "type": "image_url",
+        "image_url": {
+        "url": "https://aigc-files.bigmodel.cn/api/cogview/20241118164507bfd683b3d8d84de8_0.png"
+    }
+    },
+    {
+        "type": "text",
+        "text": "图中的狗有什么区别"
+    }
         ]
-        )
+    }
+    ]
+    )
+    
+    # 输出结果
+    print(response)
+    ```
 
-        # 输出结果
-        print(response)
-        ```
+    ### 上传图片Base64
 
-        ### 上传图片Base64
-
-        ```python
-        import base64
-        from zhipuai import ZhipuAI
-
-        img_path = "/Users/YourCompluter/xxxx.jpeg"
-        with open(img_path, 'rb') as img_file:
-        img_base = base64.b64encode(img_file.read()).decode('utf-8')
-
-        client = ZhipuAI(api_key="YOUR API KEY") # 填写您自己的APIKey
-        response = client.chat.completions.create(
-        model="glm-4v-plus-0111",  # 填写需要调用的模型名称
-        messages=[
-        {
-            "role": "user",
-            "content": [
-        {
-            "type": "image_url",
-            "image_url": {
-            "url": img_base
-        }
-        },
-        {
-            "type": "text",
-            "text": "请描述这个图片"
-        }
-            ]
-        }
+    ```python
+    import base64
+    from zhipuai import ZhipuAI
+    
+    img_path = "/Users/YourCompluter/xxxx.jpeg"
+    with open(img_path, 'rb') as img_file:
+    img_base = base64.b64encode(img_file.read()).decode('utf-8')
+    
+    client = ZhipuAI(api_key="YOUR API KEY") # 填写您自己的APIKey
+    response = client.chat.completions.create(
+    model="glm-4v-plus-0111",  # 填写需要调用的模型名称
+    messages=[
+    {
+        "role": "user",
+        "content": [
+    {
+        "type": "image_url",
+        "image_url": {
+        "url": img_base
+    }
+    },
+    {
+        "type": "text",
+        "text": "请描述这个图片"
+    }
         ]
-        )
-        print(response.choices[0].message)
-        ```
+    }
+    ]
+    )
+    print(response.choices[0].message)
+    ```
 
-        ### 多轮图片对话
+    ### 多轮图片对话
 
-        ```python
-        from zhipuai import ZhipuAI
+    ```python
+    from zhipuai import ZhipuAI
+    
+    client = ZhipuAI(api_key="YOUR API KEY") # 填写您自己的APIKey
+    response = client.chat.completions.create(
+    model="glm-4v-plus-0111",  # 填写需要调用的模型名称
+    messages=[
+    {
+        "content": [
+    {
+        "image_url": {
+        "url": "https://cdn.bigmodel.cn/xxxxxx.png"
+    },
+        "type": "image_url"
+    },
+    {
+        "text": "图中有什么",
+        "type": "text"
+    }
+        ],
+        "role": "user"
+    },
+    {
+        "content": [
+    {
+        "text": "这是一幅描绘自然风景的画，展现了一片宁静的湖泊，湖水呈现出深浅不一的蓝绿色调。湖边长着一棵盛开的樱花树，粉白色的花朵在阳光下显得格外鲜艳。树下有一位身穿蓝色衣服的人坐在船上，似乎正在享受这美好的时光。\n\n背景是连绵起伏的山脉，山体被绿色的植被覆盖，山顶则被云雾缭绕，增添了几分神秘感。远处还可以看到一座小亭子，它坐落在湖边的岩石上，与周围的自然环境和谐相融。\n\n整个画面给人一种宁静、和谐的感觉，仿佛置身于一个世外桃源之中。",
+        "type": "text"
+    }
+        ],
+        "role": "assistant"
+    },
+    {
+        "content": [
+    {
+        "image_url": {
+        "url": "https://cdn.bigmodel.cn/xxxxxxx.jpeg"
+    },
+        "type": "image_url"
+    },
+    {
+        "text": "这个图与上面图有什么不一样",
+        "type": "text"
+    }
+        ],
+        "role": "user"
+    },
+    {
+        "content": [
+    {
+        "text": "第一张图和第二张图在画面内容、构图、色彩等方面都有很大的不同，形成鲜明的对比。\n\n1.第一张图是风景画，主要描绘了自然风景，如樱花树、湖泊、山脉等，色彩丰富，充满春天的气息，而第二张图是描绘长城在冬季的风景照片，长城在白雪覆盖的山脉中蜿蜒盘旋，整体色调偏冷，给人一种寒冷、宁静的感觉。\n\n2.构图上，第一张图采用对称式构图，以樱花树为中心，两侧的景物相互呼应，形成平衡和谐的画面效果，第二张图则采用对角线构图，长城作为视觉引导线，引导观众的视线穿越整个画面，增加画面的深度和动态感。\n\n整体来看，这两张图在画面内容、色彩、构图和氛围上都呈现出明显的对比，一张是充满生机和色彩的春日风景画，另一张是宁静而神秘的冬日长城风景照。",
+        "type": "text"
+    }
+        ],
+        "role": "assistant"
+    },
+    {
+        "content": [
+    {
+        "image_url": {
+        "url": "https://cdn.bigmodel.cn/xxxxxxx.jpeg"
+    },
+        "type": "image_url"
+    },
+    {
+        "text": "这个图与上一张图有什么区别",
+        "type": "text"
+    }
+        ],
+        "role": "user"
+    }
+    ]
+    )
+    print(response.choices[0].message)
+    ```
+  </Tab>
+</Tabs>
 
-        client = ZhipuAI(api_key="YOUR API KEY") # 填写您自己的APIKey
-        response = client.chat.completions.create(
-        model="glm-4v-plus-0111",  # 填写需要调用的模型名称
-        messages=[
-        {
-            "content": [
-        {
-            "image_url": {
-            "url": "https://cdn.bigmodel.cn/xxxxxx.png"
-        },
-            "type": "image_url"
-        },
-        {
-            "text": "图中有什么",
-            "type": "text"
-        }
-            ],
-            "role": "user"
-        },
-        {
-            "content": [
-        {
-            "text": "这是一幅描绘自然风景的画，展现了一片宁静的湖泊，湖水呈现出深浅不一的蓝绿色调。湖边长着一棵盛开的樱花树，粉白色的花朵在阳光下显得格外鲜艳。树下有一位身穿蓝色衣服的人坐在船上，似乎正在享受这美好的时光。\n\n背景是连绵起伏的山脉，山体被绿色的植被覆盖，山顶则被云雾缭绕，增添了几分神秘感。远处还可以看到一座小亭子，它坐落在湖边的岩石上，与周围的自然环境和谐相融。\n\n整个画面给人一种宁静、和谐的感觉，仿佛置身于一个世外桃源之中。",
-            "type": "text"
-        }
-            ],
-            "role": "assistant"
-        },
-        {
-            "content": [
-        {
-            "image_url": {
-            "url": "https://cdn.bigmodel.cn/xxxxxxx.jpeg"
-        },
-            "type": "image_url"
-        },
-        {
-            "text": "这个图与上面图有什么不一样",
-            "type": "text"
-        }
-            ],
-            "role": "user"
-        },
-        {
-            "content": [
-        {
-            "text": "第一张图和第二张图在画面内容、构图、色彩等方面都有很大的不同，形成鲜明的对比。\n\n1.第一张图是风景画，主要描绘了自然风景，如樱花树、湖泊、山脉等，色彩丰富，充满春天的气息，而第二张图是描绘长城在冬季的风景照片，长城在白雪覆盖的山脉中蜿蜒盘旋，整体色调偏冷，给人一种寒冷、宁静的感觉。\n\n2.构图上，第一张图采用对称式构图，以樱花树为中心，两侧的景物相互呼应，形成平衡和谐的画面效果，第二张图则采用对角线构图，长城作为视觉引导线，引导观众的视线穿越整个画面，增加画面的深度和动态感。\n\n整体来看，这两张图在画面内容、色彩、构图和氛围上都呈现出明显的对比，一张是充满生机和色彩的春日风景画，另一张是宁静而神秘的冬日长城风景照。",
-            "type": "text"
-        }
-            ],
-            "role": "assistant"
-        },
-        {
-            "content": [
-        {
-            "image_url": {
-            "url": "https://cdn.bigmodel.cn/xxxxxxx.jpeg"
-        },
-            "type": "image_url"
-        },
-        {
-            "text": "这个图与上一张图有什么区别",
-            "type": "text"
-        }
-            ],
-            "role": "user"
-        }
-        ]
-        )
-        print(response.choices[0].message)
-        ```
-    </Accordion>
-</AccordionGroup>
-
-
-## 用户并发权益
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   用户并发权益
 
 API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
 
