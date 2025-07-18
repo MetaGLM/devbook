@@ -61,7 +61,7 @@
               {
                 "group": "语言模型",
                 "pages": [
-                  "cn/guide/chat/chat-completions"
+                  "cn/api/chat/chat-completions"
                 ]
               },
               {
@@ -145,11 +145,7 @@
               },
               {
                 "group": "知识库 API",
-                "pages": [
-                  "cn/api/knowledge/knowledge",
-                  "cn/api/knowledge/get-knowledge",
-                  "cn/api/knowledge/capacity"
-                ]
+                "pages": []
               },
               {
                 "group": "文档 API",
