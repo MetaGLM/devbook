@@ -31,12 +31,30 @@
 
 4. **OPENAPI定义校验**
 
-> OPEN API 接口的定义基于 OPENAPI 3.0.1 规范，在各自模块的json文件中定义，例如： `openapi/chat.json` ，并在 `openapi/index.json` 文件中进行索引。
+> OPEN API 接口的定义基于 OPENAPI 3.0.1 规范，在各自模块的json文件中定义，例如： `openapi/chat.json` ，并在 `docs.json` 中添加到 `openapi` 列表里。
 
+  校验json是否符合 OPENAPI 3.0.1 规范
    ```bash
    mint openapi-check openapi/chat.json
    ```
 
+  添加到 `docs.json` 
+  ```json
+  {
+    "openapi": [
+      "openapi/chat.json",
+      "openapi/embedding.json",
+      "openapi/audio.json",
+      "openapi/image.json",
+      "openapi/video.json",
+      "openapi/tools.json",
+      "openapi/file.json",
+      "openapi/batch.json",
+      "openapi/knowledge.json",
+      "openapi/assistant.json"
+    ]
+  }
+  ```
 5. **断链校验**
    ```bash
    mint broken-links
@@ -76,7 +94,6 @@ devbook/
 │   └── update/           # 更新日志
 ├── openapi/              # OpenAPI 规范文件
 │   ├── openapi.json      # 完整的 OpenAPI 规范（已废弃，保留兼容性）
-│   ├── index.json        # 各模块 API 的索引，作为主入口点
 │   ├── chat.json         # 聊天对话 API 规范
 │   ├── embedding.json    # 文本嵌入 API 规范
 │   ├── audio.json        # 音频处理 API 规范
