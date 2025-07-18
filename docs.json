@@ -27,7 +27,20 @@
       ],
       "defaults": "required"
     },
-    "openapi": "openapi/index.json"
+    "openapi": [
+      "openapi/chat.json",
+      "openapi/audio.json",
+      "openapi/image.json",
+      "openapi/embedding.json",
+      "openapi/file.json",
+      "openapi/tools.json",
+      "openapi/assistant.json",
+      "openapi/batch.json",
+      "openapi/knowledge.json",
+      "openapi/document.json",
+      "openapi/video.json",
+      "openapi/agents.json"
+    ]
   },
   "navigation": {
     "languages": [

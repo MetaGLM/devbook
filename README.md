@@ -37,7 +37,6 @@
    mint openapi-check openapi/chat.json
    ```
 
-
 5. **断链校验**
    ```bash
    mint broken-links
@@ -77,6 +76,7 @@ devbook/
 │   └── update/           # 更新日志
 ├── openapi/              # OpenAPI 规范文件
 │   ├── openapi.json      # 完整的 OpenAPI 规范（已废弃，保留兼容性）
+│   ├── index.json        # 各模块 API 的索引，作为主入口点
 │   ├── chat.json         # 聊天对话 API 规范
 │   ├── embedding.json    # 文本嵌入 API 规范
 │   ├── audio.json        # 音频处理 API 规范
