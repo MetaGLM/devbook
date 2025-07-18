@@ -1,0 +1,184 @@
+---
+title: "Vidu 2"
+description: "Vidu 2 视频生成大模型，平衡速度与质量，主攻图生视频、首尾帧功能，支持 4 秒时长下 720P分辨率输出。生成速度大幅提升，成本显著降低；图生视频修复变色问题，画面稳定可控适配电商等场景，首尾帧语义理解与多参考图一致性增强，成为泛娱乐、互联网、动漫短剧、广告量产的高效工具。"
+---
+
+<Tabs>
+  <Tab title="vidu2-image">
+    <CardGroup cols={4}>
+      <Card title="能力" icon="arrow-down-big-small">
+        图生视频
+      </Card>
+      <Card title="时长" icon="arrow-right-arrow-left">
+        4s
+      </Card>
+      <Card title="清晰度" icon="tv" iconType="regular">
+        720P
+      </Card>
+      <Card title="价格" icon="circle-dollar">
+        1.25 元 / 次
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="vidu2-start-end">
+    <CardGroup cols={4}>
+      <Card title="能力" icon="arrow-down-big-small">
+        首尾帧
+      </Card>
+      <Card title="时长" icon="arrow-right-arrow-left">
+        4s
+      </Card>
+      <Card title="清晰度" icon="tv" iconType="regular">
+        720P
+      </Card>
+      <Card title="价格" icon="circle-dollar">
+        1.25 元 / 次
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="vidu2-reference">
+    <CardGroup cols={4}>
+      <Card title="能力" icon="arrow-down-big-small">
+        参考生视频
+      </Card>
+      <Card title="时长" icon="arrow-right-arrow-left">
+        4s
+      </Card>
+      <Card title="清晰度" icon="tv" iconType="regular">
+        720P
+      </Card>
+      <Card title="价格" icon="circle-dollar">
+        2.5 元 / 次
+      </Card>
+    </CardGroup>
+  </Tab>
+</Tabs>
+
+## <Icon icon="arrow-down-big-small" iconType="solid" color="#3890ff" size={28} />  能力说明
+
+<CardGroup cols={1}>
+  <Card title="图生视频" icon="image">
+    输入首帧图片以及对应的文本描述，生成视频。
+  </Card>
+  <Card title="首尾帧" icon="frame">
+    支持输入两张图，上传的第一张图片视作首帧图，第二张图片视作尾帧图，模型将以此参数中传入的图片来生成视频。
+  </Card>
+  <Card title="参考生视频" icon="object-subtract">
+    输入参考图图片和文本描述，生成视频。目前已支持参考人物、物品等多类主体。
+  </Card>
+</CardGroup>
+
+<Tip>
+  模型生成的视频 url 链接有效期为1天，如有需要请尽快转存。
+</Tip>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+  <Accordion title="泛娱乐内容生成" icon="camera-movie">
+    - 输入单帧画面或 IP 元素，快速生成剧情连贯的短视频、互动特效素材
+    - 支持从二次元萌系到写实风格的多元视觉呈现
+    - 适配短视频平台 UGC 创意内容量产需求
+  </Accordion>
+  <Accordion title="动漫短剧制作" icon="video">
+    - 输入静态角色图片或首尾帧，输出流畅动态动画与微短剧
+    - 精准还原角色动作细节（如表情变化）
+    - 支持国漫、日漫等多风格量产
+    - 满足动画工作室 IP 衍生开发
+  </Accordion>
+  <Accordion title="广告电商营销" icon="computer-classic">
+    - 输入产品实拍图，智能生成动态广告视频
+    - 清晰呈现 3C 产品细节、美妆产品质地等商品特性
+    - 自动适配抖音竖屏、朋友圈横屏等多平台尺寸
+  </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[接口文档：](https://www.bigmodel.cn/dev/api/videomodel/vidu)API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+  <Step title="高效的视频生成速度" titleSize="h3">
+    模型算力架构优化，视频渲染效率显著提升。对于日更团队，可快速响应热点选题；电商商家批量制作商品展示素材时，也能实现“即需即产”，大幅压缩内容交付周期，助力创作者抓住流量时效窗口。
+  </Step>
+  <Step title="高性价比的720P输出" iconType="regular" stepNumber={2} titleSize="h3">
+    720P分辨率视频成本降至Q1版本的40% 。中小品牌可批量生成多SKU展示视频，广告团队也能低成本测试“产品特写\+场景演绎”等创意方向，以更低预算覆盖全平台营销素材需求，突破内容生产的成本壁垒。
+  </Step>
+  <Step title="稳定可控的图生视频能力" iconType="regular" stepNumber={3} titleSize="h3">
+    修复“材质变色”问题，如服装类图生视频中，真丝面料的柔光反射、皮革的哑光质感可精准还原，电商场景下商品色彩展示更真实；优化动态帧补偿，3C产品旋转演示、美妆教程手部动作时，镜头无抖动、动作无偏移；同时支持多种风格，生成“产品特写\+风格化运镜”的吸睛素材，适配电商主图、短视频带货等场景。
+
+    <video src="https://cdn.bigmodel.cn/static/platform/videos/usage-guide/vidu/2.0-1.mp4" controls />
+  </Step>
+  <Step title="语义增强的首尾帧衔接" iconType="regular" stepNumber={4} titleSize="h3">
+    模型兼顾想象力与稳定性，效果全面提升，语义理解能力显著增强，为当前最优首尾帧生成方案。通过精准解析场景逻辑与动作关联，镜头切换自然流畅，有效提升内容叙事连贯性。
+  </Step>
+  <Step title="多参考图的一致性强化" iconType="regular" stepNumber={5} titleSize="h3">
+    输入多元素素材时，生成视频的视觉风格（如色调、光影）可高度统一 。例如文旅宣传片中，古城日出、街市场景、民俗表演的画面切换，始终保持“国风滤镜”一致性；动漫IP衍生内容里，角色在不同剧情场景的动作、表情，也能严格贴合原设定，助力多场景、多元素内容的连贯创作。
+
+    ![Description](https://cdn.bigmodel.cn/markdown/175022766774520250618-142053.png?attname=20250618-142053.png)
+
+    <video src="https://cdn.bigmodel.cn/static/platform/videos/usage-guide/vidu/2.0-2.mp4" controls />
+  </Step>
+</Steps>
+
+## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+<Tabs>
+  <Tab title="图生视频">
+    ```SQL
+    curl --location --request POST 'https://open.bigmodel.cn/api/paas/v4/videos/generations' \
+    --header 'Authorization: {you apikey}' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+    "model":"vidu2-image",
+    "image_url":"https://example.com/path/to/your/image.jpg",
+    "prompt":"比得兔开小汽车，游走在马路上，脸上的表情充满开心喜悦。",
+    "duration":4,
+    "size":"720x480",
+    "movement_amplitude":"auto"
+    }'
+    ```
+  </Tab>
+  <Tab title="首尾帧">
+    ```SQL
+    curl --location --request POST 'https://open.bigmodel.cn/api/paas/v4/videos/generations' \
+    --header 'Authorization: {you apikey}' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+    "model":"vidu2-start-end",
+    "image_url":["https://example.com/path/to/your/image1.jpg","https://example.com/path/to/your/image2.jpg"],
+    "prompt":"比得兔开小汽车，游走在马路上，脸上的表情充满开心喜悦。",
+    "duration":4,
+    "size":"720x480",
+    "movement_amplitude":"auto"
+    }'
+    ```
+  </Tab>
+  <Tab title="参考生视频">
+    ```SQL
+    curl --location --request POST 'https://open.bigmodel.cn/api/paas/v4/videos/generations' \
+    --header 'Authorization: {you apikey}' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+    "model":"vidu2-reference",
+    "image_url":["https://example.com/path/to/your/image1.jpg","https://example.com/path/to/your/image2.jpg","https://example.com/path/to/your/image3.jpg"],
+    "prompt":"比得兔开小汽车，游走在马路上，脸上的表情充满开心喜悦。",
+    "duration":4,
+    "aspect_ratio":"16:9",
+    "size":"720x480",
+    "movement_amplitude":"auto",
+    "with_audio":true
+    }'
+    ```
+  </Tab>
+</Tabs>
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下：
+
+| V0 | V1 | V2 | V3 |
+| :-- | :-- | :-- | :-- |
+| 30 | 40 | 50 | 60 |

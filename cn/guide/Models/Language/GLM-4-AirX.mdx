@@ -4,19 +4,19 @@ description: "GLM-4-AirX 是 GLM-4-Air 的高性能版本 ，继承 GLM-4 基座
 ---
 
 <CardGroup cols={3}>
-  <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
+  <Card title="价格" icon="circle-dollar">
     10 元 / 百万Tokens
   </Card>
-  <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
+  <Card title="输入模态" icon="arrow-down-right">
     文本
   </Card>
-  <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
+  <Card title="输出模态" icon="arrow-down-left">
     文本
   </Card>
-  <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
+  <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular">
     8K
   </Card>
-  <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
+  <Card title="最大输出Tokens" icon="maximize" iconType="regular">
     4K
   </Card>
 </CardGroup>
@@ -53,66 +53,67 @@ description: "GLM-4-AirX 是 GLM-4-Air 的高性能版本 ，继承 GLM-4 基座
 ## <Icon icon="arrow-down-big-small" iconType="solid" color="#3890ff" size={28} />   功能支持
 
 <CardGroup cols={3}>
-  <Card title="流式输出" icon="arrow-down-from-dotted-line" href="https://docs.z.ai">
+  <Card title="流式输出" icon="arrow-down-from-dotted-line">
     
   </Card>
-  <Card title="结构化输出" icon="arrow-down-from-line" href="https://docs.z.ai">
+  <Card title="结构化输出" icon="arrow-down-from-line">
     
   </Card>
-  <Card title="函数调用" icon="function" href="https://docs.z.ai">
+  <Card title="函数调用" icon="function">
     
   </Card>
 </CardGroup>
 
 ## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
 
-### 输入示例
-
-```python
-from zhipuai import ZhipuAI
-client = ZhipuAI(api_key="")  # 请填写您自己的APIKey
-response = client.chat.completions.create(
+<Tabs>
+  <Tab title="输入示例">
+    ```python
+    from zhipuai import ZhipuAI
+    client = ZhipuAI(api_key="")  # 请填写您自己的APIKey
+    response = client.chat.completions.create(
     model="glm-4-airx",  # 请填写您要调用的模型名称
     messages=[
-        {"role": "user", "content": "结合概率统计与线性代数：计算二维随机变量的协方差矩阵，并判断矩阵正定性"},
+    {"role": "user", "content": "结合概率统计与线性代数：计算二维随机变量的协方差矩阵，并判断矩阵正定性"},
     ],
-)
-print(response)
-```
-
-### 输出示例
-
-```markdown
-Completion(model='glm-4-airx', created=1749095539,
-choices=[CompletionChoice(index=0, finish_reason='stop',
-message=CompletionMessage(content='要计算二维随机变量 \\(X\\) 和 \\(Y\\) 的协方差矩阵，
-我们首先需要知道这两个随机变量的协方差 \\( \\text{Cov}(X, Y) \\) 和各自的方差 \\( \\text{Var}(X)
-\\) 和 \\( \\text{Var}(Y) \\)。协方差矩阵是一个 \\(2 \\times 2\\) 的矩阵，其形式如下：\n\n\\[\n
-\\begin{bmatrix}\n\\text{Var}(X) & \\text{Cov}(X, Y) \\\\\n\\text{Cov}(Y, X) & \\text{Var}(
-Y)\n\\end{bmatrix}\n\\]\n\n其中，由于协方差是对称的，即 \\( \\text{Cov}(X, Y) = \\text{Cov}(Y, X
-) \\)。\n\n以下是计算协方差矩阵的一般步骤：\n\n1. **计算 \\(X\\) 和 \\(Y\\) 的期望值 \\(E(X)\\)
-和 \\(E(Y)\\)**：\n   \\[\n   E(X) = \\sum_{i=1}^{n} x_i P(x_i)\n   \\]\n   \\[\n
-E(Y) = \\sum_{i=1}^{n} y_i P(y_i)\n   \\]\n   其中，\\(P(x_i)\\) 和 \\(P(y_i)\\)
-分别是 \\(X\\) 和 \\(Y\\) 的概率分布。\n\n2. **计算 \\(X\\) 和 \\(Y\\) 的方差
-\\( \\text{Var}(X) \\) 和 \\( \\text{Var}(Y) \\)**：\n   \\[\n   \\text{Var}
-(X) = E(X^2) - (E(X))^2\n   \\]\n   \\[\n   \\text{Var}(Y) = E(Y^2) - (E(Y))^2\n   \\]\n
-其中，\\(E(X^2)\\) 和 \\(E(Y^2)\\) 分别是 \\(X^2\\) 和 \\(Y^2\\) 的期望值。
-\n\n3. **计算 \\(X\\) 和 \\(Y\\) 的协方差 \\( \\text{Cov}(X, Y) \\)**：\n
-\\[\n   \\text{Cov}(X, Y) = E(XY) - E(X)E(Y)\n   \\]\n   其中，\\(E(XY)\\) 是
-\\(X\\) 和 \\(Y\\) 的乘积的期望值。\n\n4. **将这些值填入协方差矩阵**：\n   \\[\n   \\text
-{协方差矩阵} = \\begin{bmatrix}\n   \\text{Var}(X) & \\text{Cov}(X, Y) \\\\\n
-\\text{Cov}(Y, X) & \\text{Var}(Y)\n   \\end{bmatrix}\n   \\]\n\n接下来，判断矩阵的正定性：
-\n\n一个 \\(2 \\times 2\\) 的矩阵 \\(A\\) 是正定的，当且仅当它的所有主子式都是正的。对于 \\(2 \
-\times 2\\) 的协方差矩阵，我们只需要检查以下两个条件：\n\n1. **矩阵的对角线元素（即方差）必须都是正的*
-*：\n   \\[\n   \\text{Var}(X) > 0\n   \\]\n   \\[\n   \\text{Var}(Y) > 0\n   \\]\n\n2. *
-*矩阵的行列式必须也是正的**：\n   \\[\n   \\text{det}(\\text{协方差矩阵}) = \\text{Var}(X)
-\\cdot \\text{Var}(Y) - \\text{Cov}(X, Y)^2 > 0\n   \\]\n\n如果这两个条件都满足，那么协方差
-矩阵是正定的。这意味着随机变量 \\(X\\) 和 \\(Y\\) 是正相关的，并且它们各自具有非零的方差。',
-role='assistant', tool_calls=None))],
-request_id='2025060511521018031186965b4072',
-id='2025060511521018031186965b4072',
-usage=CompletionUsage(prompt_tokens=26, completion_tokens=786, total_tokens=812))
-```
+    )
+    print(response)
+    ```
+  </Tab>
+  <Tab title="输出示例">
+    ```response
+    Completion(model='glm-4-airx', created=1749095539,
+    choices=[CompletionChoice(index=0, finish_reason='stop',
+    message=CompletionMessage(content='要计算二维随机变量 \\(X\\) 和 \\(Y\\) 的协方差矩阵，
+    我们首先需要知道这两个随机变量的协方差 \\( \\text{Cov}(X, Y) \\) 和各自的方差 \\( \\text{Var}(X)
+    \\) 和 \\( \\text{Var}(Y) \\)。协方差矩阵是一个 \\(2 \\times 2\\) 的矩阵，其形式如下：\n\n\\[\n
+    \\begin{bmatrix}\n\\text{Var}(X) & \\text{Cov}(X, Y) \\\\\n\\text{Cov}(Y, X) & \\text{Var}(
+    Y)\n\\end{bmatrix}\n\\]\n\n其中，由于协方差是对称的，即 \\( \\text{Cov}(X, Y) = \\text{Cov}(Y, X
+    ) \\)。\n\n以下是计算协方差矩阵的一般步骤：\n\n1. **计算 \\(X\\) 和 \\(Y\\) 的期望值 \\(E(X)\\)
+    和 \\(E(Y)\\)**：\n   \\[\n   E(X) = \\sum_{i=1}^{n} x_i P(x_i)\n   \\]\n   \\[\n
+    E(Y) = \\sum_{i=1}^{n} y_i P(y_i)\n   \\]\n   其中，\\(P(x_i)\\) 和 \\(P(y_i)\\)
+    分别是 \\(X\\) 和 \\(Y\\) 的概率分布。\n\n2. **计算 \\(X\\) 和 \\(Y\\) 的方差
+    \\( \\text{Var}(X) \\) 和 \\( \\text{Var}(Y) \\)**：\n   \\[\n   \\text{Var}
+    (X) = E(X^2) - (E(X))^2\n   \\]\n   \\[\n   \\text{Var}(Y) = E(Y^2) - (E(Y))^2\n   \\]\n
+    其中，\\(E(X^2)\\) 和 \\(E(Y^2)\\) 分别是 \\(X^2\\) 和 \\(Y^2\\) 的期望值。
+    \n\n3. **计算 \\(X\\) 和 \\(Y\\) 的协方差 \\( \\text{Cov}(X, Y) \\)**：\n
+    \\[\n   \\text{Cov}(X, Y) = E(XY) - E(X)E(Y)\n   \\]\n   其中，\\(E(XY)\\) 是
+    \\(X\\) 和 \\(Y\\) 的乘积的期望值。\n\n4. **将这些值填入协方差矩阵**：\n   \\[\n   \\text
+    {协方差矩阵} = \\begin{bmatrix}\n   \\text{Var}(X) & \\text{Cov}(X, Y) \\\\\n
+    \\text{Cov}(Y, X) & \\text{Var}(Y)\n   \\end{bmatrix}\n   \\]\n\n接下来，判断矩阵的正定性：
+    \n\n一个 \\(2 \\times 2\\) 的矩阵 \\(A\\) 是正定的，当且仅当它的所有主子式都是正的。对于 \\(2 \
+    \times 2\\) 的协方差矩阵，我们只需要检查以下两个条件：\n\n1. **矩阵的对角线元素（即方差）必须都是正的*
+    *：\n   \\[\n   \\text{Var}(X) > 0\n   \\]\n   \\[\n   \\text{Var}(Y) > 0\n   \\]\n\n2. *
+    *矩阵的行列式必须也是正的**：\n   \\[\n   \\text{det}(\\text{协方差矩阵}) = \\text{Var}(X)
+    \\cdot \\text{Var}(Y) - \\text{Cov}(X, Y)^2 > 0\n   \\]\n\n如果这两个条件都满足，那么协方差
+    矩阵是正定的。这意味着随机变量 \\(X\\) 和 \\(Y\\) 是正相关的，并且它们各自具有非零的方差。',
+    role='assistant', tool_calls=None))],
+    request_id='2025060511521018031186965b4072',
+    id='2025060511521018031186965b4072',
+    usage=CompletionUsage(prompt_tokens=26, completion_tokens=786, total_tokens=812))
+    ```
+  </Tab>
+</Tabs>
 
 ## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
 

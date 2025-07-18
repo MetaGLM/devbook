@@ -1,0 +1,144 @@
+---
+title: "GLM-4-Voice"
+description: "GLM-4-Voice 是智谱推出的首个端到端语音模型。它能够直接理解和生成中英文语音，实现实时语音对话，并可根据用户指令灵活调整语音的情感、语调、语速和方言等特性，使语音交互更加自然生动。"
+---
+
+<CardGroup cols={3}>
+    <Card title="价格" icon="circle-dollar">
+        80 元 / 百万Tokens
+    </Card>
+    <Card title="输入模态" icon="arrow-down-right">
+        音频、文本
+    </Card>
+    <Card title="输出模态" icon="arrow-down-left">
+        音频
+    </Card>
+    <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular">
+        8K
+    </Card>
+    <Card title="最大输出Tokens" icon="maximize" iconType="regular">
+        4K
+    </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+    <Accordion title="角色陪伴" icon="people">
+        AI通过虚拟角色（如游戏角色、虚拟偶像）与用户进行情感化对话，虚拟角色可以设定为特定性格、背景和声音，实现全天候陪伴。
+    </Accordion>
+    <Accordion title="智能导游" icon="volume">
+        AI导游与用户进行实时语音交互，为用户提供详细的历史背景、文化意义和建筑特点，通过语音描述帮助用户规划游览路线，解答用户关于景点的疑问。
+    </Accordion>
+    <Accordion title="英语学习" icon="book-open-reader">
+        AI 英语老师通过模拟真实场景（如点餐、问路）与用户进行对话练习，解答用户关于语法规则的疑问，实时纠正用户发音、学习日常表达和语法知识，并提供改进建议。
+    </Accordion>
+    <Accordion title="在线教育" icon="pencil">
+        AI 辅导老师与学生通过详细讲解课程内容，为学生提供课程讲解、作业辅导和学习建议，涵盖多个学科（如数学、历史、科学），解答学生在作业中遇到的问题，通过多轮对话帮助学生理解难点。
+    </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[接口文档](https://bigmodel.cn/dev/api/rtav/GLM-4-Voice)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+    <Step icon="star">
+        凭借其实时语音对话功能，GLM-4-Voice 为用户提供高效流畅的沟通体验。GLM-4-Voice具备情感表达、方言生成和语速调节的能力，同时支持中英文双语。它的应用场景广泛，覆盖虚拟角色互动、智慧教育、智能旅游、儿童陪伴等多个领域。通过灵活的语音输入和输出能力，GLM-4-Voice 能够为用户提供高效且个性化的服务体验。
+
+        在企业应用方面，GLM-4-Voice 可针对不同垂直行业定制专业的场景解决方案，帮助开发者以较低成本快速适应和融入大模型时代。
+    </Step>
+</Steps>
+
+# <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+<Tabs>
+    <Tab title="输入示例">
+        ```python
+        import wave
+        import base64
+        from zhipuai import ZhipuAI
+
+        def save_audio_as_wav(audio_data, filepath):
+        """保存音频数据为WAV文件（模型返回的语音用）"""
+        with wave.open(filepath, 'wb') as wav_file:
+        wav_file.setnchannels(1)
+        wav_file.setsampwidth(2)
+        wav_file.setframerate(44100)
+        wav_file.writeframes(audio_data)
+        print(f"Audio saved to {filepath}")
+
+        def get_base64_from_wav(wav_path):
+        """将WAV文件转为Base64编码字符串"""
+        with open(wav_path, "rb") as f:  # 以二进制模式读取文件
+        audio_bytes = f.read()
+        return base64.b64encode(audio_bytes).decode("utf-8")  # 生成Base64字符串
+
+
+        client = ZhipuAI(api_key="")# 配置智谱AI客户端（替换为你的API Key）
+
+
+        input_wav_path = "D:\\ZhiPu\\test\\your_vocie.wav"# 你的WAV文件路径
+
+        base64_voice = get_base64_from_wav(input_wav_path)
+
+        # 调用智谱API（传入文本和语音输入）
+        response = client.chat.completions.create(
+        model="glm-4-voice",
+        messages=[
+        {
+            "role": "user",
+            "content": [
+        {
+            "type": "text",
+            "text": "你好，这是我的语音输入测试"  # 可选的文本说明（可留空）
+        },
+        {
+            "type": "input_audio",
+            "input_audio": {
+            "data": base64_voice,
+            "format": "wav"
+        }
+        }
+            ]
+        }
+        ],
+        max_tokens=1024,
+        stream=False
+        )
+
+        # 打印响应（调试用）
+        print("API响应：", response)
+
+        # 解析并保存模型返回的语音
+        try:
+        audio_data = response.choices[0].message.audio['data']
+        decoded_data = base64.b64decode(audio_data)
+        save_audio_as_wav(decoded_data, "output.wav")
+        print("模型语音回复已保存为output.wav")
+        except Exception as e:
+        print("处理音频失败：", e)
+        ```
+    </Tab>
+    <Tab title="输出示例">
+        ```markdown
+        707hTvovBW8zH3FPxH/1sCvgTXB/kJPQtJCqMIEgcCBUcDRQBZ/aH6EvkZ+HH3Cver9iH3Kfif+bD6pPvN/Nj9Ov/m/4YAPAHBAeACQwPRA18ELQWnBlMHGAjPCK0JwwpFC14LEQvMCnMKGQrTCIIH3QWOBMgDcgKhAVkA+P8AAIcABwFKAdwBcwJLA7cDxgMHA0MCCgGX/4X94fq295/0zvEP8Dfv1u7/7i3vFPII9XH5x/wX/5QC8wQpCHQJPwknCMoGhgXdA98A0v3/+ub4C/is9v71KfWV9cj2Wvjg+d/6Ovz//aL/+QDOAf8B0wJXAwAE8QP3A08EtgS3BSIGdQYyBwQIyQigCbkJ6QkxChsKyAkICcoHqQavBWQEIwPeAewAewCgAJoA+gB+AZEC1wN4BEUFRAWQBVoFcATLAqwAQ/6f+8/4afWW8jvwf+8P7yjv4u9c8Tv05/cb+xD+cgCuAqEFRQfgB5sGzgWKBI8DdQFW/uj76/nt+Nr3xvae9en1e/Yb+PH4//ka+4n8Xv5u/18A2ACIAUECJwMnA2gDTgMZBN0EUAXlBRoGMQfyB9AIFQkrCYEJ0QmiCRAJCQgmB5oGmAWsBC8DaALZAdgBCwLWAVQC6wL+AygFyAUEBkcGgAagBvoFqATsAgEBIP/g/CL6E/dX9C3yAfFM8O3vzO+k8IDyPfX39zn6Zfx5/mkBSwOABKMEAQT+A40DWgJ0AGr+hPxz+2D6/vi69/z28fZJ9xL4V/gD+Q/6R/vW/LL9jP5j/6cAsgGeAg4DnwNFBAYFwQXqBWsGbQZaB4sH3QfJB9YHIAgaCP8HaQdJB5gGwgYLBq8FJQWDBGAEUwQrBAgENwQrBN4EEwV0BVgFfAVoBToFqAS3A8gCmAE0AGv+1vzF+tD4aPar9BzzwfJZ8vTxefLj8jH1KPfc+Jr68/tj/lAAcwEWAvgBTgJrAvQBngA6/8v90vzv+4H6Ovka+Kf3aves94D31/ef+KH5//r4+wT9OP7B/0sBeAJVA0QEFAUVBoAGtgaxBqIGxwaQBl8G9AXABZUFjQVZBTsFEwUaBV0FiAW6BbwF+gUbBnEGhAZ6BpIGkAapBpoGbAYzBvUFoQVFBaIECQRHA4ACoQGxAKz/lv5X/dX7avrD+C33n/Wu9B70A/Tl8wj0yPRc9uX3RfnL+s37o/3//tT/YACLAKcArQApADz/Tv5H/YH8lvuB+ob5rfgy+Of3xfez9+33qvh2+ZH6f/up/AL+hP/sABwCLgNTBFs........DAAMQAwADEALwAwAC4ALQAvAA==',
+        'expires_at': 1749187238,
+        'id': 'f8d4bf4b-a376-48e6-8c81-54bb6a9a31d0'}))],
+        request_id='20250605132035222ead927d794645',
+        id='20250605132035222ead927d794645',
+        usage=CompletionUsage(prompt_tokens=107, completion_tokens=340, total_tokens=447))
+        Audio saved to output.wav
+        ```
+    </Tab>
+</Tabs>
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1 | V2 | V3 |
+| --- | --- | --- | --- |
+| 5  | 10 | 15 | 20 |

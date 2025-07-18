@@ -1,0 +1,75 @@
+---
+title: "GLM-Realtime"
+description: "GLM-Realtime 是一款音视频通话模型，能够提供实时的视频通话功能，通话记忆时长长达2分钟，具有跨文本、音频和视频进行实时推理的能力。"
+---
+
+<CardGroup cols={3}>
+    <Card title="价格" icon="circle-dollar" href="https://docs.z.ai">
+        限时免费
+    </Card>
+    <Card title="输入模态" icon="arrow-down-right" href="https://docs.z.ai">
+        视频、音频、文本
+    </Card>
+    <Card title="输出模态" icon="arrow-down-left" href="https://docs.z.ai">
+        音频
+    </Card>
+    <Card title="上下文窗口" icon="arrow-down-arrow-up" iconType="regular" href="https://docs.z.ai">
+        <Expandable title="音频通话">
+            8K,
+            预计20轮
+        </Expandable>
+        <Expandable title="视频通话">
+            32K
+        </Expandable>
+    </Card>
+    <Card title="最大输出Tokens" icon="maximize" iconType="regular" href="https://docs.z.ai">
+        1K
+    </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+    <Accordion title="口语陪练" icon="volume">
+        通过实时对话\+视频反馈，及时纠正用户发音错误，支持视频捕捉用户表情、识别物体、浏览文档。
+    </Accordion>
+    <Accordion title="实时翻译" icon="language">
+        支持多语言实时对话，自动识别语种，完成自然语言交互\+即时翻译，媲美专业陪同翻译。
+    </Accordion>
+    <Accordion title="面试模拟" icon="person-chalkboard">
+        AI可扮演面试官模拟真实面试场景，根据不同岗位需求与候选人条件智能匹配面试问题。
+    </Accordion>
+    <Accordion title="旅行导游" icon="map-location">
+        模拟专业导游讲解景点/历史/文化，支持视频对话模式，边看边讲，沉浸感强。
+    </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[接口文档](https://bigmodel.cn/dev/api/rtav/GLM-Realtime)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+    <Step icon="star">
+        GLM-Realtime 通过流式推理降低视频通话延时，AI可以进行流畅的通话，人也可以实时打断AI。除了实时音频交互外，GLM-Realtime 还可通过手机或AIPC的摄像头与人互动，通过共享电脑屏幕阅读页面信息，通过视频流理解对话当前的环境。
+
+        <video controls src="https://cdn.bigmodel.cn/static/platform/videos/doc_solutions/Realtime-%E5%94%B1%E6%AD%8C.m4v" />
+
+        在语音交互方面，GLM-Realtime 创新性地实现了清唱功能，首次让大模型具备在对话中的歌唱能力。
+
+        同时，我们将 GLM-Realtime API 集成到智能眼镜和陪伴娃娃中，以便用户可以体验到近乎实时的智能助手交互。
+
+        值得一提的是，GLM-Realtime 进一步支持Function Call功能。不仅能够依靠自身的知识和能力，还能灵活调用外部知识和工具，从而能够拓展到更广泛的商业场景。
+
+        <video controls src="https://cdn.bigmodel.cn/static/platform/videos/doc_solutions/Realtime-function%20call.m4v" />
+    </Step>
+</Steps>
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1 | V2 | V3 |
+| --- | --- | --- | --- |
+| 5  | 10 | 15 | 20 |

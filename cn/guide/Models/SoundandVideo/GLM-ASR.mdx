@@ -1,0 +1,113 @@
+---
+title: "GLM-ASR"
+description: "GLM-ASR 是智谱新一代语音识别模型，相较于传统 ASR 模型，GLM-ASR 在上下文智能理解、抗噪性能及多语言转录等方面取得了显著提升，可以被广泛地应用于各类语音转文本的场景中。"
+---
+
+<CardGroup cols={3}>
+  <Card title="价格" icon="circle-dollar">
+    0.06 元/分钟
+  </Card>
+  <Card title="输入模态" icon="arrow-down-right">
+    音频
+  </Card>
+  <Card title="输出模态" icon="arrow-down-left">
+    文本
+  </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+  <Accordion title="客户服务" icon="people-arrows">
+    实时记录客户语音需求，并方便事后查询，提升服务响应效率与质量。
+  </Accordion>
+  <Accordion title="人机交互" icon="slot-machine">
+    通过语音指令控制智能设备（如家居、机器人），实现“动口不动手”的无缝交互体验。
+  </Accordion>
+  <Accordion title="会议转写" icon="pen">
+    生成精准会议与课堂记录，支持中英文混杂、专业术语识别，助力高效复盘与知识沉淀。
+  </Accordion>
+  <Accordion title="字幕生成" icon="text">
+    一键为音视频添加高精度字幕，适配会议直播、影视剪辑、线上课程等多场景需求。
+  </Accordion>
+  <Accordion title="游戏语言" icon="gamepad-modern">
+    精准识别玩家高频术语与“游戏黑话”，流式转写语音指令与战术交流，助力边玩边聊不卡顿。
+  </Accordion>
+  <Accordion title="内容质检" icon="file-check">
+    将录音智能转写为文本，基于规则库实时检测违规内容并预警，同步分析语音数据挖掘潜在业务价值。
+  </Accordion>
+  <Accordion title="语音搜索" icon="volume-high">
+    车载导航、移动端场景中，快速响应方言或带口音指令，解放双手提升搜索效率。
+  </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[接口文档](https://bigmodel.cn/dev/api/rtav/glm-asr)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+作为一款基于上下文深度理解的语音转文本模型，GLM-ASR 不仅能够将音频精准转录为符合语言习惯的流畅文本，更在复杂噪音环境中展现出卓越的抗干扰能力，为您提供一系列语音转文本的新惊喜：
+
+<Steps>
+  <Step title="上下文智能理解" titleSize="h3">
+    依托先进的语言建模技术，模型可结合上下文语境优化输出结果，显著提升文本的流畅性与可读性，让转录内容更贴近真实表达。
+  </Step>
+  <Step title="强抗噪性能" iconType="regular" stepNumber={2} titleSize="h3">
+    即使在非语言类噪声（如机械声、环境杂音）干扰下，模型仍能保持高精度识别，避免误判与漏识，适应多场景需求。
+  </Step>
+  <Step title="多语言多方言覆盖" iconType="regular" stepNumber={3} titleSize="h3">
+    支持中文、英语及8种中国地方方言（东北官话、胶辽官话、北京官话、冀鲁官话、中原官话、江淮官话、兰银官话和西南官话），打破地域沟通壁垒，满足多样化语音交互需求。
+  </Step>
+</Steps>
+
+# <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+<Tabs>
+  <Tab title="输入示例">
+    ```python
+    from zhipuai import ZhipuAI
+    
+    client = ZhipuAI()  # 填写您自己的APIKey
+    with open("asr1.wav", "rb") as audio_file:
+    transcriptResponse = client.audio.transcriptions.create(
+    model="glm-asr",
+    file=audio_file,
+    stream=False
+    )
+    for item in transcriptResponse:
+    print(item)
+    ```
+  </Tab>
+  <Tab title="输出示例">
+    ```json
+    {
+        "created": 1744008189,
+        "id": "202504071443089343b5d8093b48ff",
+        "request_id": "202504071443089343b5d8093b48ff",
+        "segments": [
+    {
+        "end": 3.5,
+        "id": 0,
+        "start": 0.2,
+        "text": "小智同学，打开客厅的灯。"
+    }
+        ],
+        "text": "小智同学，打开客厅的灯。",
+        "usage": {
+        "completion_tokens": 10,
+        "prompt_tokens": 63,
+        "total_tokens": 73
+    }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1 | V2 | V3 |
+| --- | --- | --- | --- |
+| 5  | 10 | 15 | 20 |

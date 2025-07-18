@@ -129,8 +129,9 @@ description: "Vidu Q1 是 Vidu 新一代视频生成大模型，聚焦高质量�
       </Tab>
     </Tabs>
   </Step>
-  <Step title="行业标杆级转场流畅度" iconType="regular" stepNumber={3} titleSize="h3">
+  <Step title="行业标杆级转场流畅度" iconType="regular" stepNumber={4} titleSize="h3">
     首尾帧转场技术再创新高，通过动态帧预测 \+ 风格融合算法，让镜头衔接突破 “机械拼接” 局限。
+    
 
     ![Description](https://cdn.bigmodel.cn/markdown/175022732848820250618-141521.png?attname=20250618-141521.png)
 
@@ -141,22 +142,6 @@ description: "Vidu Q1 是 Vidu 新一代视频生成大模型，聚焦高质量�
 ## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
 
 <Tabs>
-  <Tab title="文生视频">
-    ```SQL
-    curl --location --request POST 'https://open.bigmodel.cn/api/paas/v4/videos/generations' \
-    --header 'Authorization: {you apikey}' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-    "model": "viduq1-text",
-    "style": "anime",
-    "prompt": "比得兔开小汽车，游走在马路上，脸上的表情充满开心喜悦。",
-    "duration": 5,
-    "aspect_ratio": "16:9",
-    "size": "1920x1080",
-    "movement_amplitude": "auto"
-    }'
-    ```
-  </Tab>
   <Tab title="图生视频">
     ```SQL
     curl --location --request POST 'https://open.bigmodel.cn/api/paas/v4/videos/generations' \
@@ -184,6 +169,22 @@ description: "Vidu Q1 是 Vidu 新一代视频生成大模型，聚焦高质量�
     "duration":5,
     "size":"1920x1080",
     "movement_amplitude":"auto"
+    }'
+    ```
+  </Tab>
+  <Tab title="文生视频">
+    ```SQL
+    curl --location --request POST 'https://open.bigmodel.cn/api/paas/v4/videos/generations' \
+    --header 'Authorization: {you apikey}' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+    "model": "viduq1-text",
+    "style": "anime",
+    "prompt": "比得兔开小汽车，游走在马路上，脸上的表情充满开心喜悦。",
+    "duration": 5,
+    "aspect_ratio": "16:9",
+    "size": "1920x1080",
+    "movement_amplitude": "auto"
     }'
     ```
   </Tab>
