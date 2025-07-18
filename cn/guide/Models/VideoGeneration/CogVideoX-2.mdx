@@ -1,0 +1,95 @@
+---
+title: "CogVideoX-2"
+description: "CogVideoX-2 是智谱新一代视频生成大模型，图生视频能力大幅提升38%，在大幅度运动、画面稳定性、指令遵从、艺术风格与画面美感方面实现了显著优化。"
+---
+
+<CardGroup cols={3}>
+  <Card title="价格" icon="circle-dollar">
+    0.5 元 / 次
+  </Card>
+  <Card title="输入模态" icon="arrow-down-right">
+    图像、文本
+  </Card>
+  <Card title="输出模态" icon="arrow-down-left">
+    视频
+  </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+  <Accordion title="短视频创意内容生成" icon="camera-movie">
+    输入图文脚本或单帧画面，自动扩展为连贯的剧情短片，精准遵从风格指令，尤其适合微短剧内容量产。
+  </Accordion>
+  <Accordion title="二次元动画制作" icon="eyes">
+    支持将静态人物图、分镜稿转化为流畅的动态动画，精准呈现角色大幅度动作与细腻表情，输出国漫、美漫、日系等多种风格的二次元短片，满足动画工作室、同人创作的高效产能需求。
+  </Accordion>
+  <Accordion title="电商产品动态广告" icon="computer-classic">
+    根据产品图片与卖点描述，生成多角度视频展示商品，通过稳定的镜头运动与光影渲染突出商品细节，支持快速适配不同平台的视频广告尺寸。
+  </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[体验中心](https://www.bigmodel.cn/trialcenter/modeltrial/multimodal?modelCode=cogvideox-2)：快速测试模型在业务场景上的效果
+[接口文档](https://bigmodel.cn/dev/api/videomodel/cogvideox)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+  <Step title="支持主体进行大幅度运动" titleSize="h3">
+    CogVideoX-2 在画面稳定性、动作连贯性也变得更好，由此表演细腻度和运镜丰富度同样也有大幅提升。人物和道具不再是在原画面基础上“微动”，而是能够根据提示词进行大幅度动作表演。
+  </Step>
+  <Step title="指令遵从能力保持行业领先" iconType="regular" stepNumber={2} titleSize="h3">
+    CogVideoX-2 保持了优秀的指令遵循能力，能够理解并且忠实实现复杂prompt，更好地服务于创作者的故事需求。同时保持视频内形象主体、风格和氛围的一致性，生成的新内容与原画风格实现高度贴合，讲述故事更加完整。
+  </Step>
+  <Step title="驾驭多种艺术风格" iconType="regular" stepNumber={3} titleSize="h3">
+    CogVideoX-2 擅长更多元的艺术风格，包括但不限于写实风格、三维动画、二维动画，以及更多特殊艺术风格。
+  </Step>
+</Steps>
+
+## <Icon icon="ballot" iconType="solid" color="#3890ff" size={28} />   应用示例
+
+<Tabs>
+  <Tab title="文生视频">
+    | Prompt                                                                     | 视频                                                                                                     |
+    | :------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+    | 比得兔（主体）开小汽车（主体描述），游走在马路上（环境描述），脸上的表情充满开心喜悦（氛围设定）                           | <video src="https://aigc-files.bigmodel.cn/api/cogvideo/9a384d50-1925-11f0-baf8-2e7ccccecdb2_0.mp4" /> |
+    | 一段穿越沙漠的旅程，一群骆驼行走在金色的沙丘上，夕阳染红天空，画面壮丽而静谧。                                    | <video src="https://aigc-files.bigmodel.cn/api/cogvideo/44263660-d966-11ef-98c5-e6b6ade49ab4_0.mp4" /> |
+    | 特写镜头（镜头描述），傍晚的微光（光线运用），一只鹦鹉站在阳台的栏杆上，鹦鹉有着紫色的羽毛和粉色的喙（主体描述），背景是都市的高楼大厦（环境描述）。 | <video src="https://aigc-files.bigmodel.cn/api/cogvideo/d2a7f00e-1926-11f0-b555-2e4a5f1d681a_0.mp4" /> |
+  </Tab>
+  <Tab title="图生视频">
+    CogVideoX 可以将用户提供的静态图像转化为动态视频。为达到最佳效果，推荐文件格式为 PNG 或 JPEG，文件大小不超过5MB。提示词建议使用“主体（背景）\+ 运动描述”的表达方式。
+
+    | Prompt                                                                                                                                              | 视频                                                                                                     |
+    | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+    | ![Description](https://cdn.bigmodel.cn/markdown/1737631743717c0c4920f.png?attname=c0c4920f.png)    画面中的小姑娘开心的笑了                                     | <video src="https://aigc-files.bigmodel.cn/api/cogvideo/ec62bde8-d97b-11ef-8bbd-beb3134d28c2_0.mp4" /> |
+    | ![Description](https://cdn.bigmodel.cn/markdown/17376320501314f560035.png?attname=4f560035.png)    让画面整体动起来                                         | <video src="https://aigc-files.bigmodel.cn/api/cogvideo/ae3b33fe-d97d-11ef-953d-46b88711431a_0.mp4" /> |
+    | ![Description](https://cdn.bigmodel.cn/markdown/1737632183664e259f8a5.png?attname=e259f8a5.png)    微距镜头下，一片猪肉切片卷起巨大的海浪，一个小人物在这片“海浪”上勇敢冲浪，冲浪板激起细腻的浪花 | <video src="https://aigc-files.bigmodel.cn/api/cogvideo/257a0760-d97e-11ef-8bbd-beb3134d28c2_0.mp4" /> |
+  </Tab>
+</Tabs>
+
+## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+```python
+from zhipuai import ZhipuAI
+client = ZhipuAI(api_key="") # 请填写您自己的APIKey
+
+response = client.videos.generations(
+model="cogvideox-2",
+prompt="比得兔开小汽车，游走在马路上，脸上的表情充满开心喜悦。",
+quality="quality",  # 输出模式，"quality"为质量优先，"speed"为速度优先
+with_audio=True,
+size="1920x1080",  # 视频分辨率，支持最高4K（如: "3840x2160"）
+fps=30,  # 帧率，可选为30或60
+)
+print(response)
+```
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1 | V2 | V3 |
+| --- | --- | --- | --- |
+| 5  | 10 | 15 | 20 |

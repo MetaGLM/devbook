@@ -4,10 +4,10 @@ description: "CogVideoX-3 新增首尾帧生成功能，画面稳定度、清晰
 ---
 
 <CardGroup cols={3}>
-  <Card title="时长" icon="arrow-down-arrow-up" iconType="regular">
+  <Card title="时长" icon="arrow-right-arrow-left" iconType="regular">
     5s, 10s
   </Card>
-  <Card title="清晰度" icon="maximize" iconType="regular">
+  <Card title="清晰度" icon="tv" iconType="regular">
     支持多分辨率，最高4K
   </Card>
   <Card title="价格" icon="circle-dollar">
@@ -24,16 +24,16 @@ description: "CogVideoX-3 新增首尾帧生成功能，画面稳定度、清晰
 ## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
 
 <AccordionGroup>
-  <Accordion title="电商广告（营销）" icon="language">
+  <Accordion title="电商广告（营销）" icon="computer-classic">
     输入产品图或文案，快速生成多风格动态广告，支持场景切换、真实光影渲染。
   </Accordion>
-  <Accordion title="文旅" icon="database">
+  <Accordion title="文旅" icon="map-location-dot">
     上传景区实拍图和宣传语，一键生成沉浸式文旅短片，真实还原自然景观。
   </Accordion>
-  <Accordion title="动漫" icon="file-doc">
+  <Accordion title="动漫" icon="eyes">
     输入动漫角色设定图、场景草图或剧情文案，快速生成流畅的动漫短片，保留动漫独特画风与质感。
   </Accordion>
-  <Accordion title="影视剧 / 短视频" icon="message-heart">
+  <Accordion title="影视剧 / 短视频" icon="camera-movie">
     将单帧图或文本脚本输出为画面稳、动作自然的短视频，可模拟连贯镜头运动，还原真实物理交互，覆盖现实 / 3D 风格。
   </Accordion>
 </AccordionGroup>
@@ -41,7 +41,6 @@ description: "CogVideoX-3 新增首尾帧生成功能，画面稳定度、清晰
 ## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
 
 [体验中心](https://www.bigmodel.cn/trialcenter/modeltrial/multimodal?modelCode=cogvideox-3)：快速测试模型在业务场景上的效果
-
 [接口文档](https://www.bigmodel.cn/dev/api/videomodel/cogvideox-3)：API调用方式
 
 ## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
@@ -58,10 +57,10 @@ description: "CogVideoX-3 新增首尾帧生成功能，画面稳定度、清晰
   <Step title="更好的指令遵循、物理真实模拟" iconType="regular" stepNumber={2} titleSize="h3">
     深度理解文本指令意图，精准还原创意需求，无论是让角色完成特定动作，还是模拟自然物理现象，都能贴合现实逻辑呈现。
 
-    | Prompt                                     | 视频                                                                            |
-    | :----------------------------------------- | :---------------------------------------------------------------------------- |
-    | 一双手拿着一把水果刀，在一片一片地切一个完整的红色西红柿               | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/8.mp4" /> |
-    | 开放式办公室里，一名员工正低头玩手机，突然经理出现拍了拍他的肩膀，他吓得赶紧收起手机 | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/6.mp4" /> |
+    | Prompt                                     | 视频                                                                                  |
+    | :----------------------------------------- | :---------------------------------------------------------------------------------- |
+    | 一双手拿着一把水果刀，在一片一片地切一个完整的红色西红柿               | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/8.mp4" />    \> |
+    | 开放式办公室里，一名员工正低头玩手机，突然经理出现拍了拍他的肩膀，他吓得赶紧收起手机 | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/6.mp4" />       |
   </Step>
   <Step title="高清现实风格场景、3D风格场景表现提升" iconType="regular" stepNumber={3} titleSize="h3">
     面对现实风格，可打造如实拍般的高清质感；切换 3D 风格时，可精准塑造立体形态与场景氛围，轻松驾驭多种风格。
@@ -74,10 +73,10 @@ description: "CogVideoX-3 新增首尾帧生成功能，画面稳定度、清晰
   <Step title="新增首尾帧生成功能" iconType="regular" stepNumber={4} titleSize="h3">
     支持用户提供首帧图片和尾帧图片，即可自动生成连贯转场的视频，让静态帧自然衔接为动态叙事，串联完整创意。
 
-    | Prompt                                      | 首尾帧                                                                                                                                                                                                  | 视频                                                                            |
-    | :------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
-    | 龙王转成敖丙，水墨风晕染，主体转体缓缓变身，突出变身细节，旋转运镜，过渡丝滑、流畅自然 | ![Description](https://cdn.bigmodel.cn/markdown/1752547571093cogvideo2.png?attname=cogvideo2.png)  ![Description](https://cdn.bigmodel.cn/markdown/1752547589957cogvideo3.png?attname=cogvideo3.png) | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/1.mp4" /> |
-    | 角色双手拿枪对着电脑屏幕疯狂射击，电脑燃烧爆炸变成碎片飞溅，办公室灯光闪烁       | ![Description](https://cdn.bigmodel.cn/markdown/1752547801491cogvideo4.png?attname=cogvideo4.png)  ![Description](https://cdn.bigmodel.cn/markdown/1752547813297cogvideo5.png?attname=cogvideo5.png) | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/2.mp4" /> |
+    | Prompt                                      | 首尾帧                                                                                                                                                                                                    | 视频                                                                            |
+    | :------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+    | 龙王转成敖丙，水墨风晕染，主体转体缓缓变身，突出变身细节，旋转运镜，过渡丝滑、流畅自然 | ![Description](https://cdn.bigmodel.cn/markdown/1752547571093cogvideo2.png?attname=cogvideo2.png)    ![Description](https://cdn.bigmodel.cn/markdown/1752547589957cogvideo3.png?attname=cogvideo3.png) | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/1.mp4" /> |
+    | 角色双手拿枪对着电脑屏幕疯狂射击，电脑燃烧爆炸变成碎片飞溅，办公室灯光闪烁       | ![Description](https://cdn.bigmodel.cn/markdown/1752547801491cogvideo4.png?attname=cogvideo4.png)    ![Description](https://cdn.bigmodel.cn/markdown/1752547813297cogvideo5.png?attname=cogvideo5.png) | <video src="https://cdn.bigmodel.cn/static/platform/videos/cogvideo/2.mp4" /> |
   </Step>
 </Steps>
 
