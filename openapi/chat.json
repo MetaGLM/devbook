@@ -1,0 +1,598 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Chat API",
+        "description": "ZHIPU AI 聊天对话接口，提供强大的 AI 对话能力。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "chat",
+            "description": "Chat API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/chat/completions": {
+            "post": {
+                "tags": [
+                    "chat"
+                ],
+                "summary": "创建聊天补全",
+                "description": "为聊天对话生成 AI 回复。支持多种应用场景，提供智能对话能力。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChatCompletionRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ChatCompletionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "ChatCompletionRequest": {
+                "required": [
+                    "model",
+                    "messages"
+                ],
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "要调用的模型代码",
+                        "example": "glm-4-32b-0414-128k",
+                        "default": "glm-4-32b-0414-128k",
+                        "enum": [
+                            "glm-4-32b-0414-128k"
+                        ]
+                    },
+                    "messages": {
+                        "type": "array",
+                        "description": "对话消息列表",
+                        "items": {
+                            "$ref": "#/components/schemas/ChatMessage"
+                        }
+                    },
+                    "stream": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "是否启用流式响应"
+                    },
+                    "temperature": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 2,
+                        "default": 0.7,
+                        "description": "控制输出的随机性，值越大随机性越强"
+                    },
+                    "top_p": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "default": 0.7,
+                        "description": "控制输出的多样性，值越大多样性越强"
+                    },
+                    "max_tokens": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "最大输出 token 数"
+                    },
+                    "tools": {
+                        "type": "array",
+                        "description": "可用的工具列表",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/components/schemas/FunctionToolSchema"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/RetrievalToolSchema"
+                                }
+                            ]
+                        }
+                    },
+                    "tool_choice": {
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "enum": [
+                                    "none",
+                                    "auto"
+                                ]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "function"
+                                        ]
+                                    },
+                                    "function": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "type",
+                                    "function"
+                                ]
+                            }
+                        ],
+                        "description": "工具选择策略"
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "代表最终用户的唯一标识符"
+                    }
+                }
+            },
+            "ChatMessage": {
+                "type": "object",
+                "required": [
+                    "role",
+                    "content"
+                ],
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "system",
+                            "user",
+                            "assistant",
+                            "tool"
+                        ],
+                        "description": "消息角色"
+                    },
+                    "content": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "oneOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "text"
+                                                    ]
+                                                },
+                                                "text": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "type",
+                                                "text"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "image_url"
+                                                    ]
+                                                },
+                                                "image_url": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "url": {
+                                                            "type": "string"
+                                                        },
+                                                        "detail": {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "low",
+                                                                "high",
+                                                                "auto"
+                                                            ],
+                                                            "default": "auto"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "url"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "type",
+                                                "image_url"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "description": "消息内容"
+                    },
+                    "tool_calls": {
+                        "type": "array",
+                        "description": "工具调用列表",
+                        "items": {
+                            "$ref": "#/components/schemas/ToolCall"
+                        }
+                    },
+                    "tool_call_id": {
+                        "type": "string",
+                        "description": "工具调用 ID"
+                    }
+                }
+            },
+            "ToolCall": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "type",
+                    "function"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "工具调用 ID"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "function"
+                        ]
+                    },
+                    "function": {
+                        "$ref": "#/components/schemas/FunctionCall"
+                    }
+                }
+            },
+            "FunctionCall": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "arguments"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "函数名称"
+                    },
+                    "arguments": {
+                        "type": "string",
+                        "description": "函数参数（JSON 格式）"
+                    }
+                }
+            },
+            "FunctionToolSchema": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "function"
+                ],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "function"
+                        ]
+                    },
+                    "function": {
+                        "$ref": "#/components/schemas/FunctionSchema"
+                    }
+                }
+            },
+            "FunctionSchema": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "description",
+                    "parameters"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "函数名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "函数描述"
+                    },
+                    "parameters": {
+                        "$ref": "#/components/schemas/FunctionParameters"
+                    }
+                }
+            },
+            "FunctionParameters": {
+                "type": "object",
+                "description": "使用 JSON Schema 定义的参数。必须传递 JSON Schema 对象以准确定义接受的参数。如果调用函数时不需要参数，则省略。",
+                "additionalProperties": true
+            },
+            "RetrievalToolSchema": {
+                "type": "object",
+                "title": "Retrieval",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "default": "retrieval",
+                        "enum": [
+                            "retrieval"
+                        ]
+                    },
+                    "retrieval": {
+                        "$ref": "#/components/schemas/RetrievalObject"
+                    }
+                },
+                "required": [
+                    "type",
+                    "retrieval"
+                ],
+                "additionalProperties": false
+            },
+            "RetrievalObject": {
+                "type": "object",
+                "properties": {
+                    "knowledge_id": {
+                        "type": "string",
+                        "description": "知识库 ID，从平台创建或获取"
+                    },
+                    "prompt_template": {
+                        "type": "string",
+                        "description": "请求模型的提示模板，包含占位符 `{{ knowledge }}` 和 `{{ question }}` 的自定义请求模板。默认模板：`在文档 `{{ knowledge }}` 中搜索问题 `{{question}}` 的答案。如果找到答案，仅使用文档中的陈述进行回应；如果没有找到答案，使用你自己的知识回答并告知用户信息不来自文档。不要重复问题，直接开始答案。`"
+                    }
+                },
+                "required": [
+                    "knowledge_id"
+                ]
+            },
+            "ChatCompletionResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "任务 ID",
+                        "type": "string"
+                    },
+                    "request_id": {
+                        "description": "请求 ID",
+                        "type": "string"
+                    },
+                    "created": {
+                        "description": "请求创建时间，Unix 时间戳（秒）",
+                        "type": "integer"
+                    },
+                    "model": {
+                        "description": "模型名称",
+                        "type": "string"
+                    },
+                    "choices": {
+                        "type": "array",
+                        "description": "模型响应列表",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": "integer",
+                                    "description": "结果索引"
+                                },
+                                "message": {
+                                    "$ref": "#/components/schemas/ChatCompletionResponseMessage"
+                                },
+                                "finish_reason": {
+                                    "type": "string",
+                                    "description": "推理终止原因。可以是 'stop'、'tool_calls'、'length'、'sensitive' 或 'network_error'。"
+                                }
+                            }
+                        }
+                    },
+                    "usage": {
+                        "type": "object",
+                        "description": "调用结束时返回的 Token 使用统计。",
+                        "properties": {
+                            "prompt_tokens": {
+                                "type": "integer",
+                                "description": "用户输入的 Token 数量"
+                            },
+                            "completion_tokens": {
+                                "type": "integer",
+                                "description": "输出的 Token 数量"
+                            },
+                            "total_tokens": {
+                                "type": "integer",
+                                "description": "Token 总数"
+                            }
+                        }
+                    }
+                }
+            },
+            "ChatCompletionResponseMessage": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "assistant"
+                        ],
+                        "description": "消息角色"
+                    },
+                    "content": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "oneOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "text"
+                                                    ]
+                                                },
+                                                "text": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "type",
+                                                "text"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "image_url"
+                                                    ]
+                                                },
+                                                "image_url": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "url": {
+                                                            "type": "string"
+                                                        },
+                                                        "detail": {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "low",
+                                                                "high",
+                                                                "auto"
+                                                            ],
+                                                            "default": "auto"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "url"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "type",
+                                                "image_url"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "description": "消息内容"
+                    },
+                    "tool_calls": {
+                        "type": "array",
+                        "description": "工具调用列表",
+                        "items": {
+                            "$ref": "#/components/schemas/ToolCall"
+                        }
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

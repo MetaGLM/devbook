@@ -1,0 +1,243 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Embedding API",
+        "description": "ZHIPU AI 文本嵌入接口，将文本转换为高维向量表示，用于语义相似性和搜索。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "embedding",
+            "description": "Embedding API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/embeddings": {
+            "post": {
+                "tags": [
+                    "embedding"
+                ],
+                "summary": "文本嵌入",
+                "description": "使用 GLM 嵌入模型将文本转换为高维向量表示，用于语义相似性和搜索。支持多语种和多种模型，兼容 OpenAI Embedding API。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmbeddingCreateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmbeddingResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "EmbeddingCreateRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "input"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "嵌入模型名称，如 text-embedding-v1、text-embedding-v2、text-embedding-v3、text-embedding-v4。"
+                    },
+                    "input": {
+                        "oneOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ],
+                        "description": "输入文本，支持字符串或字符串数组。\n- 单字符串：最长 2048 Token（v3/v4 最长 8192 Token）\n- 字符串数组：最多 25 条（v3/v4 最多 10 条），每条最长 2048 Token（v3/v4 每条最长 8192 Token）"
+                    },
+                    "encoding_format": {
+                        "type": "string",
+                        "enum": [
+                            "float",
+                            "base64"
+                        ],
+                        "default": "float",
+                        "description": "返回向量格式，支持 float（默认）或 base64。"
+                    },
+                    "dimensions": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "输出向量维度，仅 text-embedding-v3 与 text-embedding-v4 支持。可选值：2048（仅 v4）、1536（仅 v4）、1024（默认）、768、512、256、128、64。"
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "代表最终用户的唯一标识符。"
+                    }
+                }
+            },
+            "EmbeddingResponse": {
+                "type": "object",
+                "description": "文本嵌入响应对象，包含嵌入向量结果、模型信息和 tokens 统计。",
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "模型编码。"
+                    },
+                    "object": {
+                        "type": "string",
+                        "enum": [
+                            "list"
+                        ],
+                        "description": "结果类型，目前为 list。"
+                    },
+                    "data": {
+                        "type": "array",
+                        "description": "模型生成的数组结果。每个元素为单条文本的嵌入结果对象。",
+                        "items": {
+                            "$ref": "#/components/schemas/EmbeddingObject"
+                        }
+                    },
+                    "usage": {
+                        "$ref": "#/components/schemas/EmbeddingUsage",
+                        "description": "本次模型调用的 tokens 数量统计。"
+                    }
+                }
+            },
+            "EmbeddingObject": {
+                "type": "object",
+                "description": "单条文本的嵌入向量对象。",
+                "properties": {
+                    "index": {
+                        "type": "integer",
+                        "description": "结果下标。该嵌入向量对应的输入文本在输入数组中的索引。"
+                    },
+                    "object": {
+                        "type": "string",
+                        "enum": [
+                            "embedding"
+                        ],
+                        "description": "结果类型，目前为 embedding。"
+                    },
+                    "embedding": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "description": "embedding 的处理结果，返回向量化表征的数组。"
+                    }
+                }
+            },
+            "EmbeddingUsage": {
+                "type": "object",
+                "description": "本次模型调用的 tokens 数量统计。",
+                "properties": {
+                    "prompt_tokens": {
+                        "type": "integer",
+                        "description": "用户输入的 tokens 数量。"
+                    },
+                    "completion_tokens": {
+                        "type": "integer",
+                        "description": "模型输出的 tokens 数量。"
+                    },
+                    "total_tokens": {
+                        "type": "integer",
+                        "description": "总 tokens 数量。"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -224,7 +224,7 @@
           "embedding"
         ],
         "summary": "文本嵌入",
-        "description": "使用 GLM 嵌入模型将文本转换为高维向量表示，用于语义相似性和搜索。",
+        "description": "使用 GLM 嵌入模型将文本转换为高维向量表示，用于语义相似性和搜索。支持多语种和多种模型，兼容 OpenAI Embedding API。",
         "parameters": [
           {
             "$ref": "#/components/parameters/AcceptLanguage"
@@ -234,7 +234,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmbeddingRequest"
+                "$ref": "#/components/schemas/EmbeddingCreateRequest"
               }
             }
           },
@@ -847,7 +847,9 @@
     },
     "/v1/agents": {
       "post": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "summary": "智能体对话",
         "description": "与智能体进行对话交互。支持同步和流式调用，提供智能体的专业能力。",
         "parameters": [
@@ -891,7 +893,9 @@
     },
     "/v1/agents/async-result": {
       "get": {
-        "tags": ["agent"],
+        "tags": [
+          "agent"
+        ],
         "summary": "查询异步结果",
         "description": "查询智能体异步任务的处理结果和状态。",
         "parameters": [
@@ -2890,7 +2894,7 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "要使用的嵌入模型"
+            "description": "嵌入模型名称，如 text-embedding-v1、text-embedding-v2、text-embedding-v3、text-embedding-v4。"
           },
           "input": {
             "oneOf": [
@@ -2904,7 +2908,7 @@
                 }
               }
             ],
-            "description": "要嵌入的输入文本"
+            "description": "输入文本，支持字符串或字符串数组。\n- 单字符串：最长 2048 Token（v3/v4 最长 8192 Token）\n- 字符串数组：最多 25 条（v3/v4 最多 10 条），每条最长 2048 Token（v3/v4 每条最长 8192 Token）"
           },
           "encoding_format": {
             "type": "string",
@@ -2913,75 +2917,86 @@
               "base64"
             ],
             "default": "float",
-            "description": "嵌入的编码格式"
+            "description": "返回向量格式，支持 float（默认）或 base64。"
           },
           "dimensions": {
             "type": "integer",
             "minimum": 1,
-            "description": "输出嵌入的维数"
+            "description": "输出向量维度，仅 text-embedding-v3 与 text-embedding-v4 支持。可选值：2048（仅 v4）、1536（仅 v4）、1024（默认）、768、512、256、128、64。"
           },
           "user": {
             "type": "string",
-            "description": "代表最终用户的唯一标识符"
+            "description": "代表最终用户的唯一标识符。"
           }
         }
       },
       "EmbeddingResponse": {
         "type": "object",
+        "description": "文本嵌入响应对象，包含嵌入向量结果、模型信息和 tokens 统计。",
         "properties": {
+          "model": {
+            "type": "string",
+            "description": "模型编码。"
+          },
           "object": {
             "type": "string",
             "enum": [
               "list"
-            ]
+            ],
+            "description": "结果类型，目前为 list。"
           },
           "data": {
             "type": "array",
+            "description": "模型生成的数组结果。每个元素为单条文本的嵌入结果对象。",
             "items": {
               "$ref": "#/components/schemas/EmbeddingObject"
             }
           },
-          "model": {
-            "type": "string",
-            "description": "使用的模型"
-          },
           "usage": {
-            "$ref": "#/components/schemas/EmbeddingUsage"
+            "$ref": "#/components/schemas/EmbeddingUsage",
+            "description": "本次模型调用的 tokens 数量统计。"
           }
         }
       },
       "EmbeddingObject": {
         "type": "object",
+        "description": "单条文本的嵌入向量对象。",
         "properties": {
+          "index": {
+            "type": "integer",
+            "description": "结果下标。该嵌入向量对应的输入文本在输入数组中的索引。"
+          },
           "object": {
             "type": "string",
             "enum": [
               "embedding"
-            ]
+            ],
+            "description": "结果类型，目前为 embedding。"
           },
           "embedding": {
             "type": "array",
             "items": {
               "type": "number"
             },
-            "description": "嵌入向量"
-          },
-          "index": {
-            "type": "integer",
-            "description": "嵌入在列表中的索引"
+            "description": "embedding 的处理结果，返回向量化表征的数组。"
           }
         }
       },
       "EmbeddingUsage": {
         "type": "object",
+        "description": "本次模型调用的 tokens 数量统计。",
         "properties": {
           "prompt_tokens": {
             "type": "integer",
-            "description": "提示中的token数量"
+            "description": "用户输入的 tokens 数量。"
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "description": "模型输出的 tokens 数量。"
           },
           "total_tokens": {
             "type": "integer",
-            "description": "总token数量"
+            "description": "总 tokens 数量。"
           }
         }
       },
@@ -3508,7 +3523,11 @@
           "status": {
             "type": "string",
             "description": "任务状态，success/failed/pending",
-            "enum": ["success", "failed", "pending"]
+            "enum": [
+              "success",
+              "failed",
+              "pending"
+            ]
           },
           "choices": {
             "type": "array",

@@ -1,0 +1,557 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Video API",
+        "description": "ZHIPU AI 视频生成接口，通过文本或图像生成视频内容。支持多种视频生成方式。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "video",
+            "description": "Video API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/videos/generations": {
+            "post": {
+                "tags": [
+                    "video"
+                ],
+                "summary": "生成视频",
+                "description": "通过文本或图像生成视频内容。支持多种视频生成方式，包括文本转视频、图像转视频等。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "title": "CogVideoX-2",
+                                        "$ref": "#/components/schemas/CogVideoX2Request"
+                                    },
+                                    {
+                                        "title": "Vidu: Text to Video",
+                                        "$ref": "#/components/schemas/ViduText2VideoRequest"
+                                    },
+                                    {
+                                        "title": "Vidu: Image to Video",
+                                        "$ref": "#/components/schemas/ViduImage2VideoRequest"
+                                    },
+                                    {
+                                        "title": "Vidu: First & Last Frame to Video",
+                                        "$ref": "#/components/schemas/ViduFrames2VideoRequest"
+                                    },
+                                    {
+                                        "title": "Vidu: Ref to Video",
+                                        "$ref": "#/components/schemas/ViduReference2VideoRequest"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VideoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/async-result/{id}": {
+            "get": {
+                "tags": [
+                    "video"
+                ],
+                "summary": "查询异步结果",
+                "description": "查询异步请求的处理结果和状态。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "任务 ID。"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "model": {
+                                            "type": "string",
+                                            "description": "模型名称。"
+                                        },
+                                        "video_result": {
+                                            "type": "array",
+                                            "description": "视频生成结果。",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "url": {
+                                                        "type": "string",
+                                                        "description": "视频链接。"
+                                                    },
+                                                    "cover_image_url": {
+                                                        "type": "string",
+                                                        "description": "视频封面链接。"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "task_status": {
+                                            "type": "string",
+                                            "description": "处理状态，`PROCESSING (处理中)`、`SUCCESS (成功)`、`FAIL (失败)`。注意：处理状态需要通过查询获取。"
+                                        },
+                                        "request_id": {
+                                            "type": "string",
+                                            "description": "客户端请求时用户提交的任务编号或平台生成的任务编号。"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "CogVideoX2Request": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "prompt"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "enum": [
+                            "cogvideox-2"
+                        ],
+                        "description": "模型名称"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "description": "视频描述"
+                    },
+                    "negative_prompt": {
+                        "type": "string",
+                        "description": "负面提示"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "default": 1024,
+                        "description": "视频宽度"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "default": 576,
+                        "description": "视频高度"
+                    },
+                    "num_frames": {
+                        "type": "integer",
+                        "default": 16,
+                        "description": "视频帧数"
+                    },
+                    "fps": {
+                        "type": "integer",
+                        "default": 8,
+                        "description": "帧率"
+                    },
+                    "num_inference_steps": {
+                        "type": "integer",
+                        "default": 50,
+                        "description": "推理步数"
+                    },
+                    "guidance_scale": {
+                        "type": "number",
+                        "default": 7.5,
+                        "description": "引导比例"
+                    },
+                    "seed": {
+                        "type": "integer",
+                        "description": "随机种子"
+                    }
+                }
+            },
+            "ViduText2VideoRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "prompt"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "enum": [
+                            "vidu"
+                        ],
+                        "description": "模型名称"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "description": "视频描述"
+                    },
+                    "negative_prompt": {
+                        "type": "string",
+                        "description": "负面提示"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "default": 1024,
+                        "description": "视频宽度"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "default": 576,
+                        "description": "视频高度"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "default": 4,
+                        "description": "视频时长（秒）"
+                    },
+                    "fps": {
+                        "type": "integer",
+                        "default": 8,
+                        "description": "帧率"
+                    },
+                    "num_inference_steps": {
+                        "type": "integer",
+                        "default": 50,
+                        "description": "推理步数"
+                    },
+                    "guidance_scale": {
+                        "type": "number",
+                        "default": 7.5,
+                        "description": "引导比例"
+                    },
+                    "seed": {
+                        "type": "integer",
+                        "description": "随机种子"
+                    }
+                }
+            },
+            "ViduImage2VideoRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "image"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "enum": [
+                            "vidu"
+                        ],
+                        "description": "模型名称"
+                    },
+                    "image": {
+                        "type": "string",
+                        "description": "输入图像"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "description": "视频描述"
+                    },
+                    "negative_prompt": {
+                        "type": "string",
+                        "description": "负面提示"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "default": 1024,
+                        "description": "视频宽度"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "default": 576,
+                        "description": "视频高度"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "default": 4,
+                        "description": "视频时长（秒）"
+                    },
+                    "fps": {
+                        "type": "integer",
+                        "default": 8,
+                        "description": "帧率"
+                    },
+                    "num_inference_steps": {
+                        "type": "integer",
+                        "default": 50,
+                        "description": "推理步数"
+                    },
+                    "guidance_scale": {
+                        "type": "number",
+                        "default": 7.5,
+                        "description": "引导比例"
+                    },
+                    "seed": {
+                        "type": "integer",
+                        "description": "随机种子"
+                    }
+                }
+            },
+            "ViduFrames2VideoRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "first_frame",
+                    "last_frame"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "enum": [
+                            "vidu"
+                        ],
+                        "description": "模型名称"
+                    },
+                    "first_frame": {
+                        "type": "string",
+                        "description": "首帧图像"
+                    },
+                    "last_frame": {
+                        "type": "string",
+                        "description": "末帧图像"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "description": "视频描述"
+                    },
+                    "negative_prompt": {
+                        "type": "string",
+                        "description": "负面提示"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "default": 1024,
+                        "description": "视频宽度"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "default": 576,
+                        "description": "视频高度"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "default": 4,
+                        "description": "视频时长（秒）"
+                    },
+                    "fps": {
+                        "type": "integer",
+                        "default": 8,
+                        "description": "帧率"
+                    },
+                    "num_inference_steps": {
+                        "type": "integer",
+                        "default": 50,
+                        "description": "推理步数"
+                    },
+                    "guidance_scale": {
+                        "type": "number",
+                        "default": 7.5,
+                        "description": "引导比例"
+                    },
+                    "seed": {
+                        "type": "integer",
+                        "description": "随机种子"
+                    }
+                }
+            },
+            "ViduReference2VideoRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "reference_image"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "enum": [
+                            "vidu"
+                        ],
+                        "description": "模型名称"
+                    },
+                    "reference_image": {
+                        "type": "string",
+                        "description": "参考图像"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "description": "视频描述"
+                    },
+                    "negative_prompt": {
+                        "type": "string",
+                        "description": "负面提示"
+                    },
+                    "width": {
+                        "type": "integer",
+                        "default": 1024,
+                        "description": "视频宽度"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "default": 576,
+                        "description": "视频高度"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "default": 4,
+                        "description": "视频时长（秒）"
+                    },
+                    "fps": {
+                        "type": "integer",
+                        "default": 8,
+                        "description": "帧率"
+                    },
+                    "num_inference_steps": {
+                        "type": "integer",
+                        "default": 50,
+                        "description": "推理步数"
+                    },
+                    "guidance_scale": {
+                        "type": "number",
+                        "default": 7.5,
+                        "description": "引导比例"
+                    },
+                    "seed": {
+                        "type": "integer",
+                        "description": "随机种子"
+                    }
+                }
+            },
+            "VideoResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "任务 ID"
+                    },
+                    "request_id": {
+                        "type": "string",
+                        "description": "请求 ID"
+                    },
+                    "created": {
+                        "type": "integer",
+                        "description": "创建时间戳"
+                    },
+                    "model": {
+                        "type": "string",
+                        "description": "模型名称"
+                    },
+                    "task_status": {
+                        "type": "string",
+                        "description": "任务状态"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

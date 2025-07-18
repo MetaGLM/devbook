@@ -1,0 +1,344 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Audio API",
+        "description": "ZHIPU AI 音频处理接口，包括语音合成、语音识别和语音定制等功能。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "audio",
+            "description": "Audio API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/audio/customization": {
+            "post": {
+                "tags": [
+                    "audio"
+                ],
+                "summary": "语音定制",
+                "description": "使用高级神经模型进行语音克隆和定制，创建个性化语音模型。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AudioCustomizationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AudioCustomizationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/audio/speech": {
+            "post": {
+                "tags": [
+                    "audio"
+                ],
+                "summary": "文本转语音",
+                "description": "使用 GLM-4-Voice 将文本转换为自然语音，支持多种声音、情感控制和语调调整。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AudioSpeechRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "audio/*": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/audio/transcriptions": {
+            "post": {
+                "tags": [
+                    "audio"
+                ],
+                "summary": "语音转文本",
+                "description": "使用 GLM ASR 模型将音频文件转录为文本，支持多语言和实时流式转录。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AudioTranscriptionRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AudioTranscriptionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "AudioCustomizationRequest": {
+                "type": "object",
+                "required": [
+                    "file",
+                    "name"
+                ],
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "音频文件"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "定制语音名称"
+                    }
+                }
+            },
+            "AudioCustomizationResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "定制语音 ID"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "定制语音名称"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "处理状态"
+                    }
+                }
+            },
+            "AudioSpeechRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "input"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "语音合成模型"
+                    },
+                    "input": {
+                        "type": "string",
+                        "description": "要转换的文本内容"
+                    },
+                    "voice": {
+                        "type": "string",
+                        "description": "语音类型"
+                    },
+                    "response_format": {
+                        "type": "string",
+                        "enum": [
+                            "mp3",
+                            "opus",
+                            "aac",
+                            "flac"
+                        ],
+                        "default": "mp3",
+                        "description": "音频格式"
+                    },
+                    "speed": {
+                        "type": "number",
+                        "minimum": 0.25,
+                        "maximum": 4.0,
+                        "default": 1.0,
+                        "description": "语速"
+                    }
+                }
+            },
+            "AudioTranscriptionRequest": {
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "音频文件"
+                    },
+                    "model": {
+                        "type": "string",
+                        "description": "语音识别模型"
+                    },
+                    "language": {
+                        "type": "string",
+                        "description": "音频语言"
+                    },
+                    "response_format": {
+                        "type": "string",
+                        "enum": [
+                            "json",
+                            "text",
+                            "srt",
+                            "verbose_json",
+                            "vtt"
+                        ],
+                        "default": "json",
+                        "description": "响应格式"
+                    },
+                    "temperature": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "default": 0,
+                        "description": "采样温度"
+                    }
+                }
+            },
+            "AudioTranscriptionResponse": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "description": "转录文本"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

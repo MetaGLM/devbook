@@ -1,0 +1,227 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Image API",
+        "description": "ZHIPU AI 图像生成接口，使用 CogView-3-Plus 模型从文本提示生成高质量图像。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "image",
+            "description": "Image API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/images/generations": {
+            "post": {
+                "tags": [
+                    "image"
+                ],
+                "summary": "图像生成",
+                "description": "使用 CogView-3-Plus 模型从文本提示生成高质量图像，支持多种风格和尺寸。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateImageRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "CreateImageRequest": {
+                "type": "object",
+                "required": [
+                    "model",
+                    "prompt"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "要使用的图像生成模型"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "description": "描述所需图像的文本提示"
+                    },
+                    "n": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 10,
+                        "default": 1,
+                        "description": "要生成的图像数量"
+                    },
+                    "quality": {
+                        "type": "string",
+                        "enum": [
+                            "standard",
+                            "hd"
+                        ],
+                        "default": "standard",
+                        "description": "生成图像的质量"
+                    },
+                    "response_format": {
+                        "type": "string",
+                        "enum": [
+                            "url",
+                            "b64_json"
+                        ],
+                        "default": "url",
+                        "description": "返回生成图像的格式"
+                    },
+                    "size": {
+                        "type": "string",
+                        "enum": [
+                            "256x256",
+                            "512x512",
+                            "1024x1024",
+                            "1792x1024",
+                            "1024x1792"
+                        ],
+                        "default": "1024x1024",
+                        "description": "生成图像的尺寸"
+                    },
+                    "style": {
+                        "type": "string",
+                        "enum": [
+                            "vivid",
+                            "natural"
+                        ],
+                        "default": "vivid",
+                        "description": "生成图像的风格"
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "代表最终用户的唯一标识符"
+                    }
+                }
+            },
+            "ImageResponse": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "type": "integer",
+                        "description": "图像生成的Unix时间戳"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ImageObject"
+                        }
+                    }
+                }
+            },
+            "ImageObject": {
+                "type": "object",
+                "properties": {
+                    "b64_json": {
+                        "type": "string",
+                        "description": "生成图像的base64编码JSON"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "生成图像的URL"
+                    },
+                    "revised_prompt": {
+                        "type": "string",
+                        "description": "修订后的提示"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

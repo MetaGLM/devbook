@@ -17,10 +17,17 @@
       "display": "interactive"
     },
     "examples": {
-      "languages": ["curl", "python", "javascript", "java", "go", "php"],
+      "languages": [
+        "curl",
+        "python",
+        "javascript",
+        "java",
+        "go",
+        "php"
+      ],
       "defaults": "required"
     },
-    "openapi": "openapi/openapi.json"
+    "openapi": "openapi/index.json"
   },
   "navigation": {
     "languages": [
@@ -144,7 +151,7 @@
                   "cn/api/video/get-video-status"
                 ]
               },
-                 {
+              {
                 "group": "智能体 API",
                 "pages": [
                   "cn/api/agents/agents",

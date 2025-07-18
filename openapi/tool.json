@@ -1,0 +1,202 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Tool API",
+        "description": "ZHIPU AI 工具接口，提供网络搜索等工具功能。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "tool",
+            "description": "Tool API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/tools/web-search": {
+            "post": {
+                "tags": [
+                    "tool"
+                ],
+                "summary": "网络搜索",
+                "description": "使用网络搜索工具获取实时信息。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WebSearchRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WebSearchResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "WebSearchRequest": {
+                "type": "object",
+                "required": [
+                    "query"
+                ],
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "搜索查询"
+                    },
+                    "search_type": {
+                        "type": "string",
+                        "enum": [
+                            "web",
+                            "news",
+                            "image"
+                        ],
+                        "default": "web",
+                        "description": "搜索类型"
+                    },
+                    "max_results": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 10,
+                        "default": 5,
+                        "description": "最大结果数量"
+                    }
+                }
+            },
+            "WebSearchResponse": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SearchResult"
+                        },
+                        "description": "搜索结果列表"
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "原始查询"
+                    },
+                    "search_type": {
+                        "type": "string",
+                        "description": "搜索类型"
+                    }
+                }
+            },
+            "SearchResult": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "结果标题"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "结果链接"
+                    },
+                    "snippet": {
+                        "type": "string",
+                        "description": "结果摘要"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "结果来源"
+                    },
+                    "published_date": {
+                        "type": "string",
+                        "description": "发布日期"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

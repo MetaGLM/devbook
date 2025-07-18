@@ -1,0 +1,160 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI API",
+        "description": "ZHIPU AI 完整 API 接口集合，包含聊天对话、文本嵌入、音频处理、图像生成、视频生成、文件管理、工具和助手等功能模块。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "chat",
+            "description": "Chat API - 聊天对话相关接口"
+        },
+        {
+            "name": "embedding",
+            "description": "Embedding API - 文本嵌入相关接口"
+        },
+        {
+            "name": "audio",
+            "description": "Audio API - 音频处理相关接口"
+        },
+        {
+            "name": "image",
+            "description": "Image API - 图像生成相关接口"
+        },
+        {
+            "name": "video",
+            "description": "Video API - 视频生成相关接口"
+        },
+        {
+            "name": "file",
+            "description": "File API - 文件管理相关接口"
+        },
+        {
+            "name": "tool",
+            "description": "Tool API - 工具相关接口"
+        },
+        {
+            "name": "assistant",
+            "description": "Assistant API - 助手相关接口"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/chat/completions": {
+            "$ref": "./chat.json#/paths/~1paas~1v4~1chat~1completions"
+        },
+        "/paas/v4/embeddings": {
+            "$ref": "./embedding.json#/paths/~1paas~1v4~1embeddings"
+        },
+        "/paas/v4/audio/customization": {
+            "$ref": "./audio.json#/paths/~1paas~1v4~1audio~1customization"
+        },
+        "/paas/v4/audio/speech": {
+            "$ref": "./audio.json#/paths/~1paas~1v4~1audio~1speech"
+        },
+        "/paas/v4/audio/transcriptions": {
+            "$ref": "./audio.json#/paths/~1paas~1v4~1audio~1transcriptions"
+        },
+        "/paas/v4/images/generations": {
+            "$ref": "./image.json#/paths/~1paas~1v4~1images~1generations"
+        },
+        "/paas/v4/videos/generations": {
+            "$ref": "./video.json#/paths/~1paas~1v4~1videos~1generations"
+        },
+        "/paas/v4/async-result/{id}": {
+            "$ref": "./video.json#/paths/~1paas~1v4~1async-result~1{id}"
+        },
+        "/paas/v4/files": {
+            "$ref": "./file.json#/paths/~1paas~1v4~1files"
+        },
+        "/paas/v4/files/{file_id}": {
+            "$ref": "./file.json#/paths/~1paas~1v4~1files~1{file_id}"
+        },
+        "/paas/v4/files/{file_id}/content": {
+            "$ref": "./file.json#/paths/~1paas~1v4~1files~1{file_id}~1content"
+        },
+        "/paas/v4/tools/web-search": {
+            "$ref": "./tool.json#/paths/~1paas~1v4~1tools~1web-search"
+        },
+        "/paas/v4/assistants": {
+            "$ref": "./assistant.json#/paths/~1paas~1v4~1assistants"
+        },
+        "/paas/v4/assistants/{assistant_id}": {
+            "$ref": "./assistant.json#/paths/~1paas~1v4~1assistants~1{assistant_id}"
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "使用 JWT Token 进行身份验证"
+            }
+        }
+    }
+}

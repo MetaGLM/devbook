@@ -1,0 +1,607 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Assistant API",
+        "description": "ZHIPU AI 助手接口，支持创建、管理和使用 AI 助手。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "assistant",
+            "description": "Assistant API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/assistants": {
+            "get": {
+                "tags": [
+                    "assistant"
+                ],
+                "summary": "获取助手列表",
+                "description": "获取用户创建的助手列表。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "description": "返回结果的数量限制"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "desc",
+                                "asc"
+                            ],
+                            "default": "desc",
+                            "description": "排序方式"
+                        }
+                    },
+                    {
+                        "name": "after",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "description": "用于分页的游标"
+                        }
+                    },
+                    {
+                        "name": "before",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "description": "用于分页的游标"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AssistantListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "assistant"
+                ],
+                "summary": "创建助手",
+                "description": "创建一个新的 AI 助手。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAssistantRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AssistantObject"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/assistants/{assistant_id}": {
+            "get": {
+                "tags": [
+                    "assistant"
+                ],
+                "summary": "获取助手信息",
+                "description": "获取指定助手的详细信息。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "assistant_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "助手 ID"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AssistantObject"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "assistant"
+                ],
+                "summary": "修改助手",
+                "description": "修改指定助手的信息。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "assistant_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "助手 ID"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ModifyAssistantRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AssistantObject"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "assistant"
+                ],
+                "summary": "删除助手",
+                "description": "删除指定的助手。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "assistant_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "助手 ID"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "description": "助手 ID"
+                                        },
+                                        "object": {
+                                            "type": "string",
+                                            "enum": [
+                                                "assistant.deleted"
+                                            ],
+                                            "description": "对象类型"
+                                        },
+                                        "deleted": {
+                                            "type": "boolean",
+                                            "description": "是否删除成功"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "CreateAssistantRequest": {
+                "type": "object",
+                "required": [
+                    "model"
+                ],
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "要使用的模型"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "助手名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "助手描述"
+                    },
+                    "instructions": {
+                        "type": "string",
+                        "description": "助手指令"
+                    },
+                    "tools": {
+                        "type": "array",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/components/schemas/CodeInterpreterTool"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/RetrievalTool"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/FunctionTool"
+                                }
+                            ]
+                        },
+                        "description": "助手可用的工具列表"
+                    },
+                    "file_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "要附加到此助手的文件 ID 列表"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "description": "设置元数据"
+                    }
+                }
+            },
+            "ModifyAssistantRequest": {
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "要使用的模型"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "助手名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "助手描述"
+                    },
+                    "instructions": {
+                        "type": "string",
+                        "description": "助手指令"
+                    },
+                    "tools": {
+                        "type": "array",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/components/schemas/CodeInterpreterTool"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/RetrievalTool"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/FunctionTool"
+                                }
+                            ]
+                        },
+                        "description": "助手可用的工具列表"
+                    },
+                    "file_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "要附加到此助手的文件 ID 列表"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "description": "设置元数据"
+                    }
+                }
+            },
+            "AssistantListResponse": {
+                "type": "object",
+                "properties": {
+                    "object": {
+                        "type": "string",
+                        "enum": [
+                            "list"
+                        ],
+                        "description": "对象类型"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AssistantObject"
+                        },
+                        "description": "助手列表"
+                    },
+                    "first_id": {
+                        "type": "string",
+                        "description": "第一个助手的 ID"
+                    },
+                    "last_id": {
+                        "type": "string",
+                        "description": "最后一个助手的 ID"
+                    },
+                    "has_more": {
+                        "type": "boolean",
+                        "description": "是否还有更多助手"
+                    }
+                }
+            },
+            "AssistantObject": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "助手 ID"
+                    },
+                    "object": {
+                        "type": "string",
+                        "enum": [
+                            "assistant"
+                        ],
+                        "description": "对象类型"
+                    },
+                    "created_at": {
+                        "type": "integer",
+                        "description": "创建时间戳"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "助手名称"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "助手描述"
+                    },
+                    "model": {
+                        "type": "string",
+                        "description": "使用的模型"
+                    },
+                    "instructions": {
+                        "type": "string",
+                        "description": "助手指令"
+                    },
+                    "tools": {
+                        "type": "array",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/components/schemas/CodeInterpreterTool"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/RetrievalTool"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/FunctionTool"
+                                }
+                            ]
+                        },
+                        "description": "助手可用的工具列表"
+                    },
+                    "file_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "附加的文件 ID 列表"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "description": "元数据"
+                    }
+                }
+            },
+            "CodeInterpreterTool": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "code_interpreter"
+                        ],
+                        "description": "工具类型"
+                    }
+                }
+            },
+            "RetrievalTool": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "retrieval"
+                        ],
+                        "description": "工具类型"
+                    }
+                }
+            },
+            "FunctionTool": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "function"
+                        ],
+                        "description": "工具类型"
+                    },
+                    "function": {
+                        "type": "object",
+                        "properties": {
+                            "description": {
+                                "type": "string",
+                                "description": "函数描述"
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "函数名称"
+                            },
+                            "parameters": {
+                                "type": "object",
+                                "description": "函数参数"
+                            }
+                        }
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
