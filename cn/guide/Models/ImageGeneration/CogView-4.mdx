@@ -1,0 +1,83 @@
+---
+title: "CogView-4"
+description: "CogView-4 是智谱首个支持生成汉字的开源文生图模型，在语义理解、图像生成质量、中英文字生成能力等方面全面提升，支持任意长度的中英双语输入，能够生成在给定范围内的任意分辨率图像。"
+---
+
+<CardGroup cols={3}>
+  <Card title="价格" icon="circle-dollar">
+    0.06 元 / 次
+  </Card>
+  <Card title="输入模态" icon="arrow-down-right">
+    文本
+  </Card>
+  <Card title="输出模态" icon="arrow-down-left">
+    图像
+  </Card>
+</CardGroup>
+
+## <Icon icon="stars" iconType="solid" color="#3890ff" size={28} />   推荐场景
+
+<AccordionGroup>
+  <Accordion title="餐饮美食宣传" icon="pot-food">
+    根据菜品名称、食材特点及风格要求，融入创意文字元素，生成色泽诱人、细节逼真的美食图片，适配菜单设计、外卖平台展示、线下海报等多场景使用。
+  </Accordion>
+  <Accordion title="电商产品配图" icon="computer-classic">
+    依据商品特点与卖点描述，快速生成高清商品展示图，添加中英促销文字，适配电商平台不同规格的商品页与活动图需求。
+  </Accordion>
+  <Accordion title="游戏素材创作" icon="gamepad-modern">
+    依据游戏世界观与角色设定，产出高分辨率、细节丰富的角色立绘、场景原画等素材，满足多分辨率制作需求。
+  </Accordion>
+  <Accordion title="教育资料配图" icon="image-polaroid">
+    解析教学文本内容，自动生成匹配的插图、场景图，适配各类教育资料的排版与分辨率要求，助力知识可视化呈现。
+  </Accordion>
+  <Accordion title="文旅宣传制作" icon="map-location-dot">
+    根据文旅主题，生成不同尺寸的宣传图像，将文字与地域特色视觉元素巧妙结合，提升文旅推广的吸引力。
+  </Accordion>
+</AccordionGroup>
+
+## <Icon icon="bars-sort" iconType="solid" color="#3890ff" size={28} />   使用资源
+
+[体验中心](https://www.bigmodel.cn/trialcenter/modeltrial/multimodal?modelCode=cogview-4-250304)：快速测试模型在业务场景上的效果
+[接口文档](https://bigmodel.cn/dev/api/image-model/cogview)：API调用方式
+
+## <Icon icon="arrow-down-from-line" iconType="solid" color="#3890ff" size={28} />   详细介绍
+
+<Steps>
+  <Step title="发布时模型性能达到 SOTA" titleSize="h3">
+    DPG-Bench （Dense Prompt Graph Benchmark）是一个评估文本到图像生成模型的基准测试，主要关注模型在复杂语义对齐和指令跟随能力方面的表现。
+
+    CogView-4 发布时期在 DPG-Bench 基准测试中综合评分排名第一，在开源文生图模型中达到SOTA。
+
+    ![Description](https://cdn.bigmodel.cn/markdown/1749449849627DPG-Bench.png?attname=DPG-Bench.png)
+  </Step>
+  <Step title="更好的中文理解与生成" iconType="regular" stepNumber={2} titleSize="h3">
+    在技术实现上，CogView-4 将文本编码器从纯英文的 T5 encoder 换为具备双语能力的 GLM-4 encoder，并通过中英双语图文进行训练，使模型具备双语提示词输入能力。
+
+    CogView-4支持中英双语提示词输入，尤其擅长理解和遵循中文提示词，大幅降低使用者提示词门槛，是首个能够在画面中生成汉字的开源文生图模型，能更好地满足广告、短视频等领域的创意需求。
+  </Step>
+  <Step title="任意分辨率，任意长度提示词" iconType="regular" stepNumber={3} titleSize="h3">
+    CogView-4实现了任意长度的文本描述（caption）和任意分辨率图像的混合训练范式。该模型支持输入任意长度提示词，能够生成范围内任意分辨率图像，不仅使用户创作更加自由，也提升了训练效率。
+  </Step>
+</Steps>
+
+## <Icon icon="rectangle-code" iconType="solid" color="#3890ff" size={28} />   调用示例
+
+```python
+from zhipuai import ZhipuAI
+client = ZhipuAI(api_key="")
+
+response = client.images.generations(
+    model="cogView-4-250304", #填写需要调用的模型编码
+    prompt="在干燥的沙漠环境中，一棵孤独的仙人掌在夕阳的余晖中显得格外醒目。这幅油画捕捉了仙人掌坚韧的生命力和沙漠中的壮丽景色，色彩饱满且表现力强烈。",
+    size="1440x720"
+)
+print(response.data[0].url)
+```
+
+## <Icon icon="square-user" iconType="solid" color="#3890ff" size={28} />   用户并发权益
+
+API调用会受到速率限制，当前我们限制的维度是请求并发数量（在途请求任务数量）。不同等级的用户并发保障如下。
+
+| V0 | V1 | V2 | V3 |
+| --- | --- | --- | --- |
+| 5  | 10 | 15 | 20 |
