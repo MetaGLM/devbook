@@ -32,13 +32,13 @@
         }
     ],
     "paths": {
-        "/paas/v4/tools/web-search": {
+        "/paas/v4/web_search": {
             "post": {
                 "tags": [
                     "tool"
                 ],
                 "summary": "网络搜索",
-                "description": "使用网络搜索工具获取实时信息。",
+                "description": "专为 AI 模型优化的网络搜索服务。提供结构化的搜索结果，包括网页标题、链接、摘要等信息。",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AcceptLanguage"
@@ -49,6 +49,52 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/WebSearchRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WebSearchResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/tools": {
+            "post": {
+                "tags": [
+                    "tool"
+                ],
+                "summary": "网络搜索",
+                "description": "执行网络搜索并返回综合结果。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WebSearchParamsRequest"
                             }
                         }
                     },
@@ -99,103 +145,212 @@
         "schemas": {
             "WebSearchRequest": {
                 "type": "object",
-                "required": [
-                    "query"
-                ],
                 "properties": {
-                    "query": {
+                    "search_query": {
                         "type": "string",
-                        "description": "搜索查询"
+                        "description": "要搜索的内容。"
                     },
-                    "search_type": {
+                    "search_engine": {
                         "type": "string",
+                        "description": "要调用的搜索引擎代码。目前支持：\n`search_std`：Z.AI 基础搜索引擎\n`search_pro`：Z.AI 高级搜索引擎\n`search_pro_sogou`：搜狗搜索引擎\n`search_pro_quark`：夸克搜索引擎\n`search_pro_jina`：jina.ai 搜索引擎\n默认为 `search_std`。",
+                        "example": "search_std",
+                        "default": "search_std",
                         "enum": [
-                            "web",
-                            "news",
-                            "image"
-                        ],
-                        "default": "web",
-                        "description": "搜索类型"
+                            "search_std",
+                            "search_pro",
+                            "search_pro_sogou",
+                            "search_pro_quark",
+                            "search_pro_jina"
+                        ]
                     },
-                    "max_results": {
+                    "count": {
                         "type": "integer",
+                        "description": "返回结果的数量\n可填范围：`1-50`，单次搜索最多 `50` 个结果\n默认为 `10`\n支持的搜索引擎：\n`search_pro`、`search_std`、`search_pro_sogou`\n搜狗：可选枚举值为 `10`、`20`、`30`、`40`、`50`。",
                         "minimum": 1,
-                        "maximum": 10,
-                        "default": 5,
-                        "description": "最大结果数量"
+                        "maximum": 50
+                    },
+                    "search_domain_filter": {
+                        "type": "string",
+                        "description": "用于限制搜索结果范围，仅返回指定白名单域名的内容。\n白名单：直接输入域名（例如，`www.example.com`）\n支持的搜索引擎：\n`search_std`、`search_pro`、`search_pro_sogou`、`search_pro_jina`"
+                    },
+                    "search_recency_filter": {
+                        "type": "string",
+                        "description": "在指定时间范围内搜索网页。\n默认为 `noLimit`\n可填值：\n`oneDay`：一天内\n`oneWeek`：一周内\n`oneMonth`：一个月内\n`oneYear`：一年内\n`noLimit`：无限制（默认）\n支持的搜索引擎：\n`search_std`、`search_pro`、`search_pro_sogou`、`search_pro_quark`",
+                        "enum": [
+                            "oneDay",
+                            "oneWeek",
+                            "oneMonth",
+                            "oneYear",
+                            "noLimit"
+                        ]
+                    },
+                    "content_size": {
+                        "type": "string",
+                        "description": "网页摘要的字符数。\n默认为 `medium`\n`medium`：适用于大多数查询的平衡模式，400-600 个字符\n`high`：为全面答案最大化上下文，2500 个字符。",
+                        "example": "medium",
+                        "default": "medium",
+                        "enum": [
+                            "medium",
+                            "high"
+                        ]
+                    },
+                    "request_id": {
+                        "type": "string",
+                        "description": "用户提供的用于区分请求的唯一标识符。如果未提供，平台将生成一个。"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "description": "终端用户的唯一 ID，帮助平台干预非法活动、不当内容生成或其他滥用行为。ID 长度：6 到 128 个字符。"
                     }
-                }
+                },
+                "required": [
+                    "search_query"
+                ]
+            },
+            "WebSearchParamsRequest": {
+                "type": "object",
+                "properties": {
+                    "search_query": {
+                        "type": "string",
+                        "description": "搜索查询字符串"
+                    },
+                    "search_engine": {
+                        "type": "string",
+                        "description": "搜索引擎类型",
+                        "enum": [
+                            "google",
+                            "bing"
+                        ]
+                    },
+                    "count": {
+                        "type": "integer",
+                        "description": "返回结果数量",
+                        "default": 10
+                    },
+                    "search_domain_filter": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "域名过滤器"
+                    },
+                    "search_recency_filter": {
+                        "type": "string",
+                        "description": "时间过滤器",
+                        "enum": [
+                            "day",
+                            "week",
+                            "month",
+                            "year"
+                        ]
+                    },
+                    "content_size": {
+                        "type": "string",
+                        "description": "内容大小",
+                        "enum": [
+                            "small",
+                            "medium",
+                            "large"
+                        ]
+                    }
+                },
+                "required": [
+                    "search_query"
+                ]
             },
             "WebSearchResponse": {
                 "type": "object",
                 "properties": {
-                    "results": {
+                    "id": {
+                        "description": "任务 ID。",
+                        "type": "string"
+                    },
+                    "created": {
+                        "description": "请求创建时间，Unix 时间戳（秒）。",
+                        "type": "integer"
+                    },
+                    "search_intent": {
+                        "description": "搜索意图结果。",
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/SearchResult"
-                        },
-                        "description": "搜索结果列表"
+                            "type": "object",
+                            "properties": {
+                                "query": {
+                                    "type": "string",
+                                    "description": "原始搜索查询。"
+                                },
+                                "intent": {
+                                    "type": "string",
+                                    "description": "识别的意图类型。\n`SEARCH_ALL`：搜索整个网络\n`SEARCH_NONE`：无搜索意图"
+                                },
+                                "keywords": {
+                                    "type": "string",
+                                    "description": "重写的搜索关键词。"
+                                }
+                            }
+                        }
                     },
-                    "query": {
-                        "type": "string",
-                        "description": "原始查询"
-                    },
-                    "search_type": {
-                        "type": "string",
-                        "description": "搜索类型"
-                    }
-                }
-            },
-            "SearchResult": {
-                "type": "object",
-                "properties": {
-                    "title": {
-                        "type": "string",
-                        "description": "结果标题"
-                    },
-                    "url": {
-                        "type": "string",
-                        "description": "结果链接"
-                    },
-                    "snippet": {
-                        "type": "string",
-                        "description": "结果摘要"
-                    },
-                    "source": {
-                        "type": "string",
-                        "description": "结果来源"
-                    },
-                    "published_date": {
-                        "type": "string",
-                        "description": "发布日期"
-                    }
-                }
-            },
-            "Error": {
-                "type": "object",
-                "properties": {
-                    "error": {
-                        "type": "object",
-                        "properties": {
-                            "message": {
-                                "type": "string",
-                                "description": "错误信息"
-                            },
-                            "type": {
-                                "type": "string",
-                                "description": "错误类型"
-                            },
-                            "param": {
-                                "type": "string",
-                                "description": "错误参数"
-                            },
-                            "code": {
-                                "type": "string",
-                                "description": "错误代码"
+                    "search_result": {
+                        "description": "搜索结果。",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string",
+                                    "description": "标题。"
+                                },
+                                "content": {
+                                    "type": "string",
+                                    "description": "内容摘要。"
+                                },
+                                "link": {
+                                    "type": "string",
+                                    "description": "结果链接。"
+                                },
+                                "media": {
+                                    "type": "string",
+                                    "description": "网站名称。"
+                                },
+                                "icon": {
+                                    "type": "string",
+                                    "description": "网站图标。"
+                                },
+                                "refer": {
+                                    "type": "string",
+                                    "description": "索引号。"
+                                },
+                                "publish_date": {
+                                    "type": "string",
+                                    "description": "网站发布日期。"
+                                }
                             }
                         }
                     }
                 }
+            },
+            "Error": {
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)"
             }
         }
     }

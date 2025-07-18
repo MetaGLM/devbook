@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "ZHIPU AI Assistant API",
-        "description": "ZHIPU AI 助手接口，支持创建、管理和使用 AI 助手。",
+        "description": "ZHIPU AI 助手接口，支持助手对话、能力查询和对话统计。",
         "license": {
             "name": "ZHIPU AI 开发者协议和政策",
             "url": "https://chat.z.ai/legal-agreement/terms-of-service"
@@ -32,95 +32,32 @@
         }
     ],
     "paths": {
-        "/paas/v4/assistants": {
-            "get": {
-                "tags": [
-                    "assistant"
-                ],
-                "summary": "获取助手列表",
-                "description": "获取用户创建的助手列表。",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AcceptLanguage"
-                    },
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "schema": {
-                            "type": "integer",
-                            "default": 20,
-                            "description": "返回结果的数量限制"
-                        }
-                    },
-                    {
-                        "name": "order",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "desc",
-                                "asc"
-                            ],
-                            "default": "desc",
-                            "description": "排序方式"
-                        }
-                    },
-                    {
-                        "name": "after",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "description": "用于分页的游标"
-                        }
-                    },
-                    {
-                        "name": "before",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "description": "用于分页的游标"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "业务处理成功",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AssistantListResponse"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "请求失败。",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
+        "/paas/v4/assistant": {
             "post": {
                 "tags": [
                     "assistant"
                 ],
-                "summary": "创建助手",
-                "description": "创建一个新的 AI 助手。",
+                "summary": "助手对话",
+                "description": "与AI助手进行对话，支持流式和同步模式。",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "stream",
+                        "in": "query",
+                        "description": "是否启用流式响应",
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
                     }
                 ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateAssistantRequest"
+                                "$ref": "#/components/schemas/AssistantRequest"
                             }
                         }
                     },
@@ -132,7 +69,13 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AssistantObject"
+                                    "$ref": "#/components/schemas/AssistantResponse"
+                                }
+                            },
+                            "text/event-stream": {
+                                "schema": {
+                                    "type": "string",
+                                    "description": "流式响应数据"
                                 }
                             }
                         }
@@ -150,75 +93,23 @@
                 }
             }
         },
-        "/paas/v4/assistants/{assistant_id}": {
-            "get": {
-                "tags": [
-                    "assistant"
-                ],
-                "summary": "获取助手信息",
-                "description": "获取指定助手的详细信息。",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AcceptLanguage"
-                    },
-                    {
-                        "name": "assistant_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "description": "助手 ID"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "业务处理成功",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AssistantObject"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "请求失败。",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
+        "/paas/v4/assistant/list": {
             "post": {
                 "tags": [
                     "assistant"
                 ],
-                "summary": "修改助手",
-                "description": "修改指定助手的信息。",
+                "summary": "查询助手支持能力",
+                "description": "查询助手支持的功能和能力列表。",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AcceptLanguage"
-                    },
-                    {
-                        "name": "assistant_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "description": "助手 ID"
-                        }
                     }
                 ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ModifyAssistantRequest"
+                                "$ref": "#/components/schemas/AssistantSupportRequest"
                             }
                         }
                     },
@@ -230,7 +121,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AssistantObject"
+                                    "$ref": "#/components/schemas/AssistantSupportResponse"
                                 }
                             }
                         }
@@ -246,51 +137,37 @@
                         }
                     }
                 }
-            },
-            "delete": {
+            }
+        },
+        "/paas/v4/assistant/conversation/list": {
+            "post": {
                 "tags": [
                     "assistant"
                 ],
-                "summary": "删除助手",
-                "description": "删除指定的助手。",
+                "summary": "查询对话使用统计",
+                "description": "查询助手对话的使用统计信息。",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AcceptLanguage"
-                    },
-                    {
-                        "name": "assistant_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "description": "助手 ID"
-                        }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ConversationUsageRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "业务处理成功",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "string",
-                                            "description": "助手 ID"
-                                        },
-                                        "object": {
-                                            "type": "string",
-                                            "enum": [
-                                                "assistant.deleted"
-                                            ],
-                                            "description": "对象类型"
-                                        },
-                                        "deleted": {
-                                            "type": "boolean",
-                                            "description": "是否删除成功"
-                                        }
-                                    }
+                                    "$ref": "#/components/schemas/ConversationUsageResponse"
                                 }
                             }
                         }
@@ -327,280 +204,235 @@
             }
         },
         "schemas": {
-            "CreateAssistantRequest": {
+            "AssistantRequest": {
                 "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string",
+                        "description": "使用的模型名称"
+                    },
+                    "messages": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChatCompletionRequestMessage"
+                        },
+                        "description": "对话消息列表"
+                    },
+                    "tools": {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        },
+                        "description": "可用工具列表"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "description": "用户ID"
+                    },
+                    "request_id": {
+                        "type": "string",
+                        "description": "请求ID"
+                    }
+                },
                 "required": [
-                    "model"
-                ],
-                "properties": {
-                    "model": {
-                        "type": "string",
-                        "description": "要使用的模型"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "助手名称"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "助手描述"
-                    },
-                    "instructions": {
-                        "type": "string",
-                        "description": "助手指令"
-                    },
-                    "tools": {
-                        "type": "array",
-                        "items": {
-                            "oneOf": [
-                                {
-                                    "$ref": "#/components/schemas/CodeInterpreterTool"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/RetrievalTool"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/FunctionTool"
-                                }
-                            ]
-                        },
-                        "description": "助手可用的工具列表"
-                    },
-                    "file_ids": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "要附加到此助手的文件 ID 列表"
-                    },
-                    "metadata": {
-                        "type": "object",
-                        "description": "设置元数据"
-                    }
-                }
+                    "model",
+                    "messages"
+                ]
             },
-            "ModifyAssistantRequest": {
-                "type": "object",
-                "properties": {
-                    "model": {
-                        "type": "string",
-                        "description": "要使用的模型"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "助手名称"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "助手描述"
-                    },
-                    "instructions": {
-                        "type": "string",
-                        "description": "助手指令"
-                    },
-                    "tools": {
-                        "type": "array",
-                        "items": {
-                            "oneOf": [
-                                {
-                                    "$ref": "#/components/schemas/CodeInterpreterTool"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/RetrievalTool"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/FunctionTool"
-                                }
-                            ]
-                        },
-                        "description": "助手可用的工具列表"
-                    },
-                    "file_ids": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "要附加到此助手的文件 ID 列表"
-                    },
-                    "metadata": {
-                        "type": "object",
-                        "description": "设置元数据"
-                    }
-                }
-            },
-            "AssistantListResponse": {
-                "type": "object",
-                "properties": {
-                    "object": {
-                        "type": "string",
-                        "enum": [
-                            "list"
-                        ],
-                        "description": "对象类型"
-                    },
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AssistantObject"
-                        },
-                        "description": "助手列表"
-                    },
-                    "first_id": {
-                        "type": "string",
-                        "description": "第一个助手的 ID"
-                    },
-                    "last_id": {
-                        "type": "string",
-                        "description": "最后一个助手的 ID"
-                    },
-                    "has_more": {
-                        "type": "boolean",
-                        "description": "是否还有更多助手"
-                    }
-                }
-            },
-            "AssistantObject": {
+            "AssistantResponse": {
                 "type": "object",
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "助手 ID"
+                        "description": "响应ID"
                     },
-                    "object": {
+                    "request_id": {
                         "type": "string",
-                        "enum": [
-                            "assistant"
-                        ],
-                        "description": "对象类型"
+                        "description": "请求ID"
                     },
-                    "created_at": {
+                    "created": {
                         "type": "integer",
                         "description": "创建时间戳"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "助手名称"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "助手描述"
                     },
                     "model": {
                         "type": "string",
                         "description": "使用的模型"
                     },
-                    "instructions": {
-                        "type": "string",
-                        "description": "助手指令"
-                    },
-                    "tools": {
+                    "choices": {
                         "type": "array",
                         "items": {
-                            "oneOf": [
-                                {
-                                    "$ref": "#/components/schemas/CodeInterpreterTool"
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": "integer"
                                 },
-                                {
-                                    "$ref": "#/components/schemas/RetrievalTool"
+                                "message": {
+                                    "$ref": "#/components/schemas/ChatCompletionResponseMessage"
                                 },
-                                {
-                                    "$ref": "#/components/schemas/FunctionTool"
+                                "finish_reason": {
+                                    "type": "string"
                                 }
-                            ]
-                        },
-                        "description": "助手可用的工具列表"
+                            }
+                        }
                     },
-                    "file_ids": {
+                    "usage": {
+                        "type": "object",
+                        "properties": {
+                            "prompt_tokens": {
+                                "type": "integer"
+                            },
+                            "completion_tokens": {
+                                "type": "integer"
+                            },
+                            "total_tokens": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            },
+            "AssistantSupportRequest": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "用户ID"
+                    }
+                }
+            },
+            "AssistantSupportResponse": {
+                "type": "object",
+                "properties": {
+                    "capabilities": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "附加的文件 ID 列表"
+                        "description": "支持的能力列表"
                     },
-                    "metadata": {
-                        "type": "object",
-                        "description": "元数据"
+                    "models": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "支持的模型列表"
                     }
                 }
             },
-            "CodeInterpreterTool": {
+            "ConversationUsageRequest": {
                 "type": "object",
                 "properties": {
-                    "type": {
+                    "user_id": {
                         "type": "string",
-                        "enum": [
-                            "code_interpreter"
-                        ],
-                        "description": "工具类型"
-                    }
-                }
-            },
-            "RetrievalTool": {
-                "type": "object",
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "enum": [
-                            "retrieval"
-                        ],
-                        "description": "工具类型"
-                    }
-                }
-            },
-            "FunctionTool": {
-                "type": "object",
-                "properties": {
-                    "type": {
-                        "type": "string",
-                        "enum": [
-                            "function"
-                        ],
-                        "description": "工具类型"
+                        "description": "用户ID"
                     },
-                    "function": {
-                        "type": "object",
-                        "properties": {
-                            "description": {
-                                "type": "string",
-                                "description": "函数描述"
-                            },
-                            "name": {
-                                "type": "string",
-                                "description": "函数名称"
-                            },
-                            "parameters": {
-                                "type": "object",
-                                "description": "函数参数"
+                    "start_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "开始日期"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "结束日期"
+                    }
+                }
+            },
+            "ConversationUsageResponse": {
+                "type": "object",
+                "properties": {
+                    "total_conversations": {
+                        "type": "integer",
+                        "description": "总对话数"
+                    },
+                    "total_messages": {
+                        "type": "integer",
+                        "description": "总消息数"
+                    },
+                    "usage_by_date": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "date": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "conversations": {
+                                    "type": "integer"
+                                },
+                                "messages": {
+                                    "type": "integer"
+                                }
                             }
+                        }
+                    }
+                }
+            },
+            "ChatCompletionRequestMessage": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "description": "当前对话角色，默认为 'assistant'",
+                        "example": "assistant"
+                    },
+                    "content": {
+                        "type": "string",
+                        "description": "当前对话内容。如果调用函数则为 null，否则返回推理结果。"
+                    },
+                    "tool_calls": {
+                        "type": "array",
+                        "description": "生成的应该被调用的函数名称和参数。",
+                        "items": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ChatCompletionResponseMessage": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "description": "当前对话角色，默认为 'assistant'",
+                        "example": "assistant"
+                    },
+                    "content": {
+                        "type": "string",
+                        "description": "当前对话内容。如果调用函数则为 null，否则返回推理结果。"
+                    },
+                    "tool_calls": {
+                        "type": "array",
+                        "description": "生成的应该被调用的函数名称和参数。",
+                        "items": {
+                            "type": "object"
                         }
                     }
                 }
             },
             "Error": {
+                "required": [
+                    "code",
+                    "message"
+                ],
                 "type": "object",
                 "properties": {
-                    "error": {
-                        "type": "object",
-                        "properties": {
-                            "message": {
-                                "type": "string",
-                                "description": "错误信息"
-                            },
-                            "type": {
-                                "type": "string",
-                                "description": "错误类型"
-                            },
-                            "param": {
-                                "type": "string",
-                                "description": "错误参数"
-                            },
-                            "code": {
-                                "type": "string",
-                                "description": "错误代码"
-                            }
-                        }
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
                     }
                 }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)"
             }
         }
     }
