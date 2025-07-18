@@ -36,8 +36,6 @@
       "openapi/tools.json",
       "openapi/assistant.json",
       "openapi/batch.json",
-      "openapi/knowledge.json",
-      "openapi/document.json",
       "openapi/video.json",
       "openapi/agents.json"
     ]
@@ -61,7 +59,7 @@
               {
                 "group": "语言模型",
                 "pages": [
-                  "cn/api/chat/chat-completions"
+                  "cn/guide/llm/chat-completions"
                 ]
               },
               {
@@ -286,11 +284,7 @@
               },
               {
                 "group": "Knowledge API",
-                "pages": [
-                  "en/api/knowledge/knowledge",
-                  "en/api/knowledge/get-knowledge",
-                  "en/api/knowledge/capacity"
-                ]
+                "pages": []
               },
               {
                 "group": "Document API",

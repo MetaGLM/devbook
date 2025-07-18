@@ -1,0 +1,447 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "ZHIPU AI Batch API",
+        "description": "ZHIPU AI 批处理任务接口，支持批量任务的创建、查询、取消等操作。",
+        "license": {
+            "name": "ZHIPU AI 开发者协议和政策",
+            "url": "https://chat.z.ai/legal-agreement/terms-of-service"
+        },
+        "version": "1.0.0",
+        "contact": {
+            "name": "Z.AI 开发者",
+            "url": "https://chat.z.ai/legal-agreement/privacy-policy",
+            "email": "user_feedback@z.ai"
+        }
+    },
+    "tags": [
+        {
+            "name": "batch",
+            "description": "Batch API"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://open.bigmodel.cn/api/",
+            "description": "开放平台服务"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/paas/v4/batches": {
+            "post": {
+                "tags": [
+                    "batch"
+                ],
+                "summary": "创建批处理任务",
+                "description": "创建一个新的批处理任务。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchCreateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BatchObject"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "batch"
+                ],
+                "summary": "列出批处理任务",
+                "description": "获取批处理任务列表，支持分页。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "after",
+                        "in": "query",
+                        "description": "分页游标，用于获取指定ID之后的结果",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "返回结果的最大数量",
+                        "schema": {
+                            "type": "integer",
+                            "default": 20
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BatchListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/batches/{batch_id}": {
+            "get": {
+                "tags": [
+                    "batch"
+                ],
+                "summary": "获取批处理任务详情",
+                "description": "根据批处理任务ID获取详细信息。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "batch_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "批处理任务ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BatchObject"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/paas/v4/batches/{batch_id}/cancel": {
+            "post": {
+                "tags": [
+                    "batch"
+                ],
+                "summary": "取消批处理任务",
+                "description": "取消正在运行的批处理任务。",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AcceptLanguage"
+                    },
+                    {
+                        "name": "batch_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "批处理任务ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "业务处理成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BatchObject"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "请求失败。",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "AcceptLanguage": {
+                "name": "Accept-Language",
+                "in": "header",
+                "schema": {
+                    "type": "string",
+                    "description": "HTTP 请求头，用于告知服务器浏览器的首选语言列表，以便服务器返回最符合用户偏好的语言内容。",
+                    "default": "cn",
+                    "enum": [
+                        "en",
+                        "cn"
+                    ]
+                },
+                "required": true
+            }
+        },
+        "schemas": {
+            "BatchCreateRequest": {
+                "type": "object",
+                "properties": {
+                    "input_file_id": {
+                        "type": "string",
+                        "description": "输入文件ID"
+                    },
+                    "endpoint": {
+                        "type": "string",
+                        "description": "批处理端点",
+                        "enum": [
+                            "/v4/chat/completions"
+                        ]
+                    },
+                    "completion_window": {
+                        "type": "string",
+                        "description": "完成时间窗口",
+                        "enum": [
+                            "24h"
+                        ]
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "description": "元数据"
+                    }
+                },
+                "required": [
+                    "input_file_id",
+                    "endpoint",
+                    "completion_window"
+                ]
+            },
+            "BatchObject": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "批处理任务ID"
+                    },
+                    "object": {
+                        "type": "string",
+                        "enum": [
+                            "batch"
+                        ]
+                    },
+                    "endpoint": {
+                        "type": "string",
+                        "description": "批处理端点"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "description": "错误信息"
+                    },
+                    "input_file_id": {
+                        "type": "string",
+                        "description": "输入文件ID"
+                    },
+                    "completion_window": {
+                        "type": "string",
+                        "description": "完成时间窗口"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "validating",
+                            "failed",
+                            "in_progress",
+                            "finalizing",
+                            "completed",
+                            "expired",
+                            "cancelling",
+                            "cancelled"
+                        ],
+                        "description": "批处理状态"
+                    },
+                    "output_file_id": {
+                        "type": "string",
+                        "description": "输出文件ID"
+                    },
+                    "error_file_id": {
+                        "type": "string",
+                        "description": "错误文件ID"
+                    },
+                    "created_at": {
+                        "type": "integer",
+                        "description": "创建时间戳"
+                    },
+                    "in_progress_at": {
+                        "type": "integer",
+                        "description": "开始处理时间戳"
+                    },
+                    "expires_at": {
+                        "type": "integer",
+                        "description": "过期时间戳"
+                    },
+                    "finalizing_at": {
+                        "type": "integer",
+                        "description": "完成处理时间戳"
+                    },
+                    "completed_at": {
+                        "type": "integer",
+                        "description": "完成时间戳"
+                    },
+                    "failed_at": {
+                        "type": "integer",
+                        "description": "失败时间戳"
+                    },
+                    "expired_at": {
+                        "type": "integer",
+                        "description": "过期时间戳"
+                    },
+                    "cancelling_at": {
+                        "type": "integer",
+                        "description": "取消中时间戳"
+                    },
+                    "cancelled_at": {
+                        "type": "integer",
+                        "description": "已取消时间戳"
+                    },
+                    "request_counts": {
+                        "type": "object",
+                        "properties": {
+                            "total": {
+                                "type": "integer",
+                                "description": "总请求数"
+                            },
+                            "completed": {
+                                "type": "integer",
+                                "description": "已完成请求数"
+                            },
+                            "failed": {
+                                "type": "integer",
+                                "description": "失败请求数"
+                            }
+                        }
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "description": "元数据"
+                    }
+                }
+            },
+            "BatchListResponse": {
+                "type": "object",
+                "properties": {
+                    "object": {
+                        "type": "string",
+                        "enum": [
+                            "list"
+                        ]
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BatchObject"
+                        }
+                    },
+                    "first_id": {
+                        "type": "string",
+                        "description": "第一个ID"
+                    },
+                    "last_id": {
+                        "type": "string",
+                        "description": "最后一个ID"
+                    },
+                    "has_more": {
+                        "type": "boolean",
+                        "description": "是否有更多数据"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "错误信息"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "错误类型"
+                            },
+                            "param": {
+                                "type": "string",
+                                "description": "错误参数"
+                            },
+                            "code": {
+                                "type": "string",
+                                "description": "错误代码"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)"
+            }
+        }
+    }
+}
